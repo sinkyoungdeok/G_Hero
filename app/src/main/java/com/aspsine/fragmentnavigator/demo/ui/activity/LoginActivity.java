@@ -51,8 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText etPassword;
 
     /* 카카오 로그인 */
-    private SessionCallback sessionCallback = new SessionCallback();
-    Session session;
+    private SessionCallback sessionCallback;
     /* 카카오 로그인 */
     /* 구글 로그인 */
     private SignInButton btn_google;
@@ -71,9 +70,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         button.setOnClickListener(this);
 
         /*카카오 로그인*/
-        session = Session.getCurrentSession();
-        session.addCallback(sessionCallback);
-        session.checkAndImplicitOpen();
+        sessionCallback = new SessionCallback();
+        Session.getCurrentSession().addCallback(sessionCallback);
         /*카카오 로그인*/
 
         /*구글 로그인*/
