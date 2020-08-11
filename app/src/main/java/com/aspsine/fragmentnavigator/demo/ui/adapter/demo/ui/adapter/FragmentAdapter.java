@@ -11,7 +11,7 @@ import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragme
  */
 public class FragmentAdapter implements FragmentNavigatorAdapter {
 
-    private static final String TABS[] = {"Chats", "Contacts", "Circle", "Me"};
+    private static final String TABS[] = {"Home", "Chats", "Emoticon", "Dday", "Calendar"};
 
     @Override
     public Fragment onCreateFragment(int position) {
