@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Chats"
+            android:text="홈"
             android:textColor="@color/color_tab_text"
             android:textSize="12sp" />
     </LinearLayout>
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Contacts"
+            android:text="채팅"
             android:textColor="@color/color_tab_text"
             android:textSize="12sp" />
     </LinearLayout>
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Circle"
+            android:text="이모티콘"
             android:textColor="@color/color_tab_text"
             android:textSize="12sp" />
     </LinearLayout>
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Me"
+            android:text="디데이"
             android:textColor="@color/color_tab_text"
             android:textSize="12sp" />
     </LinearLayout>
