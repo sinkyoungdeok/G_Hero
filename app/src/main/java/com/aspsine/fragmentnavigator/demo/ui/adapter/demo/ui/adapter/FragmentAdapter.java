@@ -1,5 +1,8 @@
 package com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 
 import com.aspsine.fragmentnavigator.FragmentNavigatorAdapter;
@@ -16,10 +19,12 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
     @Override
     public Fragment onCreateFragment(int position) {
         if (position == 1){
-            return ContactsFragment.newInstance(position);
+            return ContactsFragment.newInstance(TABS[position]);
         }
         return MainFragment.newInstance(TABS[position]);
     }
+
+
 
     @Override
     public String getTag(int position) {

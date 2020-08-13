@@ -5,11 +5,20 @@
     android:orientation="vertical"
     tools:context=".ui.fragment.ContactsFragment">
 
-
-    <FrameLayout
-        android:id="@+id/childContainer"
+    <TextView
+        android:id="@+id/tvText2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="60sp"
+        tools:text="Textaa" />
 
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:progressBarStyleLargeInverse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </LinearLayout>
