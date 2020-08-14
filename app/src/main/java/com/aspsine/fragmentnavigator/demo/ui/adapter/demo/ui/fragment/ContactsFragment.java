@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +45,7 @@ public class ContactsFragment extends Fragment {
     /* firebase */
     private DatabaseReference mPostReference;
     String ID, name, content;
+    long chatCnt=0;
     EditText contentET;
     Button btn;
     ListView listView;
@@ -95,7 +97,9 @@ public class ContactsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
-                    String[] info = {get.id, get.name, get.content};
+                    String[] info = {get.id, get.name, get.content, String.valueOf(get.chatCnt)};
+                    if(chatCnt <= get.chatCnt)
+                        chatCnt = get.chatCnt + 1;
                     String result = info[0] + " : " + info[1] + "(" + info[2] + ")";
                     data.add(result);
                     Log.d("getFirebaseDatabase", "key: " + key);
@@ -112,7 +116,7 @@ public class ContactsFragment extends Fragment {
 
             }
         };
-        mPostReference.child("id_list").addValueEventListener(postListener);
+        mPostReference.child("/id_list/id"+ID).addValueEventListener(postListener);
     }
     /*firebase*/
 
@@ -121,17 +125,17 @@ public class ContactsFragment extends Fragment {
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            ChatFirebasePost post = new ChatFirebasePost(ID, name, content);
+            ChatFirebasePost post = new ChatFirebasePost(ID, name, content, chatCnt);
             postValues = post.toMap();
         }
-        childUpdates.put("/id_list/" + ID, postValues);
+        childUpdates.put("/id_list/id" + ID + "/cnt" + Long.toString(chatCnt) , postValues);
         mPostReference.updateChildren(childUpdates);
         clearET();
     }
     public void clearET () {
         contentET.setText("");
-        name = "";
-        ID = "";
+        //name = "";
+        //ID = "";
     }
     /*firebase*/
     @Override
@@ -149,15 +153,14 @@ public class ContactsFragment extends Fragment {
             @Override
             public void onClick(View view){
                 content = contentET.getText().toString();
-                ID = "1";
-                name = "1";
 
                 postFirebaseDatabase(true);
             }
         });
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
         listView.setAdapter(arrayAdapter);
-
+        ID = "1";
+        name = "1";
         getFirebaseDatabase();
         /* firebase */
 
