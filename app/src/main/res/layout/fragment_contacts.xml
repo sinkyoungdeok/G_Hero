@@ -5,14 +5,9 @@
     android:orientation="vertical"
     tools:context=".ui.fragment.ContactsFragment">
 
-    <TextView
-        android:id="@+id/tvText2"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="60sp"
-        tools:text="Textaa" />
+        android:layout_height="617dp" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
@@ -21,4 +16,22 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="111dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:text="Button" />
+    </LinearLayout>
 </LinearLayout>
