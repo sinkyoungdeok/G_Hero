@@ -100,7 +100,7 @@ public class ContactsFragment extends Fragment {
                     String[] info = {get.id, get.name, get.content, String.valueOf(get.chatCnt)};
                     if(chatCnt <= get.chatCnt)
                         chatCnt = get.chatCnt + 1;
-                    String result = info[0] + " : " + info[1] + "(" + info[2] + ")";
+                    String result = info[2];
                     data.add(result);
                     Log.d("getFirebaseDatabase", "key: " + key);
                     Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
