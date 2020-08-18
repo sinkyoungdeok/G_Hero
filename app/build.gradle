@@ -23,6 +23,14 @@ android {
 }
 
 dependencies {
+    /* 캘린더 */
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+    /* 캘린더 */
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library')
     //implementation 'com.github.Aspsine:FragmentNavigator:1.0.2'
