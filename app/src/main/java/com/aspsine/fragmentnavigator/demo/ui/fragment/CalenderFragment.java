@@ -83,7 +83,7 @@ public class CalenderFragment extends Fragment {
                 new SaturdayDecorator(),
                 oneDayDecorator);
 
-        String[] result = {"2017,03,18","2017,04,18","2017,05,18","2017,06,18"};
+        String[] result = {"2017,03,18","2017,04,18","2020,08,12","2020,08,13"};
 
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
@@ -155,7 +155,7 @@ public class CalenderFragment extends Fragment {
                 return;
             }
 
-            materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, calendarDays,getActivity()));
+            materialCalendarView.addDecorator(new EventDecorator(Color.RED, calendarDays,getActivity()));
         }
     }
 }
