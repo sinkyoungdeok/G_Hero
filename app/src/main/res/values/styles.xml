@@ -16,5 +16,11 @@
     <style name="AppTheme.OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">#000000</item>
     </style>
-    
+
+    <!-- 캘린더 달 색상 바꾸기 -->
+    <style name="calendar">
+        <item name="android:color">#000000</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
 </resources>
