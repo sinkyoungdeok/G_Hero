@@ -10,10 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="151dp"
+        android:orientation="vertical"></LinearLayout>
+
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="266dp">
+        android:layout_height="267dp">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -27,7 +32,10 @@
                 android:layout_height="47dp"
                 android:background="@drawable/border"
                 android:hint="@string/prompt_email"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textColorHint="#EFEFEF"
+                android:paddingLeft="10dp"/>
 
             <EditText
                 android:id="@+id/et_password"
@@ -36,7 +44,10 @@
                 android:background="@drawable/border"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#000000"
+                android:textColorHint="#EFEFEF"
+                android:paddingLeft="10dp"/>
 
             <Button
                 android:id="@+id/login_in_button"
@@ -46,25 +57,26 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/mybutton"
                 android:text="@string/action_log_in"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="376dp"
+        android:layout_height="204dp"
         android:orientation="vertical">
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
-            android:layout_width="385dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center" />
 
         <com.kakao.usermgmt.LoginButton
             android:id="@+id/btn_kakao_login"
-            android:layout_width="385dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </com.kakao.usermgmt.LoginButton>
