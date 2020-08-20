@@ -10,7 +10,7 @@
     <string name="title_activity_login">Log in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_log_in">Log in</string>
+    <string name="action_log_in">로그인!</string>
     <string name="action_log_out">Log out</string>
     <string name="prompt_login_success">Welcome</string>
     <string name="error_invalid_email">email is empty</string>

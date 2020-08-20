@@ -13,7 +13,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="266dp">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -24,14 +24,16 @@
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="47dp"
+                android:background="@drawable/border"
                 android:hint="@string/prompt_email"
                 android:maxLines="1" />
 
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="47dp"
+                android:background="@drawable/border"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
                 android:maxLines="1" />
@@ -40,23 +42,31 @@
                 android:id="@+id/login_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="58dp"
                 android:layout_marginTop="16dp"
-                android:background="#050505"
+                android:background="@drawable/mybutton"
                 android:text="@string/action_log_in"
                 android:textStyle="bold" />
 
-            <com.kakao.usermgmt.LoginButton
-                android:id="@+id/btn_kakao_login"
-                android:layout_width="393dp"
-                android:layout_height="wrap_content" />
-
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/sign_in_button"
-                android:layout_width="378dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="385dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center" />
+
+        <com.kakao.usermgmt.LoginButton
+            android:id="@+id/btn_kakao_login"
+            android:layout_width="385dp"
+            android:layout_height="wrap_content">
+
+        </com.kakao.usermgmt.LoginButton>
+    </LinearLayout>
 </LinearLayout>
