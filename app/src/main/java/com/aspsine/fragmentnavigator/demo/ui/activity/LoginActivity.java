@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         auth = FirebaseAuth.getInstance();
 
         btn_google = findViewById(R.id.sign_in_button);
-        setGooglePlusButtonText(btn_google,"구글 계정으로 로그인");
+        setGooglePlusButtonText(btn_google,"구글계정으로 로그인");
         btn_google.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

@@ -71,8 +71,7 @@
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center" />
+            android:layout_height="60dp" />
 
         <com.kakao.usermgmt.LoginButton
             android:id="@+id/btn_kakao_login"
