@@ -27,7 +27,9 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 /**
@@ -41,6 +43,10 @@ public class CalenderFragment extends Fragment {
     MaterialCalendarView materialCalendarView;
     EditText calEdit,calRegistered;
     Button calBtn;
+    Map<String, String> mCal = new HashMap<>();
+    Integer result_len = 0;
+    String clickCal = "";
+    String[] result = new String[100000];
 
 
     public CalenderFragment() {
@@ -95,9 +101,23 @@ public class CalenderFragment extends Fragment {
                 new SaturdayDecorator(),
                 oneDayDecorator);
 
-        String[] result = {"2017,03,18","2017,04,18","2020,08,12","2020,08,13"};
+
+        result[0] = "2020,08,10";
+        result_len = 1;
 
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+
+        calBtn.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  result[result_len-1] = clickCal;
+                  result[result_len] = "2020,08,15"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                  result_len += 1;
+                  new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+                  mCal.put(clickCal,calEdit.getText().toString());
+                  calRegistered.setText(calEdit.getText().toString());
+              }
+          });
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -110,13 +130,18 @@ public class CalenderFragment extends Fragment {
                 //Log.i("Month test", Month + "");
                 //Log.i("Day test", Day + "");
 
-                String shot_Day = Year + " " + Month + " " + Day;
+                String shot_Day = Year + "," + Month + "," + Day;
 
                 //Log.i("shot_Day test", shot_Day + "");
                 materialCalendarView.clearSelection();
                 calEdit.setHint(shot_Day+ " 일정");
                 calEdit.setText("");
-                //Toast.makeText(getContext().getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
+                clickCal = shot_Day;
+                if(mCal.containsKey(shot_Day))
+                    calRegistered.setText(mCal.get(shot_Day));
+                else
+                    calRegistered.setText("일정없음");
+
             }
         });
 
@@ -144,7 +169,7 @@ public class CalenderFragment extends Fragment {
             /*특정날짜 달력에 점표시해주는곳*/
             /*월은 0이 1월 년,일은 그대로*/
             //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
-            for(int i = 0 ; i < Time_Result.length ; i ++){
+            for(int i = 0 ; i < result_len ; i ++){
                 CalendarDay day = CalendarDay.from(calendar);
                 String[] time = Time_Result[i].split(",");
                 int year = Integer.parseInt(time[0]);
