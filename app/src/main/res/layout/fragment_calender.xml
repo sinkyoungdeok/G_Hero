@@ -25,7 +25,7 @@
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/calEdit"
             android:layout_width="335dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -37,7 +37,7 @@
             android:textColorHint="#DDDDDD" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/calBtn"
             android:layout_width="333dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
