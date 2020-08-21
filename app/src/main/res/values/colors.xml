@@ -6,5 +6,6 @@
     <color name="colorWindowBackground">#FFFFFF</color>
     <color name="colorTabNormal">#666666</color>
     <color name="colorTabSelected">#000000</color>
+    <color name="mypink">#F97E76</color>
 
 </resources>

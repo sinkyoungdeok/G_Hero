@@ -33,7 +33,7 @@ public class OneDayDecorator implements DayViewDecorator {
     public void decorate(DayViewFacade view) {
         view.addSpan(new StyleSpan(Typeface.BOLD));
         view.addSpan(new RelativeSizeSpan(1.4f));
-        view.addSpan(new ForegroundColorSpan(Color.GREEN));
+        view.addSpan(new ForegroundColorSpan(Color.rgb(249,126,118))); // 오늘의 날짜 색깔
     }
 
     /**
