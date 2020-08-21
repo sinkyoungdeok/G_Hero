@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
@@ -37,6 +39,9 @@ public class CalenderFragment extends Fragment {
 
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     MaterialCalendarView materialCalendarView;
+    EditText calEdit,calRegistered;
+    Button calBtn;
+
 
     public CalenderFragment() {
         // Required empty public constructor
@@ -70,6 +75,13 @@ public class CalenderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
+        calEdit = (EditText) view.findViewById(R.id.calEdit);
+        calBtn = (Button) view.findViewById(R.id.calBtn);
+        calRegistered = (EditText) view.findViewById(R.id.calRegistered);
+        calRegistered.setFocusable(false);
+        calRegistered.setClickable(false);
+
+
         materialCalendarView = (MaterialCalendarView)view.findViewById(R.id.calendarView);
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -94,16 +106,17 @@ public class CalenderFragment extends Fragment {
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
 
-                Log.i("Year test", Year + "");
-                Log.i("Month test", Month + "");
-                Log.i("Day test", Day + "");
+                //Log.i("Year test", Year + "");
+                //Log.i("Month test", Month + "");
+                //Log.i("Day test", Day + "");
 
-                String shot_Day = Year + "," + Month + "," + Day;
+                String shot_Day = Year + " " + Month + " " + Day;
 
-                Log.i("shot_Day test", shot_Day + "");
+                //Log.i("shot_Day test", shot_Day + "");
                 materialCalendarView.clearSelection();
-
-                Toast.makeText(getContext().getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
+                calEdit.setHint(shot_Day+ " 일정");
+                calEdit.setText("");
+                //Toast.makeText(getContext().getApplicationContext(), shot_Day , Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -25,6 +25,17 @@
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
         <EditText
+            android:id="@+id/calRegistered"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:text="일정 없음"
+            android:inputType="textPersonName"
+            android:paddingLeft="15dp"
+            android:textColor="#000000" />
+
+        <EditText
             android:id="@+id/calEdit"
             android:layout_width="335dp"
             android:layout_height="wrap_content"
