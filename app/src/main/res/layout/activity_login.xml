@@ -58,7 +58,8 @@
                 android:background="@drawable/mybutton"
                 android:text="@string/action_log_in"
                 android:textSize="25dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="#ffffff"/>
 
         </LinearLayout>
     </ScrollView>
