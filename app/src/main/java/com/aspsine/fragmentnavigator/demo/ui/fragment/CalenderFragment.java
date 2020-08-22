@@ -20,6 +20,13 @@ import com.aspsine.fragmentnavigator.demo.decorators.EventDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.OneDayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SaturdayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SundayDecorator;
+import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
+import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -47,6 +54,8 @@ public class CalenderFragment extends Fragment {
     Integer result_len = 0;
     String clickCal = "";
     String[] result = new String[100000];
+    String ID = "1";
+    private DatabaseReference mPostReference;
 
 
     public CalenderFragment() {
@@ -87,6 +96,7 @@ public class CalenderFragment extends Fragment {
         calRegistered.setFocusable(false);
         calRegistered.setClickable(false);
 
+        mPostReference = FirebaseDatabase.getInstance().getReference();
 
         materialCalendarView = (MaterialCalendarView)view.findViewById(R.id.calendarView);
         materialCalendarView.state().edit()
@@ -104,8 +114,9 @@ public class CalenderFragment extends Fragment {
 
         result[0] = "2020,08,10";
         result_len = 1;
+        getFirebaseDatabase();
 
-        new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+
 
         calBtn.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -113,15 +124,18 @@ public class CalenderFragment extends Fragment {
                   result[result_len-1] = clickCal;
                   result[result_len] = "2020,08,15"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
                   result_len += 1;
-                  new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
                   mCal.put(clickCal,calEdit.getText().toString());
+                  new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
                   calRegistered.setText(calEdit.getText().toString());
+
+                  postFirebaseDatabase(true,calEdit.getText().toString(),clickCal);
               }
           });
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+
                 int Year = date.getYear();
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
@@ -196,4 +210,50 @@ public class CalenderFragment extends Fragment {
             materialCalendarView.addDecorator(new EventDecorator(Color.RED, calendarDays,getActivity()));
         }
     }
+
+    public void getFirebaseDatabase(){
+        final ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("onDataChange", "Data is Updated");
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    CalFirebasePost get = postSnapshot.getValue(CalFirebasePost.class);
+                    String[] info = {get.content,get.date};
+
+                    result[result_len-1] = info[1];
+                    result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                    result_len += 1;
+                    mCal.put(info[1],info[0]);
+                    System.out.println(mCal.get(info[1]));
+
+                    //String result = info[0];
+                    //System.out.println(info[0] +"," + info[1]);
+                    //Log.d("getFirebaseDatabase", "key: " + key);
+                    //Log.d("getFirebaseDatabase", "info: " + info[0] + info[1]);
+                }
+                new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        mPostReference.child("/schedule/id"+ID).addValueEventListener(postListener);
+    }
+    public void postFirebaseDatabase(boolean add,String content, String date){
+        Map<String, Object> childUpdates = new HashMap<>();
+        Map<String, Object> postValues = null;
+        if(add){
+            CalFirebasePost post = new CalFirebasePost(content,date);
+            postValues = post.toMap();
+        }
+        childUpdates.put("/schedule/id" + ID + "/"+ date , postValues);
+        mPostReference.updateChildren(childUpdates);
+    }
+
 }
