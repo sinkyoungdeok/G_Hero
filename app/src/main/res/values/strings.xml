@@ -8,6 +8,7 @@
 
     <!-- Strings related to login -->
     <string name="title_activity_login">로그인</string>
+    <string name="action_signup_in">회원가입</string>
     <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_log_in">로그인</string>
