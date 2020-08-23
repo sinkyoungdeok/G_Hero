@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button button = (Button) findViewById(R.id.login_in_button);
         signupBtn = (Button) findViewById(R.id.signup_button);
         button.setOnClickListener(this);
+        auth = FirebaseAuth.getInstance();
 
         /*카카오 로그인*/
         sessionCallback = new SessionCallback();
@@ -85,8 +86,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //.enableAutoManage(this, (GoogleApiClient.OnConnectionFailedListener) this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions)
                 .build();
-        auth = FirebaseAuth.getInstance();
-
         btn_google = findViewById(R.id.sign_in_button);
         setGooglePlusButtonText(btn_google,"구글계정으로 로그인");
         btn_google.setOnClickListener(new View.OnClickListener(){
@@ -121,10 +120,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = String.valueOf(etPassword.getText()).trim();
 
         if(check(email, password)){
-            markUserLogin();
-            notifyUserLogin();
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
+            auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                markUserLogin();
+                                notifyUserLogin();
+                                finish();
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            } else {
+                                Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
         }
     }
     boolean check(String email, String password){
