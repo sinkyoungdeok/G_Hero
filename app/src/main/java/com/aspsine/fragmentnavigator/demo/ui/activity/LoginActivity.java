@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText etEmail;
     private EditText etPassword;
-
+    private Button signupBtn;
     /* 카카오 로그인 */
     private SessionCallback sessionCallback;
     /* 카카오 로그인 */
@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etEmail = (EditText) findViewById(R.id.et_email);
         etPassword  = (EditText)findViewById(R.id.et_password);
         Button button = (Button) findViewById(R.id.login_in_button);
+        signupBtn = (Button) findViewById(R.id.signup_button);
         button.setOnClickListener(this);
 
         /*카카오 로그인*/
@@ -93,6 +94,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(View view) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(intent, REO_SIGN_GOOGLE);
+            }
+        });
+        signupBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(LoginActivity.this,SignupActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         /*구글 로그인*/
