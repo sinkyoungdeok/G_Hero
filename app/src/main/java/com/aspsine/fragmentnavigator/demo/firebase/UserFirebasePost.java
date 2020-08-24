@@ -33,7 +33,7 @@ public class UserFirebasePost {
         result.put("id",id);
         result.put("otherHalf",otherHalf);
         result.put("name",name);
-        result.put("birthDay",birthday);
+        result.put("birthday",birthday);
         result.put("firstDay",firstDay);
         result.put("profileUrl",profileUrl);
         result.put("code",code);
