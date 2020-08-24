@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,16 +13,24 @@ import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
+import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
+import com.aspsine.fragmentnavigator.demo.firebase.CodeFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
+import com.aspsine.fragmentnavigator.demo.ui.fragment.CalenderFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.Executors;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -29,6 +38,9 @@ public class SignupActivity extends AppCompatActivity {
     Button signup_button;
     FirebaseAuth firebaseAuth;
     private DatabaseReference mPostReference;
+    Map<String, String> mCode = new HashMap<>();
+    Random random = new Random();
+    String randCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +52,23 @@ public class SignupActivity extends AppCompatActivity {
         signup_button = (Button) findViewById(R.id.signup_button);
         firebaseAuth = FirebaseAuth.getInstance();
         mPostReference = FirebaseDatabase.getInstance().getReference();
-
-
-
+        getFirebaseDatabase();
+        while(true)
+        {
+            randCode = "";
+            for(int i=0; i< 4; i++) {
+                int randNum = random.nextInt(10);
+                randCode += Integer.toString(randNum);
+            }
+            randCode += " ";
+            for(int i=0; i< 4; i++) {
+                int randNum = random.nextInt(10);
+                randCode += Integer.toString(randNum);
+            }
+            if(mCode.containsKey(randCode))
+                continue;
+            break;
+        }
         signup_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -69,6 +95,8 @@ public class SignupActivity extends AppCompatActivity {
         });
 
 
+
+
     }
     public void postFirebaseDatabase(boolean add,String email){
         Map<String, Object> childUpdates = new HashMap<>();
@@ -78,9 +106,44 @@ public class SignupActivity extends AppCompatActivity {
             //System.out.println(post.id +","+ post.name+","+ post.birthday +","+ post.firstDay +","+ post.profileUrl +","+post.code +","+post.phoneNumber +","+post.firstEnrolled);
             postValues = post.toMap();
         }
-        email =  email.replace(".","");
-        System.out.println(email);
-        childUpdates.put("/user_list/id" +email , postValues);
+        String temp =  email.replace(".","");
+        //System.out.println(email);
+        childUpdates.put("/user_list/id" +temp , postValues);
         mPostReference.updateChildren(childUpdates);
+
+        if(add){
+            CodeFirebasePost post = new CodeFirebasePost(email, randCode);
+            postValues = post.toMap();
+        }
+        childUpdates.put("/code_list/id" +temp, postValues);
+        mPostReference.updateChildren(childUpdates);
+
+    }
+
+    public void getFirebaseDatabase(){
+        final ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("onDataChange", "Data is Updated");
+
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    CodeFirebasePost get = postSnapshot.getValue(CodeFirebasePost.class);
+                    String[] info = {get.id,get.code};
+                    mCode.put(get.code,get.id);
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        mPostReference.child("/code_list/").addValueEventListener(postListener);
     }
 }
