@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,7 +47,7 @@ import com.kakao.util.helper.log.Logger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private EditText etEmail;
     private EditText etPassword;
@@ -57,8 +58,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /* 구글 로그인 */
     private SignInButton btn_google;
     private FirebaseAuth auth;
-    private GoogleApiClient googleApiClient;
-    private static final int REO_SIGN_GOOGLE = 100;
+    private GoogleSignInClient googleApiClient;
+    private static final int REO_SIGN_GOOGLE = 1000;
     /* 구글 로그인 */
 
     @Override
@@ -78,23 +79,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         /*카카오 로그인*/
 
         /*구글 로그인*/
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        final GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+        /*
         googleApiClient = new GoogleApiClient.Builder(this)
-                //.enableAutoManage(this, (GoogleApiClient.OnConnectionFailedListener) this)
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions)
                 .build();
+
+         */
+        googleApiClient = GoogleSignIn.getClient(this, googleSignInOptions);
+
         btn_google = findViewById(R.id.sign_in_button);
         setGooglePlusButtonText(btn_google,"구글계정으로 로그인");
         btn_google.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                //Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                Intent intent = googleApiClient.getSignInIntent();
                 startActivityForResult(intent, REO_SIGN_GOOGLE);
             }
         });
+        /*구글 로그인*/
+
         signupBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -103,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
             }
         });
-        /*구글 로그인*/
     }
     @Override
     public void onClick(View v) {
@@ -165,16 +173,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // 로그인 인증을 요청 했을 때 결과 값을 되돌려 받는
+        super.onActivityResult(requestCode, resultCode, data);
         // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             return;
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REO_SIGN_GOOGLE){
+
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try{
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                resultLogin(account);
+            } catch (ApiException e){
+                Toast.makeText(getApplicationContext(),"로그인 실패2", Toast.LENGTH_SHORT).show();
+                System.out.println(e + "test");
+            }
+
+            /*
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if(result.isSuccess() == true) { // 인증결과가 성공할경우
+            if(result.isSuccess()) { // 인증결과가 성공할경우
                 GoogleSignInAccount account = result.getSignInAccount(); // account 라는 데이터는 구글로그인 정보를 담고있다. (닉네임, 프로필사진URI,이메일주소,..등)
                 resultLogin(account); // 로그인 결과 값 출력 수행하라는 메소
             }
@@ -185,8 +204,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 Toast.makeText(getApplicationContext(),"로그인 실패2", Toast.LENGTH_SHORT).show();
             }
+
+             */
+
         }
     }
+
+
+
     private class SessionCallback implements ISessionCallback
     {
         @Override
@@ -251,6 +276,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }
         }
+    }
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     /*구글 로그인*/
