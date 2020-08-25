@@ -145,8 +145,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 markUserLogin();
                                 notifyUserLogin();
                                 finish();
-                                if(codeCheck)
-                                    startActivity(new Intent(LoginActivity.this, ConnectActivity.class));
+                                if(codeCheck) {
+                                    Intent intent = new Intent(LoginActivity.this, ConnectActivity.class);
+                                    intent.putExtra("id",email);
+                                    startActivity(intent);
+                                }
                                 else
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             } else {
