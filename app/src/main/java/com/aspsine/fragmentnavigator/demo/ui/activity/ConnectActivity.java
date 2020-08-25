@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.aspsine.fragmentnavigator.demo.R;
@@ -20,6 +22,7 @@ public class ConnectActivity extends AppCompatActivity {
     EditText myCode, yourCode;
     String id;
     String code;
+    Button btn;
     private DatabaseReference mPostReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,20 @@ public class ConnectActivity extends AppCompatActivity {
 
         myCode = (EditText) findViewById(R.id.myCode);
         yourCode = (EditText) findViewById(R.id.yourCode);
+        btn = (Button) findViewById(R.id.button);
         myCode.setFocusable(false);
         myCode.setClickable(false);
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
         getFirebaseDatabase(id);
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(ConnectActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
     public void getFirebaseDatabase(final String id){
