@@ -16,6 +16,7 @@
     <string name="prompt_login_success">Welcome</string>
     <string name="error_invalid_email">email is empty</string>
     <string name="error_invalid_password">password is empty</string>
+    <string name="title_activity_connect">커플매칭</string>
 
     <string name="kakao_app_key">0b209dafb72522b1463e1dd64f27c397</string>
 
