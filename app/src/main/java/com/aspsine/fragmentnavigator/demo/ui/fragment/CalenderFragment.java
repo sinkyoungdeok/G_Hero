@@ -31,11 +31,14 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
@@ -105,6 +108,18 @@ public class CalenderFragment extends Fragment {
                 .setMaximumDate(CalendarDay.from(2030, 11, 31)) // 달력의 끝
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
+
+        materialCalendarView.setTitleFormatter(new TitleFormatter() {
+            @Override
+            public CharSequence format(CalendarDay day) {
+                StringBuffer buffer = new StringBuffer();
+                int yearOne = day.getYear();
+                int monthOne = day.getMonth() + 1;
+                buffer.append(yearOne).append("년 ").append(monthOne).append("월");
+                return buffer;
+            }
+        });
+
 
         materialCalendarView.addDecorators(
                 new SundayDecorator(),
