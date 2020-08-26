@@ -20,7 +20,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="52dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -37,13 +37,17 @@
                     android:id="@+id/radioButton5"
                     android:layout_width="124dp"
                     android:layout_height="wrap_content"
-                    android:text="RadioButton" />
+                    android:buttonTint="#dddddddd"
+                    android:text="RadioButton"
+                    android:textColor="#dddddddd" />
 
                 <RadioButton
                     android:id="@+id/radioButton3"
                     android:layout_width="121dp"
                     android:layout_height="wrap_content"
-                    android:text="RadioButton" />
+                    android:buttonTint="#dddddddd"
+                    android:text="RadioButton"
+                    android:textColor="#dddddddd" />
 
             </RadioGroup>
 
@@ -55,34 +59,49 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/nameEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:text=""
+                android:hint="이름"
+                android:textColorHint="#dddddddd"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/birthEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:text=""
+                android:hint="생일"
+                android:textColorHint="#dddddddd"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/firstDayEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:text=""
+                android:hint="처음 만난 날"
+                android:textColorHint="#dddddddd"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="시작하기"
+                android:textColor="#ffffffff"
+                android:background="@drawable/mybutton"
+                 />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
