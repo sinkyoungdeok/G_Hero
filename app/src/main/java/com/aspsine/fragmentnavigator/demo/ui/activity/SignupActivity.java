@@ -102,7 +102,7 @@ public class SignupActivity extends AppCompatActivity {
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            UserFirebasePost post = new UserFirebasePost(email,"","","","","",randCode,"","F");
+            UserFirebasePost post = new UserFirebasePost(email,"","","","","",randCode,"","F","");
             //System.out.println(post.id +","+ post.name+","+ post.birthday +","+ post.firstDay +","+ post.profileUrl +","+post.code +","+post.phoneNumber +","+post.firstEnrolled);
             postValues = post.toMap();
         }

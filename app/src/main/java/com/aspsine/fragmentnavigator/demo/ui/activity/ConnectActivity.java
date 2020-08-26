@@ -73,6 +73,7 @@ public class ConnectActivity extends AppCompatActivity {
                 }
                 if(code == "") {
                     Intent intent = new Intent(ConnectActivity.this,InfoActivity.class);
+                    intent.putExtra("id",id);
                     startActivity(intent);
                     finish();
                 }
@@ -106,6 +107,7 @@ public class ConnectActivity extends AppCompatActivity {
                         userUpdateFirebaseDatabase(id,yourId,"T");
                         userUpdateFirebaseDatabase(yourId,id,"F");
                         Intent intent = new Intent(ConnectActivity.this,InfoActivity.class);
+                        intent.putExtra("id",id);
                         startActivity(intent);
                         finish();
                     } else {
