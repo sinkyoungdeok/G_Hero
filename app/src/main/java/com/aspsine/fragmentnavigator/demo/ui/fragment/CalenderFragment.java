@@ -197,7 +197,8 @@ public class CalenderFragment extends Fragment {
 
             /*특정날짜 달력에 점표시해주는곳*/
             /*월은 0이 1월 년,일은 그대로*/
-            //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
+            //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환노
+
             for(int i = 0 ; i < result_len ; i ++){
                 CalendarDay day = CalendarDay.from(calendar);
                 String[] time = Time_Result[i].split(",");
@@ -205,8 +206,11 @@ public class CalenderFragment extends Fragment {
                 int month = Integer.parseInt(time[1]);
                 int dayy = Integer.parseInt(time[2]);
 
-                dates.add(day);
+
                 calendar.set(year,month-1,dayy);
+                CalendarDay today =  CalendarDay.today();
+                if(today.toString().equals(day.toString())) continue; // 오늘날짜 일경우엔 밑막대기 추가 노
+                dates.add(day); // 밑막대기 추가하는 코드
             }
 
 
