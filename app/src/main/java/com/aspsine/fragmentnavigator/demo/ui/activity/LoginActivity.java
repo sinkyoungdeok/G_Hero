@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.broadcast.BroadcastManager;
 import com.aspsine.fragmentnavigator.demo.firebase.CodeFirebasePost;
+import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.kakao.SessionCallback;
 import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
 import com.google.android.gms.auth.api.Auth;
@@ -44,6 +45,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -52,6 +54,8 @@ import com.kakao.util.helper.log.Logger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -60,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button signupBtn;
     private DatabaseReference mPostReference;
     private boolean codeCheck = false;
+    private boolean userCheck = false;
     /* 카카오 로그인 */
     private SessionCallback sessionCallback;
     /* 카카오 로그인 */
@@ -149,9 +154,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Intent intent = new Intent(LoginActivity.this, ConnectActivity.class);
                                     intent.putExtra("id",email);
                                     startActivity(intent);
+                                } else if(userCheck) {
+                                    Intent intent = new Intent(LoginActivity.this, InfoActivity.class);
+                                    intent.putExtra("id",email);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("id",email);
+                                    startActivity(intent);
                                 }
-                                else
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             } else {
                                 Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
                             }
@@ -182,6 +193,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
         mPostReference.child("/code_list/").addValueEventListener(postListener);
+
+        if(!codeCheck) return;
+
+        Query getQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(id);
+
+        getQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
+                    if(user.birthday.equals("")) userCheck = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
     boolean check(String email, String password){
         if (TextUtils.isEmpty(email)){
