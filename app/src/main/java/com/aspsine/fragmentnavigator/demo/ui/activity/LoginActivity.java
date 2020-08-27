@@ -150,19 +150,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 markUserLogin();
                                 notifyUserLogin();
                                 finish();
+                                Intent intent;
                                 if(codeCheck) {
-                                    Intent intent = new Intent(LoginActivity.this, ConnectActivity.class);
-                                    intent.putExtra("id",email);
-                                    startActivity(intent);
+                                    intent = new Intent(LoginActivity.this, ConnectActivity.class);
                                 } else if(userCheck) {
-                                    Intent intent = new Intent(LoginActivity.this, InfoActivity.class);
-                                    intent.putExtra("id",email);
-                                    startActivity(intent);
+                                    intent = new Intent(LoginActivity.this, InfoActivity.class);
                                 } else {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    intent.putExtra("id",email);
-                                    startActivity(intent);
+                                    intent = new Intent(LoginActivity.this, MainActivity.class);
                                 }
+                                intent.putExtra("id",email);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
                             }
@@ -194,8 +191,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         };
         mPostReference.child("/code_list/").addValueEventListener(postListener);
 
-        if(!codeCheck) return;
-
+        if(codeCheck) return;
         Query getQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(id);
 
         getQuery.addListenerForSingleValueEvent(new ValueEventListener() {
