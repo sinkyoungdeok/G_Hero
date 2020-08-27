@@ -30,23 +30,24 @@
 
             <RadioGroup
                 android:layout_width="281dp"
+                android:id="@+id/gender"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/man"
                     android:layout_width="124dp"
                     android:layout_height="wrap_content"
                     android:buttonTint="#dddddddd"
-                    android:text="RadioButton"
+                    android:text="남자"
                     android:textColor="#dddddddd" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/woman"
                     android:layout_width="121dp"
                     android:layout_height="wrap_content"
                     android:buttonTint="#dddddddd"
-                    android:text="RadioButton"
+                    android:text="여자"
                     android:textColor="#dddddddd" />
 
             </RadioGroup>
