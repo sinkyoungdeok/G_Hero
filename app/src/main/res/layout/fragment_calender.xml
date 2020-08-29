@@ -15,7 +15,7 @@
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="454dp"
+            android:layout_height="338dp"
             app:mcv_dateTextAppearance="@style/calendar"
             app:mcv_headerTextAppearance="@style/calendar"
             app:mcv_selectionColor="#a9dbf0cb"
@@ -24,46 +24,11 @@
 
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
-        <EditText
-            android:id="@+id/calRegistered"
-            android:layout_width="332dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:background="@drawable/editborder"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:paddingLeft="15dp"
-            android:text="일정 없음"
-            android:textColor="#000000" />
-
-        <LinearLayout
+        <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/calEdit"
-                android:layout_width="282dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="40dp"
-                android:ems="10"
-                android:hint="일정"
-                android:inputType="textPersonName"
-                android:paddingLeft="15dp"
-                android:text=""
-                android:textColorHint="#DDDDDD" />
-
-            <Button
-                android:id="@+id/calBtn"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/plusbutton"
-                android:textSize="30dp"
-                android:textColor="#F97E76"
-                android:text="+" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:divider="#DDDDDD"
+            android:dividerHeight="1dp" />
 
     </LinearLayout>
 

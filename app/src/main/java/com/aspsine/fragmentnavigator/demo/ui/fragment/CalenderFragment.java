@@ -93,9 +93,9 @@ public class CalenderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
-        calEdit = (EditText) view.findViewById(R.id.calEdit);
-        calBtn = (Button) view.findViewById(R.id.calBtn);
-        calRegistered = (EditText) view.findViewById(R.id.calRegistered);
+        //calEdit = (EditText) view.findViewById(R.id.calEdit);
+        //calBtn = (Button) view.findViewById(R.id.calBtn);
+        //calRegistered = (EditText) view.findViewById(R.id.calRegistered);
         calRegistered.setFocusable(false);
         calRegistered.setClickable(false);
 
