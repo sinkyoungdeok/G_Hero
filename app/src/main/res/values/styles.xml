@@ -9,13 +9,15 @@
         <item name="android:textColorPrimary">#000000</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
         <item name="android:actionMenuTextColor">#000000</item>
-        <item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>
+        <!--<item name="android:actionOverflowButtonStyle">@style/AppTheme.OverFlow</item>-->
     </style>
 
     <!-- 오른쪽위 ... 색 바꾸기-->
+    <!--
     <style name="AppTheme.OverFlow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:tint">#000000</item>
     </style>
+    -->
 
     <!-- 캘린더 달 색상 바꾸기 -->
     <style name="calendar">

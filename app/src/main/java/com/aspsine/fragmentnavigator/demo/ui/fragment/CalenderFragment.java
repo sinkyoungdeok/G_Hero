@@ -2,9 +2,13 @@ package com.aspsine.fragmentnavigator.demo.ui.fragment;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.decorators.EventDecorator;
@@ -93,6 +98,7 @@ public class CalenderFragment extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,6 +109,21 @@ public class CalenderFragment extends Fragment {
         //calRegistered = (EditText) view.findViewById(R.id.calRegistered);
         //calRegistered.setFocusable(false);
         //calRegistered.setClickable(false);
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+        View actionbar = inflater.inflate(R.layout.custom_actionbar, null);
+        actionBar.setCustomView(actionbar);
+
+        //액션바 양쪽 공백 없애기
+        //Toolbar parent = (Toolbar)actionbar.getParent();
+        //parent.setContentInsetsAbsolute(0,0);
+
+
         getActivity().setTitle("캘린더");
         data = new ArrayList<String>();
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
