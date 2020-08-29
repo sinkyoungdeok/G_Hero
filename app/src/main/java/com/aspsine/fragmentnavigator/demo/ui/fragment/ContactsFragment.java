@@ -144,6 +144,7 @@ public class ContactsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contacts, container, false);
+        getActivity().setTitle("채팅");
         /* firebase */
         data = new ArrayList<String>();
         contentET = (EditText)v.findViewById(R.id.contents);

@@ -103,6 +103,7 @@ public class CalenderFragment extends Fragment {
         //calRegistered = (EditText) view.findViewById(R.id.calRegistered);
         //calRegistered.setFocusable(false);
         //calRegistered.setClickable(false);
+        getActivity().setTitle("캘린더");
         data = new ArrayList<String>();
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
         calList =  (ListView)view.findViewById(R.id.calList);
