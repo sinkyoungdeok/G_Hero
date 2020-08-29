@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
@@ -51,8 +53,11 @@ public class CalenderFragment extends Fragment {
 
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     MaterialCalendarView materialCalendarView;
-    EditText calEdit,calRegistered;
-    Button calBtn;
+    //EditText calEdit,calRegistered;
+    //Button calBtn;
+    ListView calList;
+    ArrayList<String> data;
+    ArrayAdapter<String> arrayAdapter;
     Map<String, String> mCal = new HashMap<>();
     Integer result_len = 0;
     String clickCal = "";
@@ -96,8 +101,12 @@ public class CalenderFragment extends Fragment {
         //calEdit = (EditText) view.findViewById(R.id.calEdit);
         //calBtn = (Button) view.findViewById(R.id.calBtn);
         //calRegistered = (EditText) view.findViewById(R.id.calRegistered);
-        calRegistered.setFocusable(false);
-        calRegistered.setClickable(false);
+        //calRegistered.setFocusable(false);
+        //calRegistered.setClickable(false);
+        data = new ArrayList<String>();
+        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+        calList =  (ListView)view.findViewById(R.id.calList);
+        calList.setAdapter(arrayAdapter);
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
 
@@ -132,7 +141,7 @@ public class CalenderFragment extends Fragment {
         getFirebaseDatabase();
 
 
-
+        /*
         calBtn.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
@@ -146,6 +155,8 @@ public class CalenderFragment extends Fragment {
                   postFirebaseDatabase(true,calEdit.getText().toString(),clickCal);
               }
           });
+
+         */
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -163,14 +174,25 @@ public class CalenderFragment extends Fragment {
 
                 //Log.i("shot_Day test", shot_Day + "");
                 materialCalendarView.clearSelection();
-                calEdit.setHint(shot_Day+ " 일정");
-                calEdit.setText("");
+                //calEdit.setHint(shot_Day+ " 일정");
+                //calEdit.setText("");
                 clickCal = shot_Day;
+                /*
                 if(mCal.containsKey(shot_Day))
                     calRegistered.setText(mCal.get(shot_Day));
                 else
                     calRegistered.setText("일정없음");
-
+                */
+                if(mCal.containsKey(shot_Day))
+                {
+                    data.clear();
+                    data.add("\n \n");
+                    data.add("\n"+mCal.get(shot_Day)+"\n");
+                    data.add("\n \n");
+                    arrayAdapter.clear();
+                    arrayAdapter.addAll(data);
+                    arrayAdapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -246,12 +268,7 @@ public class CalenderFragment extends Fragment {
                     result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
                     result_len += 1;
                     mCal.put(info[1],info[0]);
-                    System.out.println(mCal.get(info[1]));
 
-                    //String result = info[0];
-                    //System.out.println(info[0] +"," + info[1]);
-                    //Log.d("getFirebaseDatabase", "key: " + key);
-                    //Log.d("getFirebaseDatabase", "info: " + info[0] + info[1]);
                 }
                 new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 

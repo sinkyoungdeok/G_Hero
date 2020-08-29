@@ -3,6 +3,8 @@ package com.aspsine.fragmentnavigator.demo.firebase;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 public class CalFirebasePost {
     public String content;
     public String date;
@@ -20,3 +22,4 @@ public class CalFirebasePost {
         return result;
     }
 }
+
