@@ -1,5 +1,6 @@
 package com.aspsine.fragmentnavigator.demo.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -29,6 +32,11 @@ import com.aspsine.fragmentnavigator.demo.decorators.SaturdayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SundayDecorator;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
+import com.aspsine.fragmentnavigator.demo.ui.activity.AddCalenderActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.SignupActivity;
+import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +62,7 @@ import java.util.concurrent.Executors;
  * Use the {@link CalenderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalenderFragment extends Fragment {
+public class CalenderFragment extends Fragment  implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener  {
 
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     MaterialCalendarView materialCalendarView;
@@ -68,6 +76,8 @@ public class CalenderFragment extends Fragment {
     String clickCal = "";
     String[] result = new String[100000];
     String ID = "1";
+    Button calAdd;
+
     private DatabaseReference mPostReference;
 
 
@@ -109,6 +119,8 @@ public class CalenderFragment extends Fragment {
         //calRegistered = (EditText) view.findViewById(R.id.calRegistered);
         //calRegistered.setFocusable(false);
         //calRegistered.setClickable(false);
+        /*
+
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
@@ -116,13 +128,13 @@ public class CalenderFragment extends Fragment {
         actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
         actionBar.setDisplayHomeAsUpEnabled(false);
 
+
+
         View actionbar = inflater.inflate(R.layout.custom_actionbar, null);
         actionBar.setCustomView(actionbar);
+        */
 
-        //액션바 양쪽 공백 없애기
-        //Toolbar parent = (Toolbar)actionbar.getParent();
-        //parent.setContentInsetsAbsolute(0,0);
-
+        setHasOptionsMenu(true);
 
         getActivity().setTitle("캘린더");
         data = new ArrayList<String>();
@@ -220,6 +232,23 @@ public class CalenderFragment extends Fragment {
 
         return view;
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_logout).setVisible(false);
+        menu.findItem(R.id.action_exception).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBottomNavigatorViewItemClick(int position, View view) {
+
+    }
+
     private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
 
         String[] Time_Result;

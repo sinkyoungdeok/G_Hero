@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ public class BottomNavigatorView extends LinearLayoutCompat {
     OnBottomNavigatorViewItemClickListener mOnBottomNavigatorViewItemClickListener;
 
     public interface OnBottomNavigatorViewItemClickListener {
+        boolean onCreateOptionsMenu(Menu menu);
+
         void onBottomNavigatorViewItemClick(int position, View view);
     }
 

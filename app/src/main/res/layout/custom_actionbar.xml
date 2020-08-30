@@ -17,7 +17,7 @@
         android:layout_height="56dp" />
 
     <Button
-        android:id="@+id/btnHistory"
+        android:id="@+id/calAdd"
         android:layout_alignParentRight="true"
         android:background="@drawable/plusbutton"
         android:text="+"
