@@ -81,6 +81,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
             case R.id.action_logout:
                 logout();
                 return true;
+            case R.id.action_add:
+                startActivity(new Intent(this, AddCalenderActivity.class));
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
