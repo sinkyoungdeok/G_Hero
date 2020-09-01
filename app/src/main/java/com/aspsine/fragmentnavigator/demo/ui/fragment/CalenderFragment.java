@@ -241,6 +241,7 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_logout).setVisible(false);
         menu.findItem(R.id.action_exception).setVisible(false);
+        menu.findItem(R.id.action_add).setVisible(true);
         super.onPrepareOptionsMenu(menu);
     }
 
