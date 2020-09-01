@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
 
     private MenuItem mLogoutMenu;
 
+    private MenuItem mAddMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mLoginMenu = menu.findItem(R.id.action_login);
         mLogoutMenu = menu.findItem(R.id.action_logout);
+        mAddMenu = menu.findItem(R.id.action_add);
         toggleMenu(SharedPrefUtils.isLogin(this));
+        mAddMenu.setVisible(false);
         return true;
     }
 
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
     }
 
     private void toggleMenu(boolean login) {
+
         if (login) {
             mLoginMenu.setVisible(false);
             mLogoutMenu.setVisible(true);
