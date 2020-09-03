@@ -23,6 +23,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.longegit:android-SlideDateTimePicker:1.1.1'
     /* 캘린더 */
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
