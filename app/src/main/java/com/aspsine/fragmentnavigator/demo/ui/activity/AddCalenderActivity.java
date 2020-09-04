@@ -8,10 +8,12 @@ import android.graphics.Color;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -19,6 +21,7 @@ import android.widget.Toolbar;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
+import com.google.firebase.database.core.utilities.Utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +34,8 @@ public class AddCalenderActivity extends AppCompatActivity {
     //private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy. MM. dd.  aa hh:mm");
     private TextView startShow, endShow;
+    private Switch oneDaySwitch, dDaySwitch;
+    private boolean oneDayCheck, dDayCheck;
 
     private SlideDateTimeListener startListener = new SlideDateTimeListener() {
 
@@ -77,6 +82,10 @@ public class AddCalenderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_calender);
         startShow = (TextView) findViewById(R.id.startShow);
         endShow = (TextView) findViewById(R.id.endShow);
+        oneDaySwitch = (Switch) findViewById(R.id.switch1);
+        dDaySwitch = (Switch) findViewById(R.id.switch2);
+        oneDayCheck = false;
+        dDayCheck = false;
         Date time = new Date();
         startShow.setText(mFormatter.format(time).toString());
         endShow.setText(mFormatter.format(time).toString());
@@ -107,16 +116,20 @@ public class AddCalenderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                        .setListener(startListener)
-                        .setInitialDate(new Date())
-                        //.setMinDate(minDate)
-                        //.setMaxDate(maxDate)
-                        //.setIs24HourTime(true)
-                        //.setTheme(SlideDateTimePicker.HOLO_DARK)
-                        //.setIndicatorColor(Color.parseColor("#990000"))
-                        .build()
-                        .show();
+                if(oneDayCheck) {
+                    Toast.makeText(AddCalenderActivity.this, "하루 종일 체크를 풀어주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                            .setListener(startListener)
+                            .setInitialDate(new Date())
+                            //.setMinDate(minDate)
+                            //.setMaxDate(maxDate)
+                            //.setIs24HourTime(true)
+                            //.setTheme(SlideDateTimePicker.HOLO_DARK)
+                            //.setIndicatorColor(Color.parseColor("#990000"))
+                            .build()
+                            .show();
+                }
             }
         });
         endShow.setOnClickListener(new View.OnClickListener() {
@@ -124,16 +137,46 @@ public class AddCalenderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                        .setListener(endListener)
-                        .setInitialDate(new Date())
-                        //.setMinDate(minDate)
-                        //.setMaxDate(maxDate)
-                        //.setIs24HourTime(true)
-                        //.setTheme(SlideDateTimePicker.HOLO_DARK)
-                        //.setIndicatorColor(Color.parseColor("#990000"))
-                        .build()
-                        .show();
+                if(oneDayCheck){
+                    Toast.makeText(AddCalenderActivity.this, "하루 종일 체크를 풀어주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                            .setListener(endListener)
+                            .setInitialDate(new Date())
+                            //.setMinDate(minDate)
+                            //.setMaxDate(maxDate)
+                            //.setIs24HourTime(true)
+                            //.setTheme(SlideDateTimePicker.HOLO_DARK)
+                            //.setIndicatorColor(Color.parseColor("#990000"))
+                            .build()
+                            .show();
+                }
+            }
+        });
+        oneDaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    oneDayCheck = true;
+                    //Toast.makeText(AddCalenderActivity.this, "on", Toast.LENGTH_SHORT).show();
+                } else {
+                    oneDayCheck = false;
+                    //Toast.makeText(AddCalenderActivity.this, "off", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+        dDaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    dDayCheck = true;
+                    //Toast.makeText(AddCalenderActivity.this, "on", Toast.LENGTH_SHORT).show();
+                } else {
+                    dDayCheck = false;
+                    //Toast.makeText(AddCalenderActivity.this, "off", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
