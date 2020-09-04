@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,15 +29,35 @@ public class AddCalenderActivity extends AppCompatActivity {
     TextView cancel, add,title;
 
     private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
-    private Button mButton;
+    private TextView startShow, endShow;
 
-    private SlideDateTimeListener listener = new SlideDateTimeListener() {
+    private SlideDateTimeListener startListener = new SlideDateTimeListener() {
 
         @Override
         public void onDateTimeSet(Date date)
         {
+            //Toast.makeText(AddCalenderActivity.this,
+                    //mFormatter.format(date), Toast.LENGTH_SHORT).show();
+            startShow.setText(mFormatter.format(date));
+        }
+
+        // Optional cancel listener
+        @Override
+        public void onDateTimeCancel()
+        {
             Toast.makeText(AddCalenderActivity.this,
-                    mFormatter.format(date), Toast.LENGTH_SHORT).show();
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private SlideDateTimeListener endListener = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date)
+        {
+            //Toast.makeText(AddCalenderActivity.this,
+            //mFormatter.format(date), Toast.LENGTH_SHORT).show();
+            endShow.setText(mFormatter.format(date));
         }
 
         // Optional cancel listener
@@ -53,7 +74,11 @@ public class AddCalenderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_calender);
-        mButton = (Button) findViewById(R.id.button2);
+        startShow = (TextView) findViewById(R.id.startShow);
+        endShow = (TextView) findViewById(R.id.endShow);
+        Date time = new Date();
+        startShow.setText(mFormatter.format(time).toString());
+        endShow.setText(mFormatter.format(time).toString());
 
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
@@ -76,13 +101,30 @@ public class AddCalenderActivity extends AppCompatActivity {
             }
         });
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        startShow.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v)
             {
                 new SlideDateTimePicker.Builder(getSupportFragmentManager())
-                        .setListener(listener)
+                        .setListener(startListener)
+                        .setInitialDate(new Date())
+                        //.setMinDate(minDate)
+                        //.setMaxDate(maxDate)
+                        //.setIs24HourTime(true)
+                        //.setTheme(SlideDateTimePicker.HOLO_DARK)
+                        //.setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
+            }
+        });
+        endShow.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(endListener)
                         .setInitialDate(new Date())
                         //.setMinDate(minDate)
                         //.setMaxDate(maxDate)
