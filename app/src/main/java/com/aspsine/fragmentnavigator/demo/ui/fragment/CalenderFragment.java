@@ -314,12 +314,28 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     CalFirebasePost get = postSnapshot.getValue(CalFirebasePost.class);
-                    String[] info = {get.content,get.date};
+                    String[] info = {get.content,get.startDate, get.startTime, get.endDate, get.endTime, get.scheduleOrDday};
+                    if(info[5].equals("schedule")) {
 
-                    result[result_len-1] = info[1];
-                    result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
-                    result_len += 1;
-                    mCal.put(info[1],info[0]);
+                        result[result_len - 1] = info[1];
+                        result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                        result_len += 1;
+                        mCal.put(info[1], info[0]);
+                        /*
+                        ---------------- 개발해야되는것 --------------
+                        여기부분에서 시작날짜부터 끝날자까지 전부다 분홍표시해줘야됨,,
+                        그런데, 해쉬함수를 썻기때문에 해쉬함수에서 이미 존재한 키면 \n으로 넣어야 되고 아니면 put해야됨
+                        ---------------개발해야되는것-----------------
+                         */
+                    } else {
+                        // 디데이 일경우 처리
+                        /*
+                        ---------------개발해야되는것-----------------
+                        여기부분에선 끝날짜에만 분홍표시를 해주면 된다.
+                        그러므로, 해쉬함수에 put해주면됨
+                        ---------------개발해야되는것-----------------
+                         */
+                    }
 
                 }
                 new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
@@ -333,6 +349,7 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         };
         mPostReference.child("/schedule/id"+ID).addValueEventListener(postListener);
     }
+    /*
     public void postFirebaseDatabase(boolean add,String content, String date){
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
@@ -343,5 +360,7 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         childUpdates.put("/schedule/id" + ID + "/"+ date , postValues);
         mPostReference.updateChildren(childUpdates);
     }
+
+     */
 
 }
