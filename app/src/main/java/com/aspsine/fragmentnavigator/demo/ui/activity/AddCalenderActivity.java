@@ -28,7 +28,8 @@ import java.util.concurrent.Executors;
 public class AddCalenderActivity extends AppCompatActivity {
     TextView cancel, add,title;
 
-    private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
+    //private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy. MM. dd.  aa hh:mm");
     private TextView startShow, endShow;
 
     private SlideDateTimeListener startListener = new SlideDateTimeListener() {
