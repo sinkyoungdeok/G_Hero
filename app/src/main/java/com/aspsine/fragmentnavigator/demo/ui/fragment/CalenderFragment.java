@@ -77,6 +77,8 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     String[] result = new String[100000];
     String ID = "1";
     Button calAdd;
+    int month_day[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+
 
     private DatabaseReference mPostReference;
 
@@ -317,16 +319,65 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                     String[] info = {get.content,get.startDate, get.startTime, get.endDate, get.endTime, get.scheduleOrDday};
                     if(info[5].equals("schedule")) {
 
-                        result[result_len - 1] = info[1];
-                        result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
-                        result_len += 1;
-                        mCal.put(info[1], info[0]);
+
                         /*
                         ---------------- 개발해야되는것 --------------
                         여기부분에서 시작날짜부터 끝날자까지 전부다 분홍표시해줘야됨,,
                         그런데, 해쉬함수를 썻기때문에 해쉬함수에서 이미 존재한 키면 \n으로 넣어야 되고 아니면 put해야됨
                         ---------------개발해야되는것-----------------
                          */
+                        String split_data[] = info[1].split(",");
+                        int startYear = Integer.parseInt(split_data[0]);
+                        int startMonth = Integer.parseInt(split_data[1]);
+                        int startDay = Integer.parseInt(split_data[2]);
+                        split_data =  info[3].split(",");
+                        int endYear =  Integer.parseInt(split_data[0]);
+                        int endMonth =  Integer.parseInt(split_data[1]);
+                        int endDay = Integer.parseInt(split_data[2]);
+
+                        for(;endYear >= startYear; startYear++) {
+
+                            // 윤년 처리
+                            if((startYear % 4 == 0 && startYear % 100 != 0) || (startYear % 400 == 0))
+                                month_day[1] = 29;
+                            else
+                                month_day[1] = 28;
+
+                            if(endYear == startYear) {
+                                for (; endMonth >= startMonth; startMonth++) {
+                                    if(endMonth == startMonth) {
+                                        for(; endDay >= startDay; startDay++) {
+                                            result[result_len - 1] = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
+                                            result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                                            result_len += 1;
+                                            mCal.put(String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay), info[0]);
+                                        }
+                                    } else {
+                                        for(; month_day[startMonth-1]>=startDay; startDay ++) {
+                                            result[result_len - 1] = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
+                                            result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                                            result_len += 1;
+                                            mCal.put(String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay), info[0]);
+                                        }
+                                    }
+                                    startDay = 1;
+                                }
+                            } else {
+                                for (; 12 >= startMonth; startMonth++) {
+                                    for(; month_day[startMonth-1] >=startDay;startDay++) {
+                                        result[result_len - 1] = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
+                                        result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                                        result_len += 1;
+                                        mCal.put(String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay), info[0]);
+                                    }
+                                    startDay =1;
+                                }
+                            }
+                            startMonth = 1;
+                        }
+
+
+
                     } else {
                         // 디데이 일경우 처리
                         /*
