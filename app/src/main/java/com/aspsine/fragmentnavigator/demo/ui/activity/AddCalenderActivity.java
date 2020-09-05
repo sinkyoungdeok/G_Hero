@@ -37,7 +37,7 @@ public class AddCalenderActivity extends AppCompatActivity {
     TextView cancel, add,title;
 
     //private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
-    private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy. MM. dd.  aa hh:mm");
+    private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy. M. d.  aa h:m");
     private TextView startShow, endShow;
     private Switch oneDaySwitch, dDaySwitch;
     private boolean oneDayCheck, dDayCheck;
@@ -195,11 +195,6 @@ public class AddCalenderActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
-
 
     }
     public void postFirebaseDatabase(boolean add){
