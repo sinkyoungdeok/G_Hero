@@ -347,17 +347,37 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                                 for (; endMonth >= startMonth; startMonth++) {
                                     if(endMonth == startMonth) {
                                         for(; endDay >= startDay; startDay++) {
-                                            result[result_len - 1] = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
-                                            result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
-                                            result_len += 1;
-                                            mCal.put(String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay), info[0]);
+                                            String temp = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
+
+                                            if(mCal.containsKey(temp)){
+                                                String prev = mCal.get(temp);
+                                                prev += '\n' + info[0] ;
+                                                mCal.put(temp,prev);
+
+                                            } else {
+                                                result[result_len - 1] = temp;
+                                                result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                                                result_len += 1;
+                                                mCal.put(temp, info[0]);
+                                            }
+
+
                                         }
                                     } else {
                                         for(; month_day[startMonth-1]>=startDay; startDay ++) {
-                                            result[result_len - 1] = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
-                                            result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
-                                            result_len += 1;
-                                            mCal.put(String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay), info[0]);
+                                            String temp = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
+
+                                            if(mCal.containsKey(temp)){
+                                                String prev = mCal.get(temp);
+                                                prev += '\n' + info[0] ;
+                                                mCal.put(temp,prev);
+
+                                            } else {
+                                                result[result_len - 1] = temp;
+                                                result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                                                result_len += 1;
+                                                mCal.put(temp, info[0]);
+                                            }
                                         }
                                     }
                                     startDay = 1;
@@ -365,10 +385,19 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                             } else {
                                 for (; 12 >= startMonth; startMonth++) {
                                     for(; month_day[startMonth-1] >=startDay;startDay++) {
-                                        result[result_len - 1] = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
-                                        result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
-                                        result_len += 1;
-                                        mCal.put(String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay), info[0]);
+                                        String temp = String.valueOf(startYear) + "," + String.valueOf(startMonth) +","+String.valueOf(startDay);
+
+                                        if(mCal.containsKey(temp)){
+                                            String prev = mCal.get(temp);
+                                            prev += '\n' + info[0] ;
+                                            mCal.put(temp,prev);
+
+                                        } else {
+                                            result[result_len - 1] = temp;
+                                            result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
+                                            result_len += 1;
+                                            mCal.put(temp, info[0]);
+                                        }
                                     }
                                     startDay =1;
                                 }
