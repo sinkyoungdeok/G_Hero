@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,11 +39,16 @@ public class AddCalenderActivity extends AppCompatActivity {
 
     //private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy. M. d.  aa h:m");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy,M,d");
+    private SimpleDateFormat timeFormat =  new SimpleDateFormat("h:m");
+
     private TextView startShow, endShow;
     private Switch oneDaySwitch, dDaySwitch;
     private boolean oneDayCheck, dDayCheck;
     private DatabaseReference mPostReference;
     private String ID = "1";
+    private String startDate, startTime, endDate, endTime;
+    private EditText titleEdit;
 
     private SlideDateTimeListener startListener = new SlideDateTimeListener() {
 
@@ -52,6 +58,8 @@ public class AddCalenderActivity extends AppCompatActivity {
             //Toast.makeText(AddCalenderActivity.this,
                     //mFormatter.format(date), Toast.LENGTH_SHORT).show();
             startShow.setText(mFormatter.format(date));
+            startDate = dateFormat.format(date).toString();
+            startTime = timeFormat.format(date).toString();
         }
 
         // Optional cancel listener
@@ -71,6 +79,8 @@ public class AddCalenderActivity extends AppCompatActivity {
             //Toast.makeText(AddCalenderActivity.this,
             //mFormatter.format(date), Toast.LENGTH_SHORT).show();
             endShow.setText(mFormatter.format(date));
+            endDate = dateFormat.format(date).toString();
+            endTime = timeFormat.format(date).toString();
         }
 
         // Optional cancel listener
@@ -95,8 +105,13 @@ public class AddCalenderActivity extends AppCompatActivity {
         dDayCheck = false;
         Date time = new Date();
         startShow.setText(mFormatter.format(time).toString());
+        startDate = dateFormat.format(time).toString();
+        startTime = timeFormat.format(time).toString();
+        endDate = dateFormat.format(time).toString();
+        endTime = timeFormat.format(time).toString();
         endShow.setText(mFormatter.format(time).toString());
         mPostReference = FirebaseDatabase.getInstance().getReference();
+        titleEdit = (EditText) findViewById(R.id.titleEdit);
 
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
@@ -200,11 +215,18 @@ public class AddCalenderActivity extends AppCompatActivity {
     public void postFirebaseDatabase(boolean add){
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
+        String dDayOrSchedule ="";
+        if(!dDayCheck) {
+            dDayOrSchedule = "schedule";
+        } else {
+            dDayOrSchedule = "dday";
+        }
         if(add){
-            CalFirebasePost post = new CalFirebasePost();
+            CalFirebasePost post = new CalFirebasePost(titleEdit.getText().toString(), startDate, startTime, endDate, endTime, dDayOrSchedule);
             postValues = post.toMap();
         }
-        childUpdates.put("/schedule/id" + ID + "/"+ "something" , postValues);
+        String temp = startDate + " , " + startTime + "~" + endDate + " , " + endTime + " , " + dDayOrSchedule + " , " + titleEdit.getText().toString();
+        childUpdates.put("/schedule/id" + ID + "/"+ temp , postValues);
         mPostReference.updateChildren(childUpdates);
     }
 }
