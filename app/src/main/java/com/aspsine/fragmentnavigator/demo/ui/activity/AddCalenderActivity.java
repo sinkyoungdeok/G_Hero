@@ -19,12 +19,17 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.utilities.Utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 
@@ -36,6 +41,8 @@ public class AddCalenderActivity extends AppCompatActivity {
     private TextView startShow, endShow;
     private Switch oneDaySwitch, dDaySwitch;
     private boolean oneDayCheck, dDayCheck;
+    private DatabaseReference mPostReference;
+    private String ID = "1";
 
     private SlideDateTimeListener startListener = new SlideDateTimeListener() {
 
@@ -89,6 +96,7 @@ public class AddCalenderActivity extends AppCompatActivity {
         Date time = new Date();
         startShow.setText(mFormatter.format(time).toString());
         endShow.setText(mFormatter.format(time).toString());
+        mPostReference = FirebaseDatabase.getInstance().getReference();
 
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
@@ -180,12 +188,28 @@ public class AddCalenderActivity extends AppCompatActivity {
             }
         });
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postFirebaseDatabase(true);
+                finish();
+            }
+        });
 
 
 
 
 
 
-
+    }
+    public void postFirebaseDatabase(boolean add){
+        Map<String, Object> childUpdates = new HashMap<>();
+        Map<String, Object> postValues = null;
+        if(add){
+            CalFirebasePost post = new CalFirebasePost();
+            postValues = post.toMap();
+        }
+        childUpdates.put("/schedule/id" + ID + "/"+ "something" , postValues);
+        mPostReference.updateChildren(childUpdates);
     }
 }
