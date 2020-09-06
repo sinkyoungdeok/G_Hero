@@ -102,5 +102,16 @@
             android:layout_height="wrap_content">
 
         </com.kakao.usermgmt.LoginButton>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="로그인 정보를 잊으셨나요?"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            />
+
     </LinearLayout>
 </LinearLayout>
