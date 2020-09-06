@@ -96,7 +96,8 @@
             <Button
                 android:id="@+id/button"
                 android:layout_width="340dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60sp"
+                android:layout_marginTop="15sp"
                 android:layout_gravity="center"
                 android:background="@drawable/mybutton_bold"
                 android:text="연결하기"
