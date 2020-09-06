@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="347dp"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"
         android:layout_marginTop="1dp"
@@ -23,11 +23,21 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"></LinearLayout>
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_marginTop="60sp"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_gravity="center"
+            app:srcCompat="@mipmap/no_DooRi_icon" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="415dp"
+        android:layout_width="match_parent"
         android:layout_height="511dp"
         android:layout_marginBottom="2dp"
         android:orientation="vertical"
@@ -62,11 +72,12 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="268dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/mybutton_bold"
             android:text="연결하기"
-            android:textColor="#ffffffff"
-            android:background="@drawable/mybutton"/>
+            android:textSize="20sp"
+            android:textColor="#ffffffff" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
