@@ -34,6 +34,7 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+    <!-- 액션바 없는 테마 -->
     <style name="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

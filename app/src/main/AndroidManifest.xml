@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.AddCalenderActivity"></activity>
-        <activity android:name=".ui.activity.InfoActivity" />
+        <activity android:name=".ui.activity.InfoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ui.activity.SplashActivity"
             android:hardwareAccelerated="false">
@@ -38,11 +39,10 @@
         <activity android:name=".ui.activity.ExceptionActivity" />
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ui.activity.ConnectActivity"
-            android:label="@string/title_activity_connect" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>
