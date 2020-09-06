@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/mypink"
     tools:context="com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity">
 
     <LinearLayout
@@ -64,21 +65,23 @@
             <TextView
                 android:id="@+id/or"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="또는"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/signup_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:layout_marginTop="16dp"
                 android:background="@drawable/mybutton_bold"
                 android:text="@string/action_signup_in"
+                android:textColor="#ffffff"
                 android:textSize="25dp"
-                android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
