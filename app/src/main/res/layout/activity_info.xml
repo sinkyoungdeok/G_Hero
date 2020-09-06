@@ -21,30 +21,40 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioGroup
                 android:id="@+id/gender"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="79dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"></LinearLayout>
 
                 <RadioButton
                     android:id="@+id/man"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#dddddddd"
+                    android:buttonTint="#ffffff"
                     android:text="남자"
-                    android:textColor="#dddddddd" />
+                    android:textColor="#ffffff" />
+
+                <LinearLayout
+                    android:layout_width="136dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"></LinearLayout>
 
                 <RadioButton
                     android:id="@+id/woman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="#dddddddd"
+                    android:buttonTint="#ffffff"
                     android:text="여자"
-                    android:textColor="#dddddddd" />
+                    android:textColor="#ffffff" />
 
             </RadioGroup>
 
@@ -60,20 +70,21 @@
                 android:layout_width="350sp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_height="35sp"
+                android:layout_height="40sp"
                 android:ems="10"
                 android:hint="이름"
                 android:inputType="textPersonName"
                 android:text=""
                 android:textAlignment="center"
                 android:background="#ffffff"
+                android:layout_marginTop="20sp"
                 android:textColorHint="#dddddddd" />
 
             <EditText
                 android:id="@+id/birthEdit"
                 android:layout_width="350sp"
                 android:layout_gravity="center"
-                android:layout_height="35sp"
+                android:layout_height="40sp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text=""
@@ -88,7 +99,7 @@
                 android:id="@+id/firstDayEdit"
                 android:layout_width="350sp"
                 android:layout_gravity="center"
-                android:layout_height="35sp"
+                android:layout_height="40sp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text=""
