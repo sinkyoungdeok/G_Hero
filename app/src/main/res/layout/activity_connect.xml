@@ -68,7 +68,7 @@
                 android:layout_width="100sp"
                 android:layout_height="100sp"
                 android:layout_gravity="center"
-                app:srcCompat="@mipmap/no_DooRi_icon" />
+                app:srcCompat="@mipmap/no_icon" />
 
         </LinearLayout>
 
