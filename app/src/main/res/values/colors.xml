@@ -7,5 +7,6 @@
     <color name="colorTabNormal">#666666</color>
     <color name="colorTabSelected">#F97E76</color>
     <color name="mypink">#F97E76</color>
+    <color name="myboldpink">#E25656</color>
 
 </resources>
