@@ -54,7 +54,7 @@
                     android:inputType="textPersonName"
                     android:text="1234 5678"
                     android:textColor="@color/mypink"
-                    android:textSize="35sp"
+                    android:textSize="30sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
