@@ -55,7 +55,9 @@
             android:layout_gravity="center"
             android:text=""
             android:hint="전달받은 초대코드 입력"
+            android:gravity="center"
             android:layout_marginBottom="20dp"
+            android:background="#ffffff"
             android:textColorHint="#DDDDDDDD"/>
 
         <Button
