@@ -61,6 +61,13 @@
                 android:textStyle="bold"
                 android:textColor="#ffffff"/>
 
+            <TextView
+                android:id="@+id/or"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="또는"
+                android:textColor="#ffffff"/>
+
             <Button
                 android:id="@+id/signup_button"
                 style="?android:textAppearanceSmall"
