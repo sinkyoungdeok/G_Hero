@@ -173,7 +173,7 @@ public class InfoActivity extends AppCompatActivity {
             //Date now = new Date();
             String filename = "profile" + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("id1/" + filename);
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("images/" + filename);
             //올라가거라...
             storageRef.putFile(filePath)
                     //성공시
