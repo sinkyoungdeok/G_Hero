@@ -44,10 +44,11 @@
         </LinearLayout>
 
         <!--이미지 출력-->
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_preview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="100sp"
+            android:scaleType="centerCrop"
+            android:layout_height="100sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

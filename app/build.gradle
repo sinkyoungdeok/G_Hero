@@ -34,6 +34,9 @@ dependencies {
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
     /* 캘린더 */
+
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library')
     //implementation 'com.github.Aspsine:FragmentNavigator:1.0.2'

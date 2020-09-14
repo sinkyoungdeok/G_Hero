@@ -1,6 +1,7 @@
 package com.aspsine.fragmentnavigator.demo.ui.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
 
@@ -9,6 +10,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +36,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PhotoActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -39,7 +45,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     private Button btChoose;
     private Button btUpload;
-    private ImageView ivPreview;
+    private CircleImageView ivPreview;
 
     private Uri filePath;
     private String filepath;
@@ -47,6 +53,7 @@ public class PhotoActivity extends AppCompatActivity {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +66,7 @@ public class PhotoActivity extends AppCompatActivity {
         }
         btChoose = (Button) findViewById(R.id.bt_choose);
         btUpload = (Button) findViewById(R.id.bt_upload);
-        ivPreview = (ImageView) findViewById(R.id.iv_preview);
+        ivPreview = (CircleImageView) findViewById(R.id.iv_preview);
 
         //버튼 클릭 이벤트
         btChoose.setOnClickListener(new View.OnClickListener() {
