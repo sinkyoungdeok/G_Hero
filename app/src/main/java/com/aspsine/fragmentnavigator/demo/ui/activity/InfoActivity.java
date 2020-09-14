@@ -171,7 +171,7 @@ public class InfoActivity extends AppCompatActivity {
             //Unique한 파일명을 만들자.
             //SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             //Date now = new Date();
-            String filename = "profile" + ".png";
+            String filename = id+"Profile" + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
             StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("images/" + filename);
             //올라가거라...
