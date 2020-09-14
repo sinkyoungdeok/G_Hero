@@ -161,9 +161,9 @@ public class InfoActivity extends AppCompatActivity {
 
         if (filePath != null) {
             //업로드 진행 Dialog 보이기
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("업로드중...");
-            progressDialog.show();
+            //final ProgressDialog progressDialog = new ProgressDialog(this);
+            //progressDialog.setTitle("업로드중...");
+            //progressDialog.show();
 
             //storage
             FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -180,16 +180,16 @@ public class InfoActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+                            //progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                            //Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     //실패시
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                            //progressDialog.dismiss();
+                            //Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     //진행중
@@ -199,7 +199,7 @@ public class InfoActivity extends AppCompatActivity {
                             @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
                                     double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
                             //dialog에 진행률을 퍼센트로 출력해 준다
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                            //progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
                         }
                     });
         } else {
