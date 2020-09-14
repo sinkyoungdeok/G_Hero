@@ -2,23 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/icon"
     tools:context=".ui.fragment.MainFragment">
 
-    <TextView
-        android:id="@+id/tvText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="60sp"
-        android:gravity="center"
-        tools:text="Text" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:progressBarStyleLargeInverse"
+    <View
+        android:id="@+id/view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center" />
-
+        android:layout_height="408dp"
+        android:background="#993F5363" />
 </FrameLayout>

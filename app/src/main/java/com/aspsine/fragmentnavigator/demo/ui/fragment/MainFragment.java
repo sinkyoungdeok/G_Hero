@@ -32,11 +32,11 @@ public class MainFragment extends Fragment {
 
     private WeakRunnable mRunnable = new WeakRunnable(this);
 
-    private String mText;
+    //private String mText;
 
     private TextView tvText;
 
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
 
     public static Fragment newInstance(String text) {
         MainFragment fragment = new MainFragment();
@@ -53,7 +53,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mText = getArguments().getString(EXTRA_TEXT);
+        //mText = getArguments().getString(EXTRA_TEXT);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class MainFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvText = (TextView) view.findViewById(R.id.tvText);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class MainFragment extends Fragment {
         if (savedInstanceState == null) {
             loadData();
         } else {
-            mText = savedInstanceState.getString(EXTRA_TEXT);
+            //mText = savedInstanceState.getString(EXTRA_TEXT);
             bindData();
         }
     }
@@ -84,31 +84,31 @@ public class MainFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(EXTRA_TEXT, mText);
+        //outState.putString(EXTRA_TEXT, mText);
     }
 
     @Override
     public void onDestroyView() {
         sHandler.removeCallbacks(mRunnable);
         tvText = null;
-        progressBar = null;
+        //progressBar = null;
         super.onDestroyView();
     }
 
     private void showProgressBar(boolean show) {
-        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        //progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void bindData() {
-        boolean isLogin = SharedPrefUtils.isLogin(getActivity());
-        tvText.setText(mText + "\n" + "Login:" + isLogin);
+        //boolean isLogin = SharedPrefUtils.isLogin(getActivity());
+        //tvText.setText(mText + "\n" + "Login:" + isLogin);
     }
 
     /**
      * mock load data
      */
     private void loadData() {
-        showProgressBar(true);
+        //showProgressBar(true);
         sHandler.postDelayed(mRunnable, MOCK_LOAD_DATA_DELAYED_TIME);
     }
 
@@ -124,8 +124,8 @@ public class MainFragment extends Fragment {
         public void run() {
             MainFragment mainFragment = mMainFragmentReference.get();
             if (mainFragment != null && !mainFragment.isDetached()) {
-                mainFragment.showProgressBar(false);
-                mainFragment.bindData();
+                //mainFragment.showProgressBar(false);
+                //mainFragment.bindData();
             }
         }
     }

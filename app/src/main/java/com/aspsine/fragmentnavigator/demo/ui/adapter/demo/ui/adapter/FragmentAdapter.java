@@ -17,6 +17,10 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
 
     private static final String TABS[] = {"Home", "Chats", "Emoticon", "Dday", "Calendar"};
 
+    public FragmentAdapter() {
+
+    }
+
     @Override
     public Fragment onCreateFragment(int position) {
         if (position == 1){
