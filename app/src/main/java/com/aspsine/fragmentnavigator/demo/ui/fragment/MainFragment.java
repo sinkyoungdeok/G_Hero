@@ -66,7 +66,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvText = (TextView) view.findViewById(R.id.tvText);
+        //tvText = (TextView) view.findViewById(R.id.tvText);
         //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
