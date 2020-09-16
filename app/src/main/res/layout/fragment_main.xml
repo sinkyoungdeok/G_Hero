@@ -5,12 +5,13 @@
     android:background="@mipmap/goorm"
     tools:context=".ui.fragment.MainFragment">
 
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="390dp"
-        android:layout_height="147dp"
+    <LinearLayout
+        android:layout_width="386dp"
+        android:layout_height="161dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10sp"
-        android:background="#99000000" />
+        android:background="@drawable/view_round"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 </FrameLayout>
