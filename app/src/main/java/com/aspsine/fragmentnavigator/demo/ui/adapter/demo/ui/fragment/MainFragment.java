@@ -27,6 +27,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +45,7 @@ public class MainFragment extends Fragment {
 
     private TextView myNameText;
     private TextView yourNameText;
+    private TextView todayText;
 
     private DatabaseReference mPostReference;
 
@@ -70,7 +74,17 @@ public class MainFragment extends Fragment {
         mPostReference = FirebaseDatabase.getInstance().getReference();
         myNameText = (TextView) view.findViewById(R.id.myName);
         yourNameText = (TextView) view.findViewById(R.id.yourName);
+        todayText = (TextView) view.findViewById(R.id.today);
+
+        SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy년 M월 d일 ");
+        Date time = new Date();
+        String todayStr = mFormatter.format(time).toString();
+        Calendar oCalendar = Calendar.getInstance( );
+        final String[] week = { "일", "월", "화", "수", "목", "금", "토" };
         getUserFirebaseDatabase(mText);
+        todayStr += week[oCalendar.get(Calendar.DAY_OF_WEEK) - 1] + "요일";
+        todayText.setText(todayStr);
+
         return view;
     }
 
