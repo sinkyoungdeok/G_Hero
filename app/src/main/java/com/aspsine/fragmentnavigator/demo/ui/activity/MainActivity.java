@@ -32,12 +32,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
 
     private MenuItem mAddMenu;
 
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(), R.id.container);
+        Intent intent = getIntent();
+        id = intent.getExtras().getString("id");
+
+        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id), R.id.container);
         mNavigator.setDefaultPosition(DEFAULT_POSITION);
         mNavigator.onCreate(savedInstanceState);
 

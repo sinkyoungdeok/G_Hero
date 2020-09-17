@@ -16,9 +16,9 @@ import com.aspsine.fragmentnavigator.demo.ui.fragment.CalenderFragment;
 public class FragmentAdapter implements FragmentNavigatorAdapter {
 
     private static final String TABS[] = {"Home", "Chats", "Emoticon", "Dday", "Calendar"};
-
-    public FragmentAdapter() {
-
+    private String id;
+    public FragmentAdapter(String id) {
+        this.id = id;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
         else if(position == 4){
             return CalenderFragment.newInstance(TABS[position]);
         }
-        return MainFragment.newInstance(TABS[position]);
+        return MainFragment.newInstance(id);
     }
 
 

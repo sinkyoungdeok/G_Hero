@@ -7,8 +7,10 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,13 +31,10 @@ public class MainFragment extends Fragment {
 
     private static final int MOCK_LOAD_DATA_DELAYED_TIME = 2000;
 
-    private static Handler sHandler = new Handler(Looper.getMainLooper());
-
-    private WeakRunnable mRunnable = new WeakRunnable(this);
-
     private String mText;
 
-    private TextView tvText;
+    private TextView myNameText;
+    private TextView yourNameText;
 
     private ProgressBar progressBar;
 
@@ -61,26 +60,20 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        //Toast.makeText(getActivity(),"aa",Toast.LENGTH_SHORT).show();
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        myNameText = (TextView) view.findViewById(R.id.myName);
+        yourNameText = (TextView) view.findViewById(R.id.yourName);
+
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvText = (TextView) view.findViewById(R.id.tvText);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState == null) {
-            loadData();
-        } else {
-            mText = savedInstanceState.getString(EXTRA_TEXT);
-            bindData();
-        }
-    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -88,46 +81,8 @@ public class MainFragment extends Fragment {
         outState.putString(EXTRA_TEXT, mText);
     }
 
-    @Override
-    public void onDestroyView() {
-        sHandler.removeCallbacks(mRunnable);
-        tvText = null;
-        progressBar = null;
-        super.onDestroyView();
-    }
 
-    private void showProgressBar(boolean show) {
-        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
 
-    private void bindData() {
-        boolean isLogin = SharedPrefUtils.isLogin(getActivity());
-        tvText.setText(mText + "\n" + "Login:" + isLogin);
-    }
 
-    /**
-     * mock load data
-     */
-    private void loadData() {
-        showProgressBar(true);
-        sHandler.postDelayed(mRunnable, MOCK_LOAD_DATA_DELAYED_TIME);
-    }
 
-    private static class WeakRunnable implements Runnable {
-
-        WeakReference<MainFragment> mMainFragmentReference;
-
-        public WeakRunnable(MainFragment mainFragment) {
-            this.mMainFragmentReference = new WeakReference<MainFragment>(mainFragment);
-        }
-
-        @Override
-        public void run() {
-            MainFragment mainFragment = mMainFragmentReference.get();
-            if (mainFragment != null && !mainFragment.isDetached()) {
-                mainFragment.showProgressBar(false);
-                mainFragment.bindData();
-            }
-        }
-    }
 }
