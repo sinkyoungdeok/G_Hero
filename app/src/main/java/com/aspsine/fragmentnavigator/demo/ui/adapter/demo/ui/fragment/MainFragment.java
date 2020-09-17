@@ -30,6 +30,7 @@ import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +47,7 @@ public class MainFragment extends Fragment {
     private TextView myNameText;
     private TextView yourNameText;
     private TextView todayText;
+    private TextView ingdayText;
 
     private DatabaseReference mPostReference;
 
@@ -75,15 +77,20 @@ public class MainFragment extends Fragment {
         myNameText = (TextView) view.findViewById(R.id.myName);
         yourNameText = (TextView) view.findViewById(R.id.yourName);
         todayText = (TextView) view.findViewById(R.id.today);
+        ingdayText = (TextView) view.findViewById(R.id.ingday);
+
+        getUserFirebaseDatabase(mText);
 
         SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy년 M월 d일 ");
         Date time = new Date();
         String todayStr = mFormatter.format(time).toString();
         Calendar oCalendar = Calendar.getInstance( );
         final String[] week = { "일", "월", "화", "수", "목", "금", "토" };
-        getUserFirebaseDatabase(mText);
+
         todayStr += week[oCalendar.get(Calendar.DAY_OF_WEEK) - 1] + "요일";
         todayText.setText(todayStr);
+
+
 
         return view;
     }
@@ -104,6 +111,17 @@ public class MainFragment extends Fragment {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
                     myNameText.setText(user.name);
+                    Calendar cal = Calendar.getInstance( );
+                    String split_data[] = user.firstDay.split(",");
+                    int year = Integer.parseInt(split_data[0]);
+                    int month = Integer.parseInt(split_data[1]);
+                    int day = Integer.parseInt(split_data[2]);
+                    Calendar cal2 = new GregorianCalendar(year, month-1, day);
+                    long diffSec = (cal.getTimeInMillis() - cal2.getTimeInMillis())/1000;
+                    long diffDays = diffSec / (24*60*60);
+                    ingdayText.setText( Long.toString(diffDays+1) + "일째");
+
+
 
                     Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
                     yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
