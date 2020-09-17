@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.aspsine.fragmentnavigator.demo.R;
@@ -78,6 +80,18 @@ public class MainFragment extends Fragment {
         yourNameText = (TextView) view.findViewById(R.id.yourName);
         todayText = (TextView) view.findViewById(R.id.today);
         ingdayText = (TextView) view.findViewById(R.id.ingday);
+
+        /* 커스텀 액션바 */
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+        View actionbar = inflater.inflate(R.layout.main_actionbar, null);
+        actionBar.setCustomView(actionbar);
+        /* 커스텀 액션바 */
 
         getUserFirebaseDatabase(mText);
 
