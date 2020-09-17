@@ -84,13 +84,30 @@ public class MainFragment extends Fragment {
 
     public void getUserFirebaseDatabase(String UserId){
         Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(UserId);
-
         myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
                     myNameText.setText(user.name);
+
+                    Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
+                    yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                                UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
+                                yourNameText.setText(yourUser.name);
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
             }
 
@@ -99,6 +116,13 @@ public class MainFragment extends Fragment {
 
             }
         });
+
+
+
+
+
+
+
 
 
     }
