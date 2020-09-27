@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
+import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +41,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener {
 
     public static final String TAG = MainFragment.class.getSimpleName();
 
@@ -75,6 +77,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         //Toast.makeText(getActivity(),"aa",Toast.LENGTH_SHORT).show();
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        setHasOptionsMenu(true);
         mPostReference = FirebaseDatabase.getInstance().getReference();
         myNameText = (TextView) view.findViewById(R.id.myName);
         yourNameText = (TextView) view.findViewById(R.id.yourName);
@@ -170,6 +173,23 @@ public class MainFragment extends Fragment {
 
 
 
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_logout).setVisible(true);
+        menu.findItem(R.id.action_exception).setVisible(true);
+        menu.findItem(R.id.action_add).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBottomNavigatorViewItemClick(int position, View view) {
 
     }
 

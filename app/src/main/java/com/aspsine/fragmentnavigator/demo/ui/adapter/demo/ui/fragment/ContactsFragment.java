@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
@@ -26,6 +29,7 @@ import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.ChildFragmentAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.widget.TabLayout;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
+import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +45,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactsFragment extends Fragment {
+public class ContactsFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener {
     /* firebase */
     private DatabaseReference mPostReference;
     String ID, name, content;
@@ -143,6 +147,9 @@ public class ContactsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contacts, container, false);
+        setHasOptionsMenu(true);
+
+
         /* firebase */
         data = new ArrayList<String>();
         contentET = (EditText)v.findViewById(R.id.contents);
@@ -165,6 +172,24 @@ public class ContactsFragment extends Fragment {
         /* firebase */
 
         return v;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_logout).setVisible(false);
+        menu.findItem(R.id.action_exception).setVisible(false);
+        menu.findItem(R.id.action_add).setVisible(false);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBottomNavigatorViewItemClick(int position, View view) {
+
     }
 
     @Override
