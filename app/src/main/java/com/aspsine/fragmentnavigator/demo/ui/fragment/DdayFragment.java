@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
@@ -25,6 +26,8 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ImageView no_data;
+    private ImageView no_icon_gray;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -57,8 +60,16 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_dday, container, false);
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_dday, container, false);
+        no_data = (ImageView) view.findViewById(R.id.no_data);
+        no_icon_gray = (ImageView) view.findViewById(R.id.no_icon_gray);
+
+        //밑에 두줄은 데이터가 하나라도 있을때 처리하면됨,,
+        //no_data.setVisibility(View.INVISIBLE);
+        //no_icon_gray.setVisibility(View.INVISIBLE);
+
+        return view;
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
