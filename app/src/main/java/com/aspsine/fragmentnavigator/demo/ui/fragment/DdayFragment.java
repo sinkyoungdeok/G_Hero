@@ -74,9 +74,10 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         listview = (ListView) view.findViewById(R.id.ddaylist);
         data = new ArrayList<>();
 
-        if(false) {
-            ddayListviewitem icon = new ddayListviewitem(R.mipmap.icon, "icona");
-            ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.icon, "iconb");
+        if(true) {
+            ddayListviewitem icon = new ddayListviewitem(R.mipmap.dday_1, "D - 97", "200일 기념일");
+
+            ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
 
             data.add(icon);
             data.add(icon2);
