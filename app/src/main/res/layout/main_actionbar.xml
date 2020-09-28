@@ -9,35 +9,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56sp"
-        android:orientation="horizontal"
-        >
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="138dp"
+        <ImageView
+            android:id="@+id/myImg"
+            android:layout_width="40sp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/myImg"
-                android:layout_width="40sp"
-                android:layout_height="40sp"
-                android:layout_marginLeft="8sp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:src="@mipmap/icon_pink" />
-        </LinearLayout>
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15sp"
+            android:gravity="center_vertical"
+            android:src="@mipmap/icon_pink" />
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="100sp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="56sp"
             android:layout_gravity="center"
-            android:src="@mipmap/logo" />
+            android:layout_marginTop="-55sp"
+            android:layout_marginLeft="20sp"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:src="@mipmap/logo" />
 
 
     </LinearLayout>
