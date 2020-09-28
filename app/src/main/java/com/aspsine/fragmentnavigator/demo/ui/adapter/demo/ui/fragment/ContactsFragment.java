@@ -1,6 +1,7 @@
 package com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -181,6 +182,17 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     }
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View actionbar = inflater.inflate(R.layout.contacts_actionbar, null);
+        actionBar.setCustomView(actionbar);
+
         menu.findItem(R.id.action_logout).setVisible(false);
         menu.findItem(R.id.action_exception).setVisible(false);
         menu.findItem(R.id.action_add).setVisible(false);
