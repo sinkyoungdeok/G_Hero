@@ -73,20 +73,22 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         no_icon_gray = (ImageView) view.findViewById(R.id.no_icon_gray);
         listview = (ListView) view.findViewById(R.id.ddaylist);
         data = new ArrayList<>();
-        ddayListviewitem icon = new ddayListviewitem(R.mipmap.icon,"icona");
-        ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.icon,"iconb");
 
-        data.add(icon);
-        data.add(icon2);
+        if(false) {
+            ddayListviewitem icon = new ddayListviewitem(R.mipmap.icon, "icona");
+            ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.icon, "iconb");
 
-        ddayAdapter adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
-        listview.setAdapter(adapter);
+            data.add(icon);
+            data.add(icon2);
+
+            ddayAdapter adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
+            listview.setAdapter(adapter);
+
+            no_data.setVisibility(View.INVISIBLE);
+            no_icon_gray.setVisibility(View.INVISIBLE);
+        }
 
 
-
-        //밑에 두줄은 데이터가 하나라도 있을때 처리하면됨,,
-        //no_data.setVisibility(View.INVISIBLE);
-        //no_icon_gray.setVisibility(View.INVISIBLE);
 
         return view;
     }
