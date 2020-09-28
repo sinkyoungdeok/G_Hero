@@ -84,6 +84,8 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
             ddayAdapter adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
             listview.setAdapter(adapter);
 
+
+            // 밑의 두줄로 데이터가 없을때의 화면을 지워준다.
             no_data.setVisibility(View.INVISIBLE);
             no_icon_gray.setVisibility(View.INVISIBLE);
         }
