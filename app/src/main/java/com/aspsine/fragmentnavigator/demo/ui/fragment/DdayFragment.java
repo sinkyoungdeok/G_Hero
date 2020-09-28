@@ -12,9 +12,14 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.item.ddayListviewitem;
+import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +33,8 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     private static final String ARG_PARAM2 = "param2";
     private ImageView no_data;
     private ImageView no_icon_gray;
+    private ListView listview;
+    private ArrayList<ddayListviewitem> data;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,6 +71,18 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         setHasOptionsMenu(true);
         no_data = (ImageView) view.findViewById(R.id.no_data);
         no_icon_gray = (ImageView) view.findViewById(R.id.no_icon_gray);
+        listview = (ListView) view.findViewById(R.id.ddaylist);
+        data = new ArrayList<>();
+        ddayListviewitem icon = new ddayListviewitem(R.mipmap.icon,"icona");
+        ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.icon,"iconb");
+
+        data.add(icon);
+        data.add(icon2);
+
+        ddayAdapter adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
+        listview.setAdapter(adapter);
+
+
 
         //밑에 두줄은 데이터가 하나라도 있을때 처리하면됨,,
         //no_data.setVisibility(View.INVISIBLE);
