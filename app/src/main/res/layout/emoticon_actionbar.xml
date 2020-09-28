@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56sp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:text="이모티콘 제작소"
+            android:textSize="35sp"
+            android:textColor="#000000"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -80,7 +80,7 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
 
         menu.findItem(R.id.action_logout).setVisible(false);
         menu.findItem(R.id.action_exception).setVisible(false);
-        menu.findItem(R.id.action_add).setVisible(true);
+        menu.findItem(R.id.action_add).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 

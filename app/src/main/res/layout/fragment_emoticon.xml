@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center_vertical"
-    android:background="#ffffff"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.EmoticonFragment">
 
-
-    <LinearLayout
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="56sp"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
 
-        <TextView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:text="이모티콘 제작소"
-            android:textSize="35sp"
-            android:textColor="#000000"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
-
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+</FrameLayout>
