@@ -3,10 +3,6 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="100sp">
-    <ImageView
-        android:id="@+id/imageview"
-        android:layout_width="match_parent"
-        android:layout_height="100sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100sp"

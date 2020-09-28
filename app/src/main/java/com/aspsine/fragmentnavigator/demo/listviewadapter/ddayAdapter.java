@@ -41,7 +41,7 @@ public class ddayAdapter extends BaseAdapter {
         }
         ddayListviewitem listviewitem = data.get(position);
 
-        ImageView icon = (ImageView)convertView.findViewById(R.id.imageview);
+        //ImageView icon = (ImageView)convertView.findViewById(R.id.imageview);
         //icon.setImageResource(listviewitem.getIcon());
 
         TextView name = (TextView)convertView.findViewById(R.id.textview);
