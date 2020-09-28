@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56sp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:text="캘린더"
+            android:textSize="35sp"
+            android:textColor="#000000"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
