@@ -10,6 +10,7 @@ import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.ContactsFr
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.fragment.CalenderFragment;
 import com.aspsine.fragmentnavigator.demo.ui.fragment.DdayFragment;
+import com.aspsine.fragmentnavigator.demo.ui.fragment.EmoticonFragment;
 
 /**
  * Created by aspsine on 16/3/31.
@@ -24,16 +25,19 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
 
     @Override
     public Fragment onCreateFragment(int position) {
-        if (position == 1){
+        if(position == 0) {
+            return MainFragment.newInstance(id);
+        }
+        else if (position == 1){
             return ContactsFragment.newInstance(TABS[position]);
+        }
+        else if (position == 2) {
+            return EmoticonFragment.newInstance(TABS[position]);
         }
         else if(position == 3){
             return DdayFragment.newInstance(id);
         }
-        else if(position == 4){
-            return CalenderFragment.newInstance(TABS[position]);
-        }
-        return MainFragment.newInstance(id);
+        return CalenderFragment.newInstance(TABS[position]);
     }
 
 

@@ -36,8 +36,8 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
 
 
     // TODO: Rename and change types and number of parameters
-    public static DdayFragment newInstance(String param1) {
-        DdayFragment fragment = new DdayFragment();
+    public static EmoticonFragment newInstance(String param1) {
+        EmoticonFragment fragment = new EmoticonFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
