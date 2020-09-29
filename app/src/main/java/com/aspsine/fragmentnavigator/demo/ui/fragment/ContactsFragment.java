@@ -173,7 +173,6 @@ public class ContactsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //tvText = (TextView) view.findViewById(R.id.tvText);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
     }
 
     @Override
