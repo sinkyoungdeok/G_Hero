@@ -51,7 +51,6 @@ public class chatAdapter extends BaseAdapter {
         TextView date = (TextView)convertView.findViewById(R.id.date);
         date.setText(listviewitem.getDate());
 
-        convertView.setBackgroundResource(listviewitem.getIcon());
 
 
 

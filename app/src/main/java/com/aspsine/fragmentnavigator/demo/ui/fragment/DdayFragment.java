@@ -35,6 +35,7 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     private ImageView no_icon_gray;
     private ListView listview;
     private ArrayList<ddayListviewitem> data;
+    private ddayAdapter adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -94,7 +95,7 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
             data.add(icon8);
 
 
-            ddayAdapter adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
+            adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
             listview.setAdapter(adapter);
 
 
@@ -102,6 +103,8 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
             no_data.setVisibility(View.INVISIBLE);
             no_icon_gray.setVisibility(View.INVISIBLE);
         }
+        //listview.setAdapter(null);
+
 
 
 

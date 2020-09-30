@@ -27,6 +27,9 @@ import androidx.fragment.app.Fragment;
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
+import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
+import com.aspsine.fragmentnavigator.demo.listviewadapter.chatAdapter;
+import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.ChildFragmentAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.widget.TabLayout;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
@@ -54,8 +57,8 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     EditText contentET;
     Button btn;
     ListView listView;
-    ArrayList<String> data;
-    ArrayAdapter<String> arrayAdapter;
+    ArrayList<chatListviewitem> data;
+    chatAdapter adapter;
     /* firebase */
     public static final String TAG = ContactsFragment.class.getSimpleName();
 
@@ -101,13 +104,14 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     if(chatCnt <= get.chatCnt)
                         chatCnt = get.chatCnt + 1;
                     String result = info[2];
-                    data.add(result);
+                    chatListviewitem item = new chatListviewitem(R.mipmap.icon_pink, result, "오전 12:37" );
+                    data.add(item);
                     Log.d("getFirebaseDatabase", "key: " + key);
                     Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
                 }
-                arrayAdapter.clear();
-                arrayAdapter.addAll(data);
-                arrayAdapter.notifyDataSetChanged();
+                adapter = new chatAdapter(getContext(), R.layout.contact_item,data);
+                listView.setAdapter(adapter);
+
 
             }
 
@@ -147,7 +151,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
 
 
         /* firebase */
-        data = new ArrayList<String>();
+        data = new ArrayList<>();
         contentET = (EditText)v.findViewById(R.id.contents);
         btn = (Button)v.findViewById(R.id.send);
         listView = (ListView)v.findViewById(R.id.chatlist);
@@ -160,8 +164,8 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                 postFirebaseDatabase(true);
             }
         });
-        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
-        listView.setAdapter(arrayAdapter);
+        //arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+        //listView.setAdapter(arrayAdapter);
         ID = "1";
         name = "1";
         getFirebaseDatabase();

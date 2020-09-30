@@ -8,8 +8,6 @@
     <ListView
         android:id="@+id/chatlist"
         android:layout_width="match_parent"
-        android:divider="#DDDDDD"
-        android:dividerHeight="1dp"
         android:layout_height="367dp" />
 
     <LinearLayout
