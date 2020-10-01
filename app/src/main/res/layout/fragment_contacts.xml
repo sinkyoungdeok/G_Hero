@@ -8,27 +8,52 @@
     <ListView
         android:id="@+id/chatlist"
         android:layout_width="match_parent"
-        android:stackFromBottom="true"
-        android:layout_height="367dp" />
+        android:layout_height="572dp"
+        android:stackFromBottom="true" >
 
-    <LinearLayout
+    </ListView>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:orientation="vertical">
+        android:layout_height="55dp">
 
         <EditText
             android:id="@+id/contents"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:background="@drawable/chatborder2"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="" />
+            android:text=""
+            tools:layout_editor_absoluteX="-1dp"
+            tools:layout_editor_absoluteY="2dp" />
 
-        <Button
-            android:id="@+id/send"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:text="Button" />
+        <RelativeLayout
+            android:layout_width="66dp"
+            android:layout_height="match_parent">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/send"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
+                android:layout_centerInParent="true"
+
+                android:background="@drawable/circlebutton"
+                android:textColor="#000000"
+                android:textSize="50sp"
+                android:gravity="center"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="2dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="47dp"
+                android:layout_height="match_parent"
+                android:text="+"
+                android:textColor="#ffffff"
+                android:textSize="50sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
 </LinearLayout>
