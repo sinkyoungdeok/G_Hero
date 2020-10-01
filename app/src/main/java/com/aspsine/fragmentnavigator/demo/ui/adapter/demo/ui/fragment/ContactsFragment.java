@@ -53,7 +53,6 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     /* firebase */
     private DatabaseReference mPostReference;
     String ID, name, content;
-    long chatCnt=0;
     EditText contentET;
     Button btn;
     ListView listView;
@@ -101,8 +100,6 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
                     String[] info = {get.id, get.name, get.content, String.valueOf(get.chatCnt)};
-                    if(chatCnt <= get.chatCnt)
-                        chatCnt = get.chatCnt + 1;
                     String result = info[2];
                     chatListviewitem item = new chatListviewitem(R.mipmap.icon_pink, result, "오전 12:37" );
                     data.add(item);
@@ -129,11 +126,13 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            ChatFirebasePost post = new ChatFirebasePost(ID, name, content, chatCnt);
+            long temp = 1;
+            ChatFirebasePost post = new ChatFirebasePost(ID, name, content, temp);
             postValues = post.toMap();
         }
-        childUpdates.put("/id_list/id" + ID + "/cnt" + Long.toString(chatCnt) , postValues);
-        mPostReference.updateChildren(childUpdates);
+        //childUpdates.put("/id_list/id" + ID + "/cnt" + Long.toString(1) , postValues);
+        //mPostReference.updateChildren(childUpdates);
+        mPostReference.child("/id_list/id" + ID).push().setValue(postValues);
         clearET();
     }
     public void clearET () {
