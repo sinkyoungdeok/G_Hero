@@ -7,22 +7,23 @@ public class ChatFirebasePost {
     public String id;
     public String name;
     public String content;
-    public Long chatCnt;
+    public String date;
     public ChatFirebasePost(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
-    public ChatFirebasePost(String id, String name,String content,Long chatCnt) {
+    public ChatFirebasePost(String id, String name,String content,String date) {
         this.id = id;
         this.name = name;
         this.content = content;
-        this.chatCnt = chatCnt;
+        this.date = date;
     }
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
         result.put("name", name);
         result.put("content",content);
-        result.put("chatCnt", chatCnt);
+        result.put("date", date);
+
         return result;
     }
 }

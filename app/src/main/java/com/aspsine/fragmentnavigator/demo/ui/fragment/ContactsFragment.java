@@ -96,15 +96,6 @@ public class ContactsFragment extends Fragment {
 
                 data.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String key = postSnapshot.getKey();
-                    ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
-                    String[] info = {get.id, get.name, get.content, String.valueOf(get.chatCnt)};
-                    if(chatCnt <= get.chatCnt)
-                        chatCnt = get.chatCnt + 1;
-                    String result = info[2];
-                    data.add(result);
-                    Log.d("getFirebaseDatabase", "key: " + key);
-                    Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
                 }
                 arrayAdapter.clear();
                 arrayAdapter.addAll(data);
@@ -126,8 +117,6 @@ public class ContactsFragment extends Fragment {
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            ChatFirebasePost post = new ChatFirebasePost(ID, name, content, chatCnt);
-            postValues = post.toMap();
         }
         childUpdates.put("/id_list/id" + ID + "/cnt" + Long.toString(chatCnt) , postValues);
         mPostReference.updateChildren(childUpdates);

@@ -44,8 +44,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -136,12 +138,13 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
-                    String[] info = {get.id, get.name, get.content, String.valueOf(get.chatCnt)};
+                    String[] info = {get.id, get.name, get.content, get.date};
+
                     chatListviewitem item;
                     if(info[1].equals(name))
-                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], "오전 12:37" , true);
+                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], info[3].split("/")[1] , true);
                     else
-                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], "오전 12:37" , false);
+                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], info[3] , false);
                     data.add(item);
                     Log.d("getFirebaseDatabase", "key: " + key);
                     Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
@@ -166,8 +169,10 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            long temp = 1;
-            ChatFirebasePost post = new ChatFirebasePost(id, name, content, temp);
+            SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy.M.d/aa h:m");
+            Date time = new Date();
+            String todayStr = mFormatter.format(time).toString();
+            ChatFirebasePost post = new ChatFirebasePost(id, name, content, todayStr);
             postValues = post.toMap();
         }
         //childUpdates.put("/id_list/id" + ID + "/cnt" + Long.toString(1) , postValues);
