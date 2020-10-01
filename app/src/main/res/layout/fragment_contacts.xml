@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,6 +25,7 @@
             android:background="@drawable/chatborder2"
             android:ems="10"
             android:inputType="textPersonName"
+            android:paddingLeft="60sp"
             android:text=""
             tools:layout_editor_absoluteX="-1dp"
             tools:layout_editor_absoluteY="2dp" />
@@ -37,23 +39,23 @@
                 android:layout_width="45sp"
                 android:layout_height="45sp"
                 android:layout_centerInParent="true"
-
                 android:background="@drawable/circlebutton"
+                android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="50sp"
-                android:gravity="center"
                 tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="2dp" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="47dp"
-                android:layout_height="match_parent"
-                android:text="+"
-                android:textColor="#ffffff"
-                android:textSize="50sp" />
+                tools:layout_editor_absoluteY="5dp" />
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="67dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="#ffffff"
+            android:textSize="30sp" />
     </RelativeLayout>
 
 </LinearLayout>
