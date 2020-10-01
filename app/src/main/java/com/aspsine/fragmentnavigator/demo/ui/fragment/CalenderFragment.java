@@ -33,8 +33,10 @@ import com.aspsine.fragmentnavigator.demo.decorators.SaturdayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SundayDecorator;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
+import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.activity.AddCalenderActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.SignupActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
@@ -63,7 +65,7 @@ import java.util.concurrent.Executors;
  * Use the {@link CalenderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalenderFragment extends Fragment  implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener  {
+public class CalenderFragment extends Fragment  implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
 
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     MaterialCalendarView materialCalendarView;
@@ -79,8 +81,9 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     String ID = "1";
     Button calAdd;
     int month_day[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
-
-
+    MainActivity activity;
+    Toast toast;
+    long backKeyPressedTime;
     private DatabaseReference mPostReference;
 
 
@@ -117,6 +120,9 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
+
+        activity = (MainActivity) getActivity();
+        toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
         //calEdit = (EditText) view.findViewById(R.id.calEdit);
         //calBtn = (Button) view.findViewById(R.id.calBtn);
         //calRegistered = (EditText) view.findViewById(R.id.calRegistered);
@@ -440,6 +446,25 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
             }
         };
         mPostReference.child("/schedule/id"+ID).addValueEventListener(postListener);
+    }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast.show();
+            return;
+        }
+        if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            getActivity().finish();
+            toast.cancel();
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activity.setOnBackPressedListener(this);
     }
     /*
     public void postFirebaseDatabase(boolean add,String content, String date){
