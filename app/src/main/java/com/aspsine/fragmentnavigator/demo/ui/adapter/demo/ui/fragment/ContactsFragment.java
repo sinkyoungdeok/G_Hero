@@ -24,6 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.R;
@@ -271,7 +272,11 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             return;
         }
         if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(ContactsFragment.this).commit();
+            fragmentManager.popBackStack();
             getActivity().finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
             toast.cancel();
         }
 

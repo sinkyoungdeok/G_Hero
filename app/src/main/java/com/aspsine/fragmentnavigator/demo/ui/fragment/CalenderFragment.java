@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ import com.aspsine.fragmentnavigator.demo.ui.activity.AddCalenderActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.SignupActivity;
+import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
 import com.google.firebase.database.DataSnapshot;
@@ -455,7 +457,11 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
             return;
         }
         if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(CalenderFragment.this).commit();
+            fragmentManager.popBackStack();
             getActivity().finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
             toast.cancel();
         }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
+import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 
 /**
@@ -106,7 +108,11 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
             return;
         }
         if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(EmoticonFragment.this).commit();
+            fragmentManager.popBackStack();
             getActivity().finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
             toast.cancel();
         }
 

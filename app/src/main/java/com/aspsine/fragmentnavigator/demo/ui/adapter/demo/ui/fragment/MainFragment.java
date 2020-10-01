@@ -2,6 +2,7 @@ package com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment;
 
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,9 +17,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
@@ -211,6 +214,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     public void onBottomNavigatorViewItemClick(int position, View view) {
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
         if(System.currentTimeMillis() > backKeyPressedTime + 2000) {
@@ -219,7 +223,11 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
             return;
         }
         if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(MainFragment.this).commit();
+            fragmentManager.popBackStack();
             getActivity().finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
             toast.cancel();
         }
 
