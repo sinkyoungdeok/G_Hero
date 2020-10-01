@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
+import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 
 /**
@@ -20,7 +23,7 @@ import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
  * Use the {@link EmoticonFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EmoticonFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener  {
+public class EmoticonFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,6 +33,9 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     private String mParam1;
     private String mParam2;
 
+    MainActivity activity;
+    Toast toast;
+    long backKeyPressedTime;
     public EmoticonFragment() {
         // Required empty public constructor
     }
@@ -57,6 +63,10 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        activity = (MainActivity) getActivity();
+        toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
+
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_dday, container, false);
     }
@@ -87,5 +97,24 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     @Override
     public void onBottomNavigatorViewItemClick(int position, View view) {
 
+    }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast.show();
+            return;
+        }
+        if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            getActivity().finish();
+            toast.cancel();
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activity.setOnBackPressedListener(this);
     }
 }
