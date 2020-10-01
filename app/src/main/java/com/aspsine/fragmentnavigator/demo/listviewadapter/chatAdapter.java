@@ -46,13 +46,13 @@ public class chatAdapter extends BaseAdapter {
         TextView content2 = (TextView) convertView.findViewById(R.id.content2);
         TextView date = (TextView) convertView.findViewById(R.id.date);
         TextView date2 = (TextView) convertView.findViewById(R.id.date2);
-        if(listviewitem.getMEorYOUR()) {
+        if(listviewitem.getMEorYOUR()) { // 내가 보낸 채팅
             icon.setVisibility(View.INVISIBLE);
             content.setVisibility(View.INVISIBLE);
             content2.setText(listviewitem.getContent());
             date.setVisibility(View.INVISIBLE);
             date2.setText(listviewitem.getDate());
-        } else {
+        } else { // 상대가 보낸 채팅
             icon.setImageResource(listviewitem.getIcon());
             content.setText(listviewitem.getContent());
             content2.setVisibility(View.INVISIBLE);
