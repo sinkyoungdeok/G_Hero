@@ -61,20 +61,13 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     /* firebase */
     public static final String TAG = ContactsFragment.class.getSimpleName();
 
-    public static final String EXTRA_TEXT = "extra_text";
+    private static String id;
 
-    private static final int MOCK_LOAD_DATA_DELAYED_TIME = 2000;
-
-    private String mText;
-
-    private TextView tvText;
 
 
     public static Fragment newInstance(String text) {
         ContactsFragment fragment = new ContactsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_TEXT, text);
-        fragment.setArguments(bundle);
+        id = text;
         return fragment;
     }
 
@@ -85,8 +78,6 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mText = getArguments().getString(EXTRA_TEXT);
-
     }
     /*firebase*/
     public void getFirebaseDatabase(){
@@ -205,14 +196,6 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-
-
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(EXTRA_TEXT, mText);
     }
 
 
