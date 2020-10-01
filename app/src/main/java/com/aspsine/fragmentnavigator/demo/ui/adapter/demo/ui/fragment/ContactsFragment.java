@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -186,6 +187,8 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contacts, container, false);
         setHasOptionsMenu(true);
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
         /* firebase */

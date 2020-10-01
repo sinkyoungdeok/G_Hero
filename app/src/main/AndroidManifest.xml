@@ -51,6 +51,7 @@
 
         <activity
             android:name=".ui.activity.MainActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan"
             android:launchMode="singleTask" />
         <activity android:name=".ui.activity.ExceptionActivity" />
         <activity
