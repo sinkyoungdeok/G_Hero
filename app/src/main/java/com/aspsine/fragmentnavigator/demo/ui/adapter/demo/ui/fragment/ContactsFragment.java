@@ -169,7 +169,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
 
             }
         };
-        mPostReference.child("/id_list/id"+ID).addValueEventListener(postListener);
+        mPostReference.child("/chat_list/id"+ID).addValueEventListener(postListener);
     }
     /*firebase*/
 
@@ -184,15 +184,11 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             ChatFirebasePost post = new ChatFirebasePost(id, name, content, todayStr);
             postValues = post.toMap();
         }
-        //childUpdates.put("/id_list/id" + ID + "/cnt" + Long.toString(1) , postValues);
-        //mPostReference.updateChildren(childUpdates);
-        mPostReference.child("/id_list/id" + ID).push().setValue(postValues);
+        mPostReference.child("/chat_list/id" + ID).push().setValue(postValues);
         clearET();
     }
     public void clearET () {
         contentET.setText("");
-        //name = "";
-        //ID = "";
     }
     /*firebase*/
     @Override
