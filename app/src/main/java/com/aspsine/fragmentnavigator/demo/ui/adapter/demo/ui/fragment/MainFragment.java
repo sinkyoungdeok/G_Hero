@@ -81,6 +81,8 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        activity = (MainActivity) getActivity();
+        toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
         // Inflate the layout for this fragment
         //Toast.makeText(getActivity(),"aa",Toast.LENGTH_SHORT).show();
         View view = inflater.inflate(R.layout.fragment_main, container, false);
