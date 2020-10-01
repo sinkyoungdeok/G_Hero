@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
+import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
+import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +44,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener {
+public class MainFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
 
     public static final String TAG = MainFragment.class.getSimpleName();
 
@@ -55,6 +57,10 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     private TextView ingdayText;
 
     private DatabaseReference mPostReference;
+
+    MainActivity activity;
+    Toast toast;
+    long backKeyPressedTime;
 
     public static Fragment newInstance(String text) {
         MainFragment fragment = new MainFragment();
@@ -203,7 +209,25 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     public void onBottomNavigatorViewItemClick(int position, View view) {
 
     }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast.show();
+            return;
+        }
+        if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            getActivity().finish();
+            toast.cancel();
+        }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activity.setOnBackPressedListener(this);
+    }
 
 
 
