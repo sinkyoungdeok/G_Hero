@@ -136,7 +136,11 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
                     String[] info = {get.id, get.name, get.content, String.valueOf(get.chatCnt)};
-                    chatListviewitem item = new chatListviewitem(R.mipmap.icon_pink, info[2], "오전 12:37" );
+                    chatListviewitem item;
+                    if(info[1].equals(name))
+                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], "오전 12:37" , true);
+                    else
+                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], "오전 12:37" , false);
                     data.add(item);
                     Log.d("getFirebaseDatabase", "key: " + key);
                     Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
