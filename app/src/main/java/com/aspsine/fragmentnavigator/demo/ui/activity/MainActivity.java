@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,9 +16,11 @@ import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.Action;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.broadcast.BroadcastManager;
+import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.FragmentAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
+
 
 public class MainActivity extends AppCompatActivity implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener {
 
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
     private MenuItem mAddMenu;
 
     private String id;
+    OnBackPressedListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,4 +168,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
             }
         }
     };
+    public void setOnBackPressedListener(OnBackPressedListener listener) {
+        this.listener = listener;
+    }
+    @Override
+    public void onBackPressed() {
+        if(listener != null) {
+            listener.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

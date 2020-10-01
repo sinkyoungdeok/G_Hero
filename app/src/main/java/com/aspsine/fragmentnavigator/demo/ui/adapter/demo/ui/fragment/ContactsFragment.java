@@ -30,8 +30,10 @@ import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
+import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.chatAdapter;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
+import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.ChildFragmentAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.widget.TabLayout;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
@@ -56,7 +58,10 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactsFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener {
+
+
+
+public class ContactsFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
     /* firebase */
     private DatabaseReference mPostReference;
     String ID, name, content;
@@ -65,6 +70,9 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     ListView listView;
     ArrayList<chatListviewitem> data;
     chatAdapter adapter;
+    Toast toast;
+    MainActivity activity;
+    long backKeyPressedTime;
     /* firebase */
     public static final String TAG = ContactsFragment.class.getSimpleName();
 
@@ -193,8 +201,10 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         View v = inflater.inflate(R.layout.fragment_contacts, container, false);
         setHasOptionsMenu(true);
 
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        activity = (MainActivity) getActivity();
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
         /* firebase */
         data = new ArrayList<>();
@@ -251,6 +261,26 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast.show();
+            return;
+        }
+        if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            getActivity().finish();
+            toast.cancel();
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activity.setOnBackPressedListener(this);
     }
 
 
