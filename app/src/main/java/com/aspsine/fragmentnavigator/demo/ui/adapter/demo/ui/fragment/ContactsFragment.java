@@ -193,6 +193,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         contentET = (EditText)v.findViewById(R.id.contents);
         btn = (Button)v.findViewById(R.id.send);
         listView = (ListView)v.findViewById(R.id.chatlist);
+        listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL); // 새로 아이템 추가시 자동 스크롤이 이동되게 ==> 이미 잘되긴하는데 혹시몰라서 추가함
         mPostReference = FirebaseDatabase.getInstance().getReference();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
