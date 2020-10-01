@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
+import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.chatAdapter;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
@@ -38,10 +39,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,6 +84,47 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         super.onCreate(savedInstanceState);
     }
     /*firebase*/
+    public void getUserFirebaseDatabase() {
+        Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(id);
+        myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
+                    name = user.name;
+                    if(user.firstEnrolled.equals("T")) {
+                        ID = user.id.replace(".","");
+                        getFirebaseDatabase();
+                        return;
+                    } else {
+                        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
+                        yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
+                                    ID = yourUser.id.replace(".","");
+                                    getFirebaseDatabase();
+                                    return;
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     public void getFirebaseDatabase(){
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -91,8 +136,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
                     String[] info = {get.id, get.name, get.content, String.valueOf(get.chatCnt)};
-                    String result = info[2];
-                    chatListviewitem item = new chatListviewitem(R.mipmap.icon_pink, result, "오전 12:37" );
+                    chatListviewitem item = new chatListviewitem(R.mipmap.icon_pink, info[2], "오전 12:37" );
                     data.add(item);
                     Log.d("getFirebaseDatabase", "key: " + key);
                     Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
@@ -118,7 +162,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         Map<String, Object> postValues = null;
         if(add){
             long temp = 1;
-            ChatFirebasePost post = new ChatFirebasePost(ID, name, content, temp);
+            ChatFirebasePost post = new ChatFirebasePost(id, name, content, temp);
             postValues = post.toMap();
         }
         //childUpdates.put("/id_list/id" + ID + "/cnt" + Long.toString(1) , postValues);
@@ -156,9 +200,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         });
         //arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
         //listView.setAdapter(arrayAdapter);
-        ID = "1";
-        name = "1";
-        getFirebaseDatabase();
+        getUserFirebaseDatabase();
         /* firebase */
 
         return v;
