@@ -13,10 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.item.ddayListviewitem;
+import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
+import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ import java.util.ArrayList;
  * Use the {@link DdayFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener{
+public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,6 +39,10 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     private ListView listview;
     private ArrayList<ddayListviewitem> data;
     private ddayAdapter adapter;
+
+    MainActivity activity;
+    Toast toast;
+    long backKeyPressedTime;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -74,6 +81,9 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         no_icon_gray = (ImageView) view.findViewById(R.id.no_icon_gray);
         listview = (ListView) view.findViewById(R.id.ddaylist);
         data = new ArrayList<>();
+
+        activity = (MainActivity) getActivity();
+        toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
         if(true) {
             ddayListviewitem icon = new ddayListviewitem(R.mipmap.dday_1, "D - 97", "200일 기념일");
@@ -138,4 +148,24 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     public void onBottomNavigatorViewItemClick(int position, View view) {
 
     }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            toast.show();
+            return;
+        }
+        if(System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            getActivity().finish();
+            toast.cancel();
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activity.setOnBackPressedListener(this);
+    }
+
 }
