@@ -28,6 +28,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SendNotification;
 import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
@@ -79,6 +80,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     MainActivity activity;
     long backKeyPressedTime;
     /* firebase */
+    String FCMToken;
     public static final String TAG = ContactsFragment.class.getSimpleName();
 
     private static String id;
@@ -111,6 +113,22 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     if(user.firstEnrolled.equals("T")) {
                         ID = user.id.replace(".","");
                         getFirebaseDatabase();
+                        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
+                        yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                    UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
+                                    FCMToken = yourUser.FCMToken;
+                                    return;
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
                         return;
                     } else {
                         Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
@@ -119,6 +137,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                     UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
+                                    FCMToken = yourUser.FCMToken;
                                     ID = yourUser.id.replace(".","");
                                     getFirebaseDatabase();
                                     return;
@@ -188,6 +207,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             ChatFirebasePost post = new ChatFirebasePost(id, name, content, todayStr);
             postValues = post.toMap();
         }
+        SendNotification.sendNotification(FCMToken,name,content);
         mPostReference.child("/chat_list/id" + ID).push().setValue(postValues);
         clearET();
     }
@@ -201,7 +221,6 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contacts, container, false);
         setHasOptionsMenu(true);
-        //sendPushTokenToDB();
 
         activity = (MainActivity) getActivity();
 
