@@ -19,14 +19,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_gravity="center"
                 android:layout_marginTop="30sp"
                 android:id="@+id/myImg"
-                android:layout_width="93sp"
-                android:layout_height="84sp"
-                android:background="@drawable/img_round"
-                android:src="@mipmap/icon_pink" />
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:scaleType="centerCrop"
+                android:background="@mipmap/icon_pink" />
 
             <TextView
                 android:id="@+id/myName"
@@ -80,14 +80,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_gravity="center"
                 android:layout_marginTop="30sp"
                 android:id="@+id/yourImg"
-                android:layout_width="93sp"
-                android:layout_height="84sp"
-                android:background="@drawable/img_round"
-                android:src="@mipmap/icon_pink" />
+                android:layout_width="80sp"
+                android:layout_height="80sp"
+                android:scaleType="centerCrop"
+                android:background="@mipmap/icon_pink" />
 
             <TextView
                 android:id="@+id/yourName"
