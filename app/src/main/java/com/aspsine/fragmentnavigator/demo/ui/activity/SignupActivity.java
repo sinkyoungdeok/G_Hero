@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,12 +43,22 @@ public class SignupActivity extends AppCompatActivity {
     Map<String, String> mCode = new HashMap<>();
     Random random = new Random();
     String randCode = "";
-
+    String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if(!task.isSuccessful()) {
+                            return;
+                        }
+                        token = task.getResult().getToken();
+                    }
+                });
         et_email = (EditText) findViewById(R.id.et_email);
         et_passwd = (EditText) findViewById(R.id.et_password);
         signup_button = (Button) findViewById(R.id.signup_button);
@@ -80,7 +92,7 @@ public class SignupActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if(task.isSuccessful()) {
-                                    postFirebaseDatabase(true,email);
+                                    postFirebaseDatabase(true,email,token);
                                     Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -98,11 +110,11 @@ public class SignupActivity extends AppCompatActivity {
 
 
     }
-    public void postFirebaseDatabase(boolean add,String email){
+    public void postFirebaseDatabase(boolean add,String email,String token){
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;
         if(add){
-            UserFirebasePost post = new UserFirebasePost(email,"","","","","",randCode,"","","");
+            UserFirebasePost post = new UserFirebasePost(email,"","","","","",randCode,token,"","");
             //System.out.println(post.id +","+ post.name+","+ post.birthday +","+ post.firstDay +","+ post.profileUrl +","+post.code +","+post.phoneNumber +","+post.firstEnrolled);
             postValues = post.toMap();
         }

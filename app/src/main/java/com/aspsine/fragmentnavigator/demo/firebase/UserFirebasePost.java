@@ -11,14 +11,14 @@ public class UserFirebasePost {
     public String firstDay;
     public String profileUrl;
     public String code;
-    public String phoneNumber;
+    public String FCMToken;
     public String firstEnrolled;
     public String gender;
 
     public UserFirebasePost(){
 
     }
-    public UserFirebasePost(String id, String otherHalf,String name, String birthday, String firstDay,String profileUrl, String code, String phoneNumber, String firstEnrolled,String gender){
+    public UserFirebasePost(String id, String otherHalf,String name, String birthday, String firstDay,String profileUrl, String code, String FCMToken, String firstEnrolled,String gender){
         this.id = id;
         this.otherHalf = otherHalf;
         this.name = name;
@@ -26,7 +26,7 @@ public class UserFirebasePost {
         this.firstDay = firstDay;
         this.profileUrl = profileUrl;
         this.code = code;
-        this.phoneNumber = phoneNumber;
+        this.FCMToken = FCMToken;
         this.firstEnrolled = firstEnrolled;
         this.gender = gender;
     }
@@ -39,7 +39,7 @@ public class UserFirebasePost {
         result.put("firstDay",firstDay);
         result.put("profileUrl",profileUrl);
         result.put("code",code);
-        result.put("phoneNumber",phoneNumber);
+        result.put("FCMToken",FCMToken);
         result.put("firstEnrolled",firstEnrolled);
         result.put("gender",gender);
         return result;
