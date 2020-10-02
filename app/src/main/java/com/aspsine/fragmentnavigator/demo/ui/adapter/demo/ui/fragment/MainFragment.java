@@ -60,8 +60,6 @@ import java.util.Map;
 public class MainFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
 
     public static final String TAG = MainFragment.class.getSimpleName();
-
-    public static final String EXTRA_TEXT = "extra_text";
     private static String ID;
 
     private TextView myNameText;
@@ -193,6 +191,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
+                    yourID = user.otherHalf;
                     myNameText.setText(user.name);
                     Calendar cal = Calendar.getInstance( );
                     String split_data[] = user.firstDay.split(",");
@@ -212,7 +211,6 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                                 UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
-                                yourID = yourUser.id;
                                 yourNameText.setText(yourUser.name);
 
                             }
