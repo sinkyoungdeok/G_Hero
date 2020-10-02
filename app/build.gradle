@@ -55,5 +55,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'com.ssomai:android.scalablelayout:2.1.6'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
 }
 apply plugin: 'com.google.gms.google-services'
