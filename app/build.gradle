@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.aspsine.fragmentnavigator.demo"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 4
         versionName "4.0"
@@ -56,7 +56,7 @@ dependencies {
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     implementation 'com.ssomai:android.scalablelayout:2.1.6'
 
-    implementation 'com.squareup.okhttp3:okhttp:3.14.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     implementation 'com.google.firebase:firebase-messaging:20.1.2'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -39,12 +39,16 @@ import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.ChildFragme
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.widget.TabLayout;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -197,6 +201,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contacts, container, false);
         setHasOptionsMenu(true);
+        //sendPushTokenToDB();
 
         activity = (MainActivity) getActivity();
 

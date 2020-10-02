@@ -20,4 +20,7 @@
 
     <string name="kakao_app_key">0b209dafb72522b1463e1dd64f27c397</string>
 
+
+    <string name="default_notification_channel_id">Channel ID</string>
+
 </resources>
