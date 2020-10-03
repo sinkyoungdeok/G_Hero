@@ -33,6 +33,7 @@ import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,10 +81,14 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     private StorageReference storageReference, yourstorageReference;
     private StorageReference pathReference, yourpathReference;
     /* profile */
+    private static UserFirebasePost myUser;
+    private static UserFirebasePost yourUser;
 
-    public static Fragment newInstance(String text) {
+    public static Fragment newInstance(String text,UserFirebasePost myuser, UserFirebasePost youruser) {
         MainFragment fragment = new MainFragment();
         ID = text;
+        myUser = myuser;
+        yourUser = youruser;
         return fragment;
     }
 
@@ -113,32 +118,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         ingdayText = (TextView) view.findViewById(R.id.ingday);
         myImg = (ImageView) view.findViewById(R.id.myImg);
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
-
-
-
-        /* 커스텀 액션바 */
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
-        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
-        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
-        actionBar.setDisplayHomeAsUpEnabled(false);
-
-        View actionbar = inflater.inflate(R.layout.main_actionbar, null);
-        actionBar.setCustomView(actionbar);
-        /* 커스텀 액션바 */
-
-        getUserFirebaseDatabase(ID);
-
-        SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy년 M월 d일 ");
-        Date time = new Date();
-        String todayStr = mFormatter.format(time).toString();
-        Calendar oCalendar = Calendar.getInstance( );
-        final String[] week = { "일", "월", "화", "수", "목", "금", "토" };
-
-        todayStr += week[oCalendar.get(Calendar.DAY_OF_WEEK) - 1] + "요일";
-        todayText.setText(todayStr);
-
+        yourNameText.setText(yourUser.name);
 
         /*profile*/
         storage = FirebaseStorage.getInstance();
@@ -155,10 +135,9 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 }
             }
         });
-        /*
         yourstorage = FirebaseStorage.getInstance();
         yourstorageReference = yourstorage.getReferenceFromUrl("gs://g-hero.appspot.com");
-        yourpathReference = yourstorageReference.child("images/" + yourID+ "Profile.png");
+        yourpathReference = yourstorageReference.child("images/" + yourUser.id+ "Profile.png");
         yourpathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
@@ -170,8 +149,42 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 }
             }
         });
-        */
         /*profile*/
+
+        /* 커스텀 액션바 */
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+        View actionbar = inflater.inflate(R.layout.main_actionbar, null);
+        actionBar.setCustomView(actionbar);
+        /* 커스텀 액션바 */
+
+        myNameText.setText(myUser.name);
+        Calendar cal = Calendar.getInstance( );
+        String split_data[] = myUser.firstDay.split(",");
+        int year = Integer.parseInt(split_data[0]);
+        int month = Integer.parseInt(split_data[1]);
+        int day = Integer.parseInt(split_data[2]);
+        Calendar cal2 = new GregorianCalendar(year, month-1, day);
+        long diffSec = (cal.getTimeInMillis() - cal2.getTimeInMillis())/1000;
+        long diffDays = diffSec / (24*60*60);
+        ingdayText.setText( Long.toString(diffDays+1) + "일째");
+
+        SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy년 M월 d일 ");
+        Date time = new Date();
+        String todayStr = mFormatter.format(time).toString();
+        Calendar oCalendar = Calendar.getInstance( );
+        final String[] week = { "일", "월", "화", "수", "목", "금", "토" };
+
+        todayStr += week[oCalendar.get(Calendar.DAY_OF_WEEK) - 1] + "요일";
+        todayText.setText(todayStr);
+
+
+
 
 
         return view;
@@ -183,80 +196,6 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     }
 
 
-
-
-    public void getUserFirebaseDatabase(String UserId){
-        Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(UserId);
-        myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
-                    yourID = user.otherHalf;
-
-                    yourstorage = FirebaseStorage.getInstance();
-                    yourstorageReference = yourstorage.getReferenceFromUrl("gs://g-hero.appspot.com");
-                    yourpathReference = yourstorageReference.child("images/" + yourID+ "Profile.png");
-                    yourpathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if(task.isSuccessful()) {
-                                Glide.with(getContext())
-                                        .load(task.getResult())
-                                        .into(yourImg);
-                                yourImg.setBackgroundResource(0);
-                            }
-                        }
-                    });
-
-                    myNameText.setText(user.name);
-                    Calendar cal = Calendar.getInstance( );
-                    String split_data[] = user.firstDay.split(",");
-                    int year = Integer.parseInt(split_data[0]);
-                    int month = Integer.parseInt(split_data[1]);
-                    int day = Integer.parseInt(split_data[2]);
-                    Calendar cal2 = new GregorianCalendar(year, month-1, day);
-                    long diffSec = (cal.getTimeInMillis() - cal2.getTimeInMillis())/1000;
-                    long diffDays = diffSec / (24*60*60);
-                    ingdayText.setText( Long.toString(diffDays+1) + "일째");
-
-
-
-                    Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
-                    yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                                UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
-                                yourNameText.setText(yourUser.name);
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
-
-
-
-
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);

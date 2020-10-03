@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.aspsine.fragmentnavigator.FragmentNavigatorAdapter;
+import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.ContactsFragment;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.fragment.CalenderFragment;
@@ -19,14 +20,18 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
 
     private static final String TABS[] = {"Home", "Chats", "Emoticon", "Dday", "Calendar"};
     private String id;
-    public FragmentAdapter(String id) {
+    private UserFirebasePost myUser;
+    private UserFirebasePost yourUser;
+    public FragmentAdapter(String id, UserFirebasePost myUser, UserFirebasePost yourUser) {
         this.id = id;
+        this.myUser = myUser;
+        this.yourUser = yourUser;
     }
 
     @Override
     public Fragment onCreateFragment(int position) {
         if(position == 0) {
-            return MainFragment.newInstance(id);
+            return MainFragment.newInstance(id,myUser, yourUser);
         }
         else if (position == 1){
             return ContactsFragment.newInstance(id);

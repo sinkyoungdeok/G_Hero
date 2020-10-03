@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
 
-        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id), R.id.container);
-        mNavigator.setDefaultPosition(DEFAULT_POSITION);
-        mNavigator.onCreate(savedInstanceState);
 
         bottomNavigatorView = (BottomNavigatorView) findViewById(R.id.bottomNavigatorView);
         if (bottomNavigatorView != null) {

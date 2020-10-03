@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -16,10 +18,17 @@ import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.Action;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.broadcast.BroadcastManager;
+import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.FragmentAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener {
@@ -37,25 +46,69 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
     private MenuItem mAddMenu;
 
     private String id;
+
+    private UserFirebasePost myUser = null;
+
+    private UserFirebasePost yourUser = null;
+
+    private DatabaseReference mPostReference;
+
     OnBackPressedListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mPostReference = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
+        Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(id);
+        myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    myUser = postSnapshot.getValue(UserFirebasePost.class);
+                    if(yourUser != null) {
+                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id,myUser,yourUser), R.id.container);
+                        mNavigator.setDefaultPosition(DEFAULT_POSITION);
+                        mNavigator.onCreate(savedInstanceState);
+                        setCurrentTab(mNavigator.getCurrentPosition());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("otherHalf").equalTo(id);
+        yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    yourUser = postSnapshot.getValue(UserFirebasePost.class);
+                    if(myUser != null) {
+                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id,myUser,yourUser), R.id.container);
+                        mNavigator.setDefaultPosition(DEFAULT_POSITION);
+                        mNavigator.onCreate(savedInstanceState);
+                        setCurrentTab(mNavigator.getCurrentPosition());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id), R.id.container);
-        mNavigator.setDefaultPosition(DEFAULT_POSITION);
-        mNavigator.onCreate(savedInstanceState);
+            }
+        });
+
+        //mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id), R.id.container);
+        //mNavigator.setDefaultPosition(DEFAULT_POSITION);
+        //mNavigator.onCreate(savedInstanceState);
 
         bottomNavigatorView = (BottomNavigatorView) findViewById(R.id.bottomNavigatorView);
         if (bottomNavigatorView != null) {
             bottomNavigatorView.setOnBottomNavigatorViewItemClickListener(this);
         }
 
-        setCurrentTab(mNavigator.getCurrentPosition());
+        //setCurrentTab(mNavigator.getCurrentPosition());
 
         BroadcastManager.register(this, mLoginStatusChangeReceiver, Action.LOGIN, Action.LOGOUT);
     }
