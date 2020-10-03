@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.os.Build;
@@ -46,7 +47,7 @@ public class AddCalenderActivity extends AppCompatActivity {
     private Switch oneDaySwitch, dDaySwitch;
     private boolean oneDayCheck, dDayCheck;
     private DatabaseReference mPostReference;
-    private String ID = "1";
+    private String ID;
     private String startDate, startTime, endDate, endTime;
     private EditText titleEdit;
 
@@ -126,6 +127,9 @@ public class AddCalenderActivity extends AppCompatActivity {
         cancel = (TextView)findViewById(R.id.cancel);
         add = (TextView)findViewById(R.id.add);
         title = (TextView)findViewById(R.id.title);
+        Intent intent = getIntent();
+        ID = intent.getExtras().getString("id").replace(".","");
+        System.out.println(ID+"test1");
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override

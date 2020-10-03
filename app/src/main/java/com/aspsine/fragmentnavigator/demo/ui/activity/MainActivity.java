@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
 
     private MenuItem mAddMenu;
 
-    private String id;
+    private String ID;
 
     private UserFirebasePost myUser = null;
 
@@ -60,15 +60,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         setContentView(R.layout.activity_main);
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
-        id = intent.getExtras().getString("id");
-        Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(id);
+        ID = intent.getExtras().getString("id");
+        Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(ID);
         myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     myUser = postSnapshot.getValue(UserFirebasePost.class);
                     if(yourUser != null) {
-                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id,myUser,yourUser), R.id.container);
+                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID,myUser,yourUser), R.id.container);
                         mNavigator.setDefaultPosition(DEFAULT_POSITION);
                         mNavigator.onCreate(savedInstanceState);
                         setCurrentTab(mNavigator.getCurrentPosition());
@@ -79,14 +79,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("otherHalf").equalTo(id);
+        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("otherHalf").equalTo(ID);
         yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     yourUser = postSnapshot.getValue(UserFirebasePost.class);
                     if(myUser != null) {
-                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id,myUser,yourUser), R.id.container);
+                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID,myUser,yourUser), R.id.container);
                         mNavigator.setDefaultPosition(DEFAULT_POSITION);
                         mNavigator.onCreate(savedInstanceState);
                         setCurrentTab(mNavigator.getCurrentPosition());
@@ -144,7 +144,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
                 logout();
                 return true;
             case R.id.action_add:
-                startActivity(new Intent(this, AddCalenderActivity.class));
+                Intent intent = new Intent(this, AddCalenderActivity.class);
+                intent.putExtra("id",ID);
+                startActivity(intent);
                 return true;
 
         }
