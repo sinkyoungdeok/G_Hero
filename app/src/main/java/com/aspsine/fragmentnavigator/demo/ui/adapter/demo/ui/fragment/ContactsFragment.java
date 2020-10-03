@@ -99,9 +99,9 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
 
                     chatListviewitem item;
                     if(info[1].equals(myUser.name))
-                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], info[3].split("/")[1] , true);
+                        item = new chatListviewitem("images/"+info[0]+"Profile.png", info[2], info[3].split("/")[1] , true);
                     else
-                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], info[3].split("/")[1] , false);
+                        item = new chatListviewitem("images/"+info[0]+"Profile.png", info[2], info[3].split("/")[1] , false);
                     data.add(item);
                     Log.d("getFirebaseDatabase", "key: " + key);
                     Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
