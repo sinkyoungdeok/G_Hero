@@ -42,7 +42,7 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
         else if(position == 3){
             return DdayFragment.newInstance(id);
         }
-        return CalenderFragment.newInstance(id);
+        return CalenderFragment.newInstance(myUser, yourUser);
     }
 
 

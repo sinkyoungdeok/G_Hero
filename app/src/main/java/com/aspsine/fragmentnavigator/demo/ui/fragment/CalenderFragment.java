@@ -29,6 +29,7 @@ import com.aspsine.fragmentnavigator.demo.decorators.OneDayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SaturdayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SundayDecorator;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
+import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
@@ -72,6 +73,8 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     MainActivity activity;
     Toast toast;
     long backKeyPressedTime;
+
+    private static UserFirebasePost myUser, yourUser;
     private DatabaseReference mPostReference;
 
 
@@ -79,19 +82,10 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment CalenderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CalenderFragment newInstance(String param1) {
+    public static CalenderFragment newInstance(UserFirebasePost myuser, UserFirebasePost youruser) {
         CalenderFragment fragment = new CalenderFragment();
-        Bundle bundle = new Bundle();
-
-        fragment.setArguments(bundle);
+        myUser = myuser;
+        yourUser = youruser;
         return fragment;
     }
 
@@ -145,6 +139,11 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
         result[0] = "2020,08,10";
         result_len = 1;
+        if(myUser.firstEnrolled.equals("T")) {
+            ID = myUser.id.replace(".", "");
+        } else {
+            ID = yourUser.id.replace(".","");
+        }
         getFirebaseDatabase();
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
