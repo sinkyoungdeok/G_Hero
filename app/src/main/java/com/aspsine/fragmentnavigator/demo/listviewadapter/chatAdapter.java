@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
-import com.aspsine.fragmentnavigator.demo.item.ddayListviewitem;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,9 +26,9 @@ public class chatAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<chatListviewitem> data;
     private int layout;
-    private FirebaseStorage storage, yourstorage;
-    private StorageReference storageReference, yourstorageReference;
-    private StorageReference pathReference, yourpathReference;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private StorageReference pathReference;
 
     public chatAdapter(Context context, int layout, ArrayList<chatListviewitem> data) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,7 +78,6 @@ public class chatAdapter extends BaseAdapter {
                     }
                 }
             });
-            //icon.setImageResource(listviewitem.getIcon());
             content.setText(listviewitem.getContent());
             content2.setVisibility(View.INVISIBLE);
             date.setText(listviewitem.getDate());
