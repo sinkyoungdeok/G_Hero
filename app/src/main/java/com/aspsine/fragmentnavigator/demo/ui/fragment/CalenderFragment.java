@@ -1,7 +1,6 @@
 package com.aspsine.fragmentnavigator.demo.ui.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,15 +16,12 @@ import androidx.fragment.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.decorators.EventDecorator;
@@ -33,15 +29,9 @@ import com.aspsine.fragmentnavigator.demo.decorators.OneDayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SaturdayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SundayDecorator;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
-import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
-import com.aspsine.fragmentnavigator.demo.ui.activity.AddCalenderActivity;
-import com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
-import com.aspsine.fragmentnavigator.demo.ui.activity.SignupActivity;
-import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
-import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,12 +43,10 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
@@ -71,8 +59,6 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     MaterialCalendarView materialCalendarView;
-    //EditText calEdit,calRegistered;
-    //Button calBtn;
     ListView calList;
     ArrayList<String> data;
     ArrayAdapter<String> arrayAdapter;
@@ -120,41 +106,17 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
 
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
-        //calEdit = (EditText) view.findViewById(R.id.calEdit);
-        //calBtn = (Button) view.findViewById(R.id.calBtn);
-        //calRegistered = (EditText) view.findViewById(R.id.calRegistered);
-        //calRegistered.setFocusable(false);
-        //calRegistered.setClickable(false);
-        /*
-
-        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
-        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
-        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
-        actionBar.setDisplayHomeAsUpEnabled(false);
-
-
-
-        View actionbar = inflater.inflate(R.layout.custom_actionbar, null);
-        actionBar.setCustomView(actionbar);
-        */
-
         setHasOptionsMenu(true);
-
         getActivity().setTitle("캘린더");
         data = new ArrayList<String>();
         arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
         calList =  (ListView)view.findViewById(R.id.calList);
         calList.setAdapter(arrayAdapter);
-
         mPostReference = FirebaseDatabase.getInstance().getReference();
-
         materialCalendarView = (MaterialCalendarView)view.findViewById(R.id.calendarView);
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -185,24 +147,6 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         result_len = 1;
         getFirebaseDatabase();
 
-
-        /*
-        calBtn.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-                  result[result_len-1] = clickCal;
-                  result[result_len] = "2020,08,15"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
-                  result_len += 1;
-                  mCal.put(clickCal,calEdit.getText().toString());
-                  new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
-                  calRegistered.setText(calEdit.getText().toString());
-
-                  postFirebaseDatabase(true,calEdit.getText().toString(),clickCal);
-              }
-          });
-
-         */
-
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
@@ -211,23 +155,10 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                 int Month = date.getMonth() + 1;
                 int Day = date.getDay();
 
-                //Log.i("Year test", Year + "");
-                //Log.i("Month test", Month + "");
-                //Log.i("Day test", Day + "");
-
                 String shot_Day = Year + "," + Month + "," + Day;
 
-                //Log.i("shot_Day test", shot_Day + "");
                 materialCalendarView.clearSelection();
-                //calEdit.setHint(shot_Day+ " 일정");
-                //calEdit.setText("");
                 clickCal = shot_Day;
-                /*
-                if(mCal.containsKey(shot_Day))
-                    calRegistered.setText(mCal.get(shot_Day));
-                else
-                    calRegistered.setText("일정없음");
-                */
                 if(mCal.containsKey(shot_Day))
                 {
                     data.clear();
@@ -472,18 +403,5 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         super.onResume();
         activity.setOnBackPressedListener(this);
     }
-    /*
-    public void postFirebaseDatabase(boolean add,String content, String date){
-        Map<String, Object> childUpdates = new HashMap<>();
-        Map<String, Object> postValues = null;
-        if(add){
-            CalFirebasePost post = new CalFirebasePost(content,date);
-            postValues = post.toMap();
-        }
-        childUpdates.put("/schedule/id" + ID + "/"+ date , postValues);
-        mPostReference.updateChildren(childUpdates);
-    }
-
-     */
 
 }
