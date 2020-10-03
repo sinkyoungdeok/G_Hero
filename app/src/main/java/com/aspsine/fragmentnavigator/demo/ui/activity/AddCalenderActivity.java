@@ -5,20 +5,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.AdaptiveIconDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
@@ -26,19 +21,16 @@ import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.utilities.Utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
 
 
 public class AddCalenderActivity extends AppCompatActivity {
     TextView cancel, add,title;
 
-    //private SimpleDateFormat mFormatter = new SimpleDateFormat("MMMM dd yyyy hh:mm aa");
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy. M. d.  aa h:m");
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy,M,d");
     private SimpleDateFormat timeFormat =  new SimpleDateFormat("h:m");
@@ -56,14 +48,11 @@ public class AddCalenderActivity extends AppCompatActivity {
         @Override
         public void onDateTimeSet(Date date)
         {
-            //Toast.makeText(AddCalenderActivity.this,
-                    //mFormatter.format(date), Toast.LENGTH_SHORT).show();
             startShow.setText(mFormatter.format(date));
             startDate = dateFormat.format(date).toString();
             startTime = timeFormat.format(date).toString();
         }
 
-        // Optional cancel listener
         @Override
         public void onDateTimeCancel()
         {
@@ -77,14 +66,11 @@ public class AddCalenderActivity extends AppCompatActivity {
         @Override
         public void onDateTimeSet(Date date)
         {
-            //Toast.makeText(AddCalenderActivity.this,
-            //mFormatter.format(date), Toast.LENGTH_SHORT).show();
             endShow.setText(mFormatter.format(date));
             endDate = dateFormat.format(date).toString();
             endTime = timeFormat.format(date).toString();
         }
 
-        // Optional cancel listener
         @Override
         public void onDateTimeCancel()
         {
@@ -184,10 +170,8 @@ public class AddCalenderActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     oneDayCheck = true;
-                    //Toast.makeText(AddCalenderActivity.this, "on", Toast.LENGTH_SHORT).show();
                 } else {
                     oneDayCheck = false;
-                    //Toast.makeText(AddCalenderActivity.this, "off", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -197,11 +181,8 @@ public class AddCalenderActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
                     dDayCheck = true;
-                    //Toast.makeText(AddCalenderActivity.this, "on", Toast.LENGTH_SHORT).show();
                 } else {
                     dDayCheck = false;
-                    //Toast.makeText(AddCalenderActivity.this, "off", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
