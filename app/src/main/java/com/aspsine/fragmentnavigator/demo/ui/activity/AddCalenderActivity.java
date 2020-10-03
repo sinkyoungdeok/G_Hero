@@ -129,7 +129,6 @@ public class AddCalenderActivity extends AppCompatActivity {
         title = (TextView)findViewById(R.id.title);
         Intent intent = getIntent();
         ID = intent.getExtras().getString("id").replace(".","");
-        System.out.println(ID+"test1");
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
