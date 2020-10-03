@@ -31,7 +31,7 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
     @Override
     public Fragment onCreateFragment(int position) {
         if(position == 0) {
-            return MainFragment.newInstance(id,myUser, yourUser);
+            return MainFragment.newInstance(myUser, yourUser);
         }
         else if (position == 1){
             return ContactsFragment.newInstance(id);

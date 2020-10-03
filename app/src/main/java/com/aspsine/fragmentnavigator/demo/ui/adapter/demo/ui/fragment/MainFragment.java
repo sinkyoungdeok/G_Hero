@@ -5,15 +5,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +18,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -30,30 +25,19 @@ import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
-import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.bumptech.glide.Glide;
-import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,20 +45,14 @@ import java.util.Map;
 public class MainFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
 
     public static final String TAG = MainFragment.class.getSimpleName();
-    private static String ID;
-
     private TextView myNameText;
     private TextView yourNameText;
     private TextView todayText;
     private TextView ingdayText;
-
     private DatabaseReference mPostReference;
-
     MainActivity activity;
     Toast toast;
     long backKeyPressedTime;
-    private String yourID;
-
     /* profile */
     private ImageView myImg, yourImg;
     private FirebaseStorage storage, yourstorage;
@@ -84,9 +62,8 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     private static UserFirebasePost myUser;
     private static UserFirebasePost yourUser;
 
-    public static Fragment newInstance(String text,UserFirebasePost myuser, UserFirebasePost youruser) {
+    public static Fragment newInstance(UserFirebasePost myuser, UserFirebasePost youruser) {
         MainFragment fragment = new MainFragment();
-        ID = text;
         myUser = myuser;
         yourUser = youruser;
         return fragment;
@@ -123,7 +100,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         /*profile*/
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReferenceFromUrl("gs://g-hero.appspot.com");
-        pathReference = storageReference.child("images/" + ID+ "Profile.png");
+        pathReference = storageReference.child("images/" + myUser.id+ "Profile.png");
         pathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {

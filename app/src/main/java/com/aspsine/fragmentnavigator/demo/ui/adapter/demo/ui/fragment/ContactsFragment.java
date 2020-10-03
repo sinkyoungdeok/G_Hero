@@ -227,7 +227,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
-        /* firebase */
+
         data = new ArrayList<>();
         contentET = (EditText)v.findViewById(R.id.contents);
         btn = (Button)v.findViewById(R.id.send);
@@ -242,10 +242,10 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                 postFirebaseDatabase(true);
             }
         });
-        //arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
-        //listView.setAdapter(arrayAdapter);
+
+
         getUserFirebaseDatabase();
-        /* firebase */
+
 
         return v;
     }
