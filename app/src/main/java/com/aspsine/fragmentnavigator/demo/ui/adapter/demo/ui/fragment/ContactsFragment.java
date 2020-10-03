@@ -3,20 +3,15 @@ package com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.SendNotification;
 import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
@@ -34,29 +28,17 @@ import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.chatAdapter;
-import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
-import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.ChildFragmentAdapter;
-import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.widget.TabLayout;
-import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.utils.SharedPrefUtils;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,7 +52,7 @@ import java.util.Map;
 public class ContactsFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
     /* firebase */
     private DatabaseReference mPostReference;
-    String ID, name, content;
+    String content,ID;
     EditText contentET;
     Button btn;
     ListView listView;
@@ -85,11 +67,12 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
 
     private static String id;
 
+    private static UserFirebasePost myUser, yourUser;
 
-
-    public static Fragment newInstance(String text) {
+    public static Fragment newInstance(UserFirebasePost myuser, UserFirebasePost youruser) {
         ContactsFragment fragment = new ContactsFragment();
-        id = text;
+        myUser = myuser;
+        yourUser = youruser;
         return fragment;
     }
 
@@ -102,64 +85,6 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         super.onCreate(savedInstanceState);
     }
     /*firebase*/
-    public void getUserFirebaseDatabase() {
-        Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(id);
-        myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
-                    name = user.name;
-                    if(user.firstEnrolled.equals("T")) {
-                        ID = user.id.replace(".","");
-                        getFirebaseDatabase();
-                        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
-                        yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
-                                    FCMToken = yourUser.FCMToken;
-                                    return;
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                        return;
-                    } else {
-                        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(user.otherHalf);
-                        yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                    UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
-                                    FCMToken = yourUser.FCMToken;
-                                    ID = yourUser.id.replace(".","");
-                                    getFirebaseDatabase();
-                                    return;
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
     public void getFirebaseDatabase(){
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -173,10 +98,10 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     String[] info = {get.id, get.name, get.content, get.date};
 
                     chatListviewitem item;
-                    if(info[1].equals(name))
+                    if(info[1].equals(myUser.name))
                         item = new chatListviewitem(R.mipmap.icon_pink, info[2], info[3].split("/")[1] , true);
                     else
-                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], info[3] , false);
+                        item = new chatListviewitem(R.mipmap.icon_pink, info[2], info[3].split("/")[1] , false);
                     data.add(item);
                     Log.d("getFirebaseDatabase", "key: " + key);
                     Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
@@ -204,10 +129,10 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy.M.d/aa h:m");
             Date time = new Date();
             String todayStr = mFormatter.format(time).toString();
-            ChatFirebasePost post = new ChatFirebasePost(id, name, content, todayStr);
+            ChatFirebasePost post = new ChatFirebasePost(myUser.id, myUser.name, content, todayStr);
             postValues = post.toMap();
         }
-        SendNotification.sendNotification(FCMToken,name,content);
+        SendNotification.sendNotification(FCMToken,myUser.name,content);
         mPostReference.child("/chat_list/id" + ID).push().setValue(postValues);
         clearET();
     }
@@ -243,9 +168,14 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             }
         });
 
-
-        getUserFirebaseDatabase();
-
+        FCMToken = yourUser.FCMToken;
+        if(myUser.firstEnrolled.equals("T")) {
+            ID = myUser.id.replace(".","");
+            getFirebaseDatabase();
+        } else {
+            ID = yourUser.id.replace(".","");
+            getFirebaseDatabase();
+        }
 
         return v;
     }

@@ -34,7 +34,7 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
             return MainFragment.newInstance(myUser, yourUser);
         }
         else if (position == 1){
-            return ContactsFragment.newInstance(id);
+            return ContactsFragment.newInstance(myUser, yourUser);
         }
         else if (position == 2) {
             return EmoticonFragment.newInstance(id);
