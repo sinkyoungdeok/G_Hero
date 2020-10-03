@@ -155,7 +155,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 }
             }
         });
-
+        /*
         yourstorage = FirebaseStorage.getInstance();
         yourstorageReference = yourstorage.getReferenceFromUrl("gs://g-hero.appspot.com");
         yourpathReference = yourstorageReference.child("images/" + yourID+ "Profile.png");
@@ -170,6 +170,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 }
             }
         });
+        */
         /*profile*/
 
 
@@ -192,6 +193,22 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
                     yourID = user.otherHalf;
+
+                    yourstorage = FirebaseStorage.getInstance();
+                    yourstorageReference = yourstorage.getReferenceFromUrl("gs://g-hero.appspot.com");
+                    yourpathReference = yourstorageReference.child("images/" + yourID+ "Profile.png");
+                    yourpathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if(task.isSuccessful()) {
+                                Glide.with(getContext())
+                                        .load(task.getResult())
+                                        .into(yourImg);
+                                yourImg.setBackgroundResource(0);
+                            }
+                        }
+                    });
+
                     myNameText.setText(user.name);
                     Calendar cal = Calendar.getInstance( );
                     String split_data[] = user.firstDay.split(",");
