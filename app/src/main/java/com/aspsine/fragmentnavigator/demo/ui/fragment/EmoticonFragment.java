@@ -70,7 +70,7 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_dday, container, false);
+        return inflater.inflate(R.layout.fragment_emoticon, container, false);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
