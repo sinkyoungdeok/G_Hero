@@ -108,6 +108,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                     Glide.with(getContext())
                             .load(task.getResult())
                             .placeholder(R.mipmap.icon_pink)
+                            .override(200,200)
                             .into(myImg);
                     myImg.setBackgroundResource(0);
                 }
@@ -122,6 +123,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 if(task.isSuccessful()) {
                     Glide.with(getContext())
                             .load(task.getResult())
+                            .override(200,200)
                             .into(yourImg);
                     yourImg.setBackgroundResource(0);
                 }

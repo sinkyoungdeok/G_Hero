@@ -73,6 +73,7 @@ public class chatAdapter extends BaseAdapter {
                     if(task.isSuccessful()) {
                         Glide.with(finalConvertView.getContext())
                                 .load(task.getResult())
+                                .override(100,100)
                                 .into(icon);
                         icon.setBackgroundResource(0);
                     }
