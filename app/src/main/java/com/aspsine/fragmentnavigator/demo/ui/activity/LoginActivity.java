@@ -1,6 +1,7 @@
 package com.aspsine.fragmentnavigator.demo.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -77,12 +78,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private GoogleSignInClient googleApiClient;
     private static final int REO_SIGN_GOOGLE = 1000;
     /* 구글 로그인 */
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        preferences = getSharedPreferences("account",MODE_PRIVATE);
+        editor = preferences.edit();
+        String id =preferences.getString("id",null);
+        if(id != null ) {
+            // 여기 부분 정보입력에 따라서 다르게 움직여야됨 ,,
+            Intent intent;
+            intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("id",id);
+            startActivity(intent);
+            finish();
+        }
 
 
         etEmail = (EditText) findViewById(R.id.et_email);
@@ -153,6 +166,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                editor.putString("id",email); // sharedpreference
+                                editor.commit();
                                 markUserLogin();
                                 notifyUserLogin();
                                 finish();
