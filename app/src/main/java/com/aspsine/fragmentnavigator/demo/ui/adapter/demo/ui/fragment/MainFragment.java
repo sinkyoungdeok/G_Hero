@@ -97,10 +97,14 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
         yourNameText.setText(yourUser.name);
         /*profile*/
-        Glide.with(getContext()).load(myUser.profileUrl).into(myImg);
-        myImg.setBackgroundResource(0);
-        Glide.with(getContext()).load(yourUser.profileUrl).into(yourImg);
-        yourImg.setBackgroundResource(0);
+        if(!myUser.profileUrl.equals("")) {
+            Glide.with(getContext()).load(myUser.profileUrl).into(myImg);
+            myImg.setBackgroundResource(0);
+        }
+        if(!yourUser.profileUrl.equals("")) {
+            Glide.with(getContext()).load(yourUser.profileUrl).into(yourImg);
+            yourImg.setBackgroundResource(0);
+        }
         /*profile*/
 
         /* 커스텀 액션바 */
