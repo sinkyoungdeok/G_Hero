@@ -97,37 +97,10 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
         yourNameText.setText(yourUser.name);
         /*profile*/
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReferenceFromUrl("gs://g-hero.appspot.com");
-        pathReference = storageReference.child("images/" + myUser.id+ "Profile.png");
-        pathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()) {
-                    Glide.with(getContext())
-                            .load(task.getResult())
-                            .placeholder(R.mipmap.icon_pink)
-                            .override(200,200)
-                            .into(myImg);
-                    myImg.setBackgroundResource(0);
-                }
-            }
-        });
-        yourstorage = FirebaseStorage.getInstance();
-        yourstorageReference = yourstorage.getReferenceFromUrl("gs://g-hero.appspot.com");
-        yourpathReference = yourstorageReference.child("images/" + yourUser.id+ "Profile.png");
-        yourpathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()) {
-                    Glide.with(getContext())
-                            .load(task.getResult())
-                            .override(200,200)
-                            .into(yourImg);
-                    yourImg.setBackgroundResource(0);
-                }
-            }
-        });
+        Glide.with(getContext()).load(myUser.profileUrl).into(myImg);
+        myImg.setBackgroundResource(0);
+        Glide.with(getContext()).load(yourUser.profileUrl).into(yourImg);
+        yourImg.setBackgroundResource(0);
         /*profile*/
 
         /* 커스텀 액션바 */
