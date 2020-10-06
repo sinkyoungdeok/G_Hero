@@ -11,54 +11,47 @@
         <ListView
             android:id="@+id/chatlist"
             android:layout_width="match_parent"
-            android:layout_height="572dp"
-            android:stackFromBottom="true" >
+            android:layout_height="wrap_content"
+            android:divider="#ffffff"
+            android:dividerHeight="0dp"
+            android:stackFromBottom="true"
+            android:layout_weight="1">
 
         </ListView>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp">
-
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="4dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
             <EditText
                 android:id="@+id/contents"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/chatborder2"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="60sp"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
                 android:text=""
+                android:padding="10dp"
                 tools:layout_editor_absoluteX="-1dp"
                 tools:layout_editor_absoluteY="2dp" />
 
-            <RelativeLayout
-                android:layout_width="66dp"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:id="@+id/send"
-                    android:layout_width="45sp"
-                    android:layout_height="45sp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/circlebutton"
-                    android:gravity="center"
-                    android:textColor="#000000"
-                    android:textSize="50sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="5dp" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="67dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/mybutton"
                 android:text="+"
                 android:textColor="#ffffff"
-                android:textSize="30sp" />
-        </RelativeLayout>
+                android:textSize="30sp"
+                />
+
+
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
