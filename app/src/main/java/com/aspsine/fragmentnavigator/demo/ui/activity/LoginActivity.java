@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /* 구글 로그인 */
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-
+    String defaultposition = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,11 +88,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         preferences = getSharedPreferences("account",MODE_PRIVATE);
         editor = preferences.edit();
         String id =preferences.getString("id",null);
+        Intent getintent = getIntent();
+        if(getintent.getExtras() != null)
+            defaultposition = getintent.getExtras().getString("defaultFragment");
         if(id != null ) {
             // 여기 부분 정보입력에 따라서 다르게 움직여야됨 ,,
             Intent intent;
             intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("id",id);
+            if(defaultposition != null) intent.putExtra("defaultFragment",defaultposition);
             startActivity(intent);
             finish();
         }
@@ -180,6 +184,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     intent = new Intent(LoginActivity.this, MainActivity.class);
                                 }
                                 intent.putExtra("id",email);
+                                if(defaultposition != null) intent.putExtra("defaultFragment",defaultposition);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();

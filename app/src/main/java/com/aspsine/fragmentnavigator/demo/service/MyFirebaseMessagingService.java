@@ -1,5 +1,6 @@
 package com.aspsine.fragmentnavigator.demo.service;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,12 +9,16 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.SignupActivity;
+import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.ContactsFragment;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -29,6 +34,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        //푸시울렸을때 화면깨우기.
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE );
+        @SuppressLint("InvalidWakeLockTag")
+        PowerManager.WakeLock wakeLock = pm.newWakeLock( PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG" );
+        wakeLock.acquire(3000);
         sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
     }
     // [END receive_message]
@@ -49,13 +59,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
+
     /**
      * Create and show a simple notification containing the received FCM message.
      *
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String title, String messageBody) {
+        //Toast.makeText(this,"테스트임다",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra("defaultFragment","chat");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

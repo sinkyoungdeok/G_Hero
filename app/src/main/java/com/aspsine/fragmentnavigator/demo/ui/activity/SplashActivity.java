@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
 
@@ -23,7 +24,10 @@ public class SplashActivity extends Activity {
 
     private class splashhandler implements Runnable{
         public void run(){
-            startActivity(new Intent(getApplication(), LoginActivity.class)); //로딩이 끝난 후, ChoiceFunction 이동
+            Intent intent = new Intent(getApplication(), LoginActivity.class);
+            if(getIntent().getExtras() != null)
+                intent.putExtra("defaultFragment","chat");
+            startActivity(intent); //로딩이 끝난 후, ChoiceFunction 이동
             finish(); // 로딩페이지 Activity stack에서 제거
         }
     }

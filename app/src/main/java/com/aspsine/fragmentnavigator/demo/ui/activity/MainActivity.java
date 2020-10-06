@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.Action;
@@ -22,6 +24,7 @@ import com.aspsine.fragmentnavigator.demo.broadcast.BroadcastManager;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.adapter.FragmentAdapter;
+import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.ContactsFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
 
     private DatabaseReference mPostReference;
 
+    private int defaultPosition;
+
+    private String defaultposition;
+
     OnBackPressedListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         ID = intent.getExtras().getString("id");
+        defaultposition = intent.getExtras().getString("defaultFragment");
+        if (defaultposition == null) {
+            defaultPosition = 0;
+        } else if (defaultposition.equals("chat")) {
+            defaultPosition = 1;
+        }
         Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(ID);
         myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -72,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
                     myUser = postSnapshot.getValue(UserFirebasePost.class);
                     if(yourUser != null) {
                         mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID,myUser,yourUser), R.id.container);
-                        mNavigator.setDefaultPosition(DEFAULT_POSITION);
+                        mNavigator.setDefaultPosition(defaultPosition);
                         mNavigator.onCreate(savedInstanceState);
                         setCurrentTab(mNavigator.getCurrentPosition());
                     }
@@ -90,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
                     yourUser = postSnapshot.getValue(UserFirebasePost.class);
                     if(myUser != null) {
                         mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID,myUser,yourUser), R.id.container);
-                        mNavigator.setDefaultPosition(DEFAULT_POSITION);
+                        mNavigator.setDefaultPosition(defaultPosition);
                         mNavigator.onCreate(savedInstanceState);
                         setCurrentTab(mNavigator.getCurrentPosition());
                     }
@@ -114,6 +127,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         //setCurrentTab(mNavigator.getCurrentPosition());
 
         BroadcastManager.register(this, mLoginStatusChangeReceiver, Action.LOGIN, Action.LOGOUT);
+
+
+    }
+    public void setDefaultFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        //ContactsFragment.newInstance(myUser, yourUser);
+        transaction.add(R.id.container, ContactsFragment.newInstance(myUser, yourUser));
+        transaction.commit();
     }
 
     @Override
