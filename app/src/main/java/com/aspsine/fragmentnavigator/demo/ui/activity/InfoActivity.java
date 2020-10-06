@@ -171,15 +171,19 @@ public class InfoActivity extends AppCompatActivity {
             //Unique한 파일명을 만들자.
             //SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
             //Date now = new Date();
+
             String filename = id+"Profile" + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
             StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("images/" + filename);
+            /*
             //올라가거라...
             storageRef.putFile(filePath)
                     //성공시
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+
                             //progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
                             //Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
                         }
@@ -202,6 +206,24 @@ public class InfoActivity extends AppCompatActivity {
                             //progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
                         }
                     });
+             */
+           UploadTask uploadTask =  storageRef.putFile(filePath);
+           uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+               @Override
+               public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                   storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                       @Override
+                       public void onSuccess(Uri uri) {
+                           String profileUrl = uri.toString();
+
+                           DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("user_list/id"+id.replace(".",""));
+                           profileRef.child("profileUrl").setValue(profileUrl);
+
+                       }
+                   });
+
+               }
+           });
         } else {
             Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
