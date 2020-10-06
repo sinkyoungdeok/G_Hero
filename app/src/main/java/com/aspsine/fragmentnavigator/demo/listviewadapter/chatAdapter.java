@@ -26,9 +26,6 @@ public class chatAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<chatListviewitem> data;
     private int layout;
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
-    private StorageReference pathReference;
 
     public chatAdapter(Context context, int layout, ArrayList<chatListviewitem> data) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,22 +60,12 @@ public class chatAdapter extends BaseAdapter {
             date.setVisibility(View.INVISIBLE);
             date2.setText(listviewitem.getDate());
         } else { // 상대가 보낸 채팅
-            storage = FirebaseStorage.getInstance();
-            storageReference = storage.getReferenceFromUrl("gs://g-hero.appspot.com");
-            pathReference = storageReference.child(listviewitem.getIconPath());
             View finalConvertView = convertView;
-            pathReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if(task.isSuccessful()) {
-                        Glide.with(finalConvertView.getContext())
-                                .load(task.getResult())
-                                .override(100,100)
-                                .into(icon);
-                        icon.setBackgroundResource(0);
-                    }
-                }
-            });
+            if(!listviewitem.getIconPath().equals("")) {
+                Glide.with(finalConvertView.getContext()).load(listviewitem.getIconPath()).override(100, 100).into(icon);
+                icon.setBackgroundResource(0);
+            }
+
             content.setText(listviewitem.getContent());
             content2.setVisibility(View.INVISIBLE);
             date.setText(listviewitem.getDate());
