@@ -96,9 +96,9 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                 String[] info = {get.id, get.name, get.content, get.date};
                 chatListviewitem item;
                 if(info[1].equals(myUser.name)) {
-                    item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] , true);
+                    item = new chatListviewitem(myUser.profileUrl, info[2], info[3].split("/")[1] ,myUser.name, true);
                 } else {
-                    item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] , false);
+                    item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] ,yourUser.name, false);
                 }
                 data.add(item);
                 adapter.notifyDataSetChanged();
