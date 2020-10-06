@@ -30,6 +30,7 @@ import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.chatAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,17 +53,18 @@ import java.util.Map;
 public class ContactsFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
     /* firebase */
     private DatabaseReference mPostReference;
-    String content,ID;
-    EditText contentET;
-    Button btn;
-    ListView listView;
-    ArrayList<chatListviewitem> data;
-    chatAdapter adapter;
-    Toast toast;
-    MainActivity activity;
-    long backKeyPressedTime;
+    private DatabaseReference chatRef;
+    private String content,ID;
+    private EditText contentET;
+    private Button btn;
+    private ListView listView;
+    private ArrayList<chatListviewitem> data;
+    private chatAdapter adapter;
+    private Toast toast;
+    private MainActivity activity;
+    private long backKeyPressedTime;
     /* firebase */
-    String FCMToken;
+    private String FCMToken;
     public static final String TAG = ContactsFragment.class.getSimpleName();
 
     private static String id;
@@ -86,6 +88,44 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     }
     /*firebase*/
     public void getFirebaseDatabase(){
+        chatRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                ChatFirebasePost get = dataSnapshot.getValue(ChatFirebasePost.class);
+                String[] info = {get.id, get.name, get.content, get.date};
+                chatListviewitem item;
+                if(info[1].equals(myUser.name)) {
+                    item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] , true);
+                } else {
+                    item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] , false);
+                }
+                data.add(item);
+                adapter.notifyDataSetChanged();
+                listView.setSelection(data.size()-1);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        /*
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -118,6 +158,8 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             }
         };
         mPostReference.child("/chat_list/id"+ID).addValueEventListener(postListener);
+
+         */
     }
     /*firebase*/
 
@@ -159,6 +201,11 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         listView = (ListView)v.findViewById(R.id.chatlist);
         listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL); // 새로 아이템 추가시 자동 스크롤이 이동되게 ==> 이미 잘되긴하는데 혹시몰라서 추가함
         mPostReference = FirebaseDatabase.getInstance().getReference();
+
+        adapter = new chatAdapter(getContext(), R.layout.contact_item,data);
+        listView.setAdapter(adapter);
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -171,12 +218,11 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         FCMToken = yourUser.FCMToken;
         if(myUser.firstEnrolled.equals("T")) {
             ID = myUser.id.replace(".","");
-            getFirebaseDatabase();
         } else {
             ID = yourUser.id.replace(".","");
-            getFirebaseDatabase();
         }
-
+        chatRef = FirebaseDatabase.getInstance().getReference("/chat_list/id"+ID);
+        getFirebaseDatabase();
         return v;
     }
 
