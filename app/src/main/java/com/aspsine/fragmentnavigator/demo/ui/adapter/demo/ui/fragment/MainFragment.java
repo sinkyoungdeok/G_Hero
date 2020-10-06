@@ -96,7 +96,6 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         myImg = (ImageView) view.findViewById(R.id.myImg);
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
         yourNameText.setText(yourUser.name);
-
         /*profile*/
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReferenceFromUrl("gs://g-hero.appspot.com");

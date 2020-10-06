@@ -88,7 +88,6 @@ public class InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 uploadFile();
-                userUpdateFirebaseDatabase(nameEdit.getText().toString(), birthEdit.getText().toString(), firstDayEdit.getText().toString());
             }
         });
     }
@@ -103,38 +102,7 @@ public class InfoActivity extends AppCompatActivity {
         }
     };
 
-    public void userUpdateFirebaseDatabase(final String name, final String birthday, final String firstDay){
-        Query getQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(id);
 
-        getQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    UserFirebasePost user = postSnapshot.getValue(UserFirebasePost.class);
-                    user.name = name;
-                    user.birthday = birthday;
-                    user.firstDay = firstDay;
-                    user.gender = genderValue;
-                    Map<String, Object> childUpdates = new HashMap<>();
-                    Map<String, Object> postValues = user.toMap();
-                    String temp =  user.id.replace(".","");
-                    childUpdates.put("/user_list/id" +temp , postValues);
-                    mPostReference.updateChildren(childUpdates);
-
-                    Intent intent = new Intent(InfoActivity.this, MainActivity.class);
-                    intent.putExtra("id",id);
-                    startActivity(intent);
-                    finish();
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
     //결과 처리
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -218,6 +186,14 @@ public class InfoActivity extends AppCompatActivity {
 
                            DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("user_list/id"+id.replace(".",""));
                            profileRef.child("profileUrl").setValue(profileUrl);
+                           profileRef.child("name").setValue(nameEdit.getText().toString());
+                           profileRef.child("birthday").setValue(birthEdit.getText().toString());
+                           profileRef.child("firstDay").setValue(firstDayEdit.getText().toString());
+                           profileRef.child("gender").setValue(genderValue);
+                           Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+                           intent.putExtra("id",id);
+                           startActivity(intent);
+                           finish();
 
                        }
                    });
