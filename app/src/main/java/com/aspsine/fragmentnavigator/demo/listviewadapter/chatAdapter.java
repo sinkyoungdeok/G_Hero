@@ -28,6 +28,7 @@ public class chatAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<chatListviewitem> data;
     private int layout;
+    //private TextView tvPrevTime;
 
     public chatAdapter(Context context, int layout, ArrayList<chatListviewitem> data) {
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -48,19 +49,23 @@ public class chatAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
         chatListviewitem listviewitem = data.get(position);
         View itemView = null;
-
+        System.out.println(listviewitem.getContent()+","+listviewitem.getPrevName()+","+listviewitem.getName() + ",," + listviewitem.getPrevDate() + "," + listviewitem.getDate() );
         if(listviewitem.getMEorYOUR()) {
             if(listviewitem.getPrevName() != null && listviewitem.getPrevName().equals(listviewitem.getName()) && listviewitem.getPrevDate().equals(listviewitem.getDate())){
+                System.out.println("test1");
                 itemView = inflater.inflate(R.layout.contact_item_duplicate, viewGroup, false);
                 TextView tvMsg = itemView.findViewById(R.id.tv_msg);
                 TextView tvRead = itemView.findViewById(R.id.tv_read);
                 TextView tvTime = itemView.findViewById(R.id.tv_time);
-                tvTime.setVisibility(View.INVISIBLE);
+                //tvPrevTime.setVisibility(View.INVISIBLE);
+                tvTime.setText(listviewitem.getDate());
                 if (listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
                     tvRead.setVisibility(View.INVISIBLE);
                 }
                 tvMsg.setText(listviewitem.getContent());
+                //tvPrevTime = tvTime;
             } else {
+                System.out.println("test2");
                 itemView = inflater.inflate(R.layout.contact_item, viewGroup, false);
                 CircleImageView iv = itemView.findViewById(R.id.iv);
                 TextView tvName = itemView.findViewById(R.id.tv_name);
@@ -78,19 +83,24 @@ public class chatAdapter extends BaseAdapter {
                 tvTime.setText(listviewitem.getDate());
 
                 Glide.with(itemView).load(listviewitem.getIconPath()).into(iv);
+                //tvPrevTime = tvTime;
             }
         } else {
             if(listviewitem.getPrevName() != null && listviewitem.getPrevName().equals(listviewitem.getName()) && listviewitem.getPrevDate().equals(listviewitem.getDate())){
+                System.out.println("test3");
                 itemView = inflater.inflate(R.layout.contact_item_your_duplicate, viewGroup, false);
                 TextView tvMsg = itemView.findViewById(R.id.tv_msg);
                 TextView tvRead = itemView.findViewById(R.id.tv_read);
                 TextView tvTime = itemView.findViewById(R.id.tv_time);
-                tvTime.setVisibility(View.INVISIBLE);
+                //tvPrevTime.setVisibility(View.INVISIBLE);
+                tvTime.setText(listviewitem.getDate());
                 if (listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
                     tvRead.setVisibility(View.INVISIBLE);
                 }
                 tvMsg.setText(listviewitem.getContent());
+                //tvPrevTime = tvTime;
             } else {
+                System.out.println("test4");
                 itemView = inflater.inflate(R.layout.contact_item_your, viewGroup, false);
                 CircleImageView iv = itemView.findViewById(R.id.iv);
                 TextView tvName = itemView.findViewById(R.id.tv_name);
@@ -108,6 +118,7 @@ public class chatAdapter extends BaseAdapter {
                 tvTime.setText(listviewitem.getDate());
 
                 Glide.with(itemView).load(listviewitem.getIconPath()).into(iv);
+                //tvPrevTime = tvTime;
             }
         }
 
