@@ -20,6 +20,22 @@
         android:layout_marginRight="16dp"/>
 
     <TextView
+        android:id="@+id/tv_msg2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello android"
+        android:layout_toLeftOf="@id/iv"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:maxWidth="250dp"
+        android:background="@drawable/back_et_mymsgbox"
+        android:textColor="#ffffff"/>
+
+    <TextView
         android:id="@+id/tv_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +43,10 @@
         android:layout_below="@+id/tv_name"
         android:layout_toLeftOf="@id/iv"
         android:layout_marginRight="16dp"
-        android:padding="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
         android:maxWidth="250dp"
         android:background="@drawable/back_et_mymsgbox"
         android:textColor="#ffffff"/>

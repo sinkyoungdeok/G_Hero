@@ -57,6 +57,7 @@ public class chatAdapter extends BaseAdapter {
         CircleImageView iv = itemView.findViewById(R.id.iv);
         TextView tvName = itemView.findViewById(R.id.tv_name);
         TextView tvMsg = itemView.findViewById(R.id.tv_msg);
+        TextView tvMsg2 = itemView.findViewById(R.id.tv_msg2);
         TextView tvTime = itemView.findViewById(R.id.tv_time);
         TextView tvRead = itemView.findViewById(R.id.tv_read);
 
@@ -67,8 +68,10 @@ public class chatAdapter extends BaseAdapter {
 
         tvName.setText(listviewitem.getName());
         tvMsg.setText(listviewitem.getContent());
+        tvMsg2.setText(listviewitem.getContent());
         tvTime.setText(listviewitem.getDate());
 
+        tvMsg2.setVisibility(View.INVISIBLE);
         Glide.with(itemView).load(listviewitem.getIconPath()).into(iv);
         if(listviewitem.getPrevName() != null) {
             if (listviewitem.getPrevName().equals(listviewitem.getName())) {
@@ -76,6 +79,10 @@ public class chatAdapter extends BaseAdapter {
                     tvName.setVisibility(View.INVISIBLE);
                     iv.setVisibility(View.INVISIBLE);
                     tvTime.setVisibility(View.INVISIBLE);
+                    tvMsg.setVisibility(View.INVISIBLE);
+                    tvMsg2.setVisibility(View.VISIBLE);
+
+
                 }
             }
         }
