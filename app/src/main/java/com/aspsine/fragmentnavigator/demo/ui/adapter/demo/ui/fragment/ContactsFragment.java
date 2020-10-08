@@ -37,10 +37,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -88,10 +90,12 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
     }
     /*firebase*/
     public void getFirebaseDatabase(){
+        /*
         chatRef.addChildEventListener(new ChildEventListener() {
-
+            Map<String, Object> readUserMap = new HashMap<>();
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String key = dataSnapshot.getKey();
                 ChatFirebasePost get = dataSnapshot.getValue(ChatFirebasePost.class);
                 String[] info = {get.id, get.name, get.content, get.date};
                 chatListviewitem item;
@@ -100,10 +104,16 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                 } else {
                     item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] ,yourUser.name, false);
                 }
+                get.readUsers.put(myUser.FCMToken,true);
+                readUserMap.put(key,get);
                 data.add(item);
                 adapter.notifyDataSetChanged();
                 listView.setSelection(data.size()-1);
+
+
+
             }
+
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -125,12 +135,11 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
 
             }
         });
-        /*
+        */
+
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("onDataChange", "Data is Updated");
-
                 data.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
@@ -138,16 +147,15 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     String[] info = {get.id, get.name, get.content, get.date};
 
                     chatListviewitem item;
-                    if(info[1].equals(myUser.name))
-                        item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] , true);
-                    else
-                        item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] , false);
+                    if(info[1].equals(myUser.name)) {
+                        item = new chatListviewitem(myUser.profileUrl, info[2], info[3].split("/")[1] ,myUser.name, true);
+                    } else {
+                        item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] ,yourUser.name, false);
+                    }
                     data.add(item);
-                    Log.d("getFirebaseDatabase", "key: " + key);
-                    Log.d("getFirebaseDatabase", "info: " + info[0] + info[1] + info[2]);
                 }
-                adapter = new chatAdapter(getContext(), R.layout.contact_item,data);
-                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                listView.setSelection(data.size()-1);
 
 
             }
@@ -159,7 +167,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         };
         mPostReference.child("/chat_list/id"+ID).addValueEventListener(postListener);
 
-         */
+
     }
     /*firebase*/
 
@@ -201,7 +209,6 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         listView = (ListView)v.findViewById(R.id.chatlist);
         listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL); // 새로 아이템 추가시 자동 스크롤이 이동되게 ==> 이미 잘되긴하는데 혹시몰라서 추가함
         mPostReference = FirebaseDatabase.getInstance().getReference();
-
         adapter = new chatAdapter(getContext(), R.layout.contact_item,data);
         listView.setAdapter(adapter);
 

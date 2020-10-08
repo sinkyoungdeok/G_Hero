@@ -8,6 +8,7 @@ public class ChatFirebasePost {
     public String name;
     public String content;
     public String date;
+    public Map<String, Object> readUsers = new HashMap<>();
     public ChatFirebasePost(){
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
@@ -23,6 +24,7 @@ public class ChatFirebasePost {
         result.put("name", name);
         result.put("content",content);
         result.put("date", date);
+        result.put("readUsers", readUsers);
 
         return result;
     }
