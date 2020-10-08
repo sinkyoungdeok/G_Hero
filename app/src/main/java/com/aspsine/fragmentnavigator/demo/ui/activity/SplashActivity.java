@@ -24,9 +24,13 @@ public class SplashActivity extends Activity {
 
     private class splashhandler implements Runnable{
         public void run(){
+            String defaultposition = null;
             Intent intent = new Intent(getApplication(), LoginActivity.class);
-            if(getIntent().getExtras() != null)
-                intent.putExtra("defaultFragment","chat");
+            Intent getintent = getIntent();
+            if(getintent.getExtras() != null) {
+                defaultposition = getintent.getExtras().getString("defaultFragment");
+                intent.putExtra("defaultFragment", defaultposition);
+            }
             startActivity(intent); //로딩이 끝난 후, ChoiceFunction 이동
             finish(); // 로딩페이지 Activity stack에서 제거
         }

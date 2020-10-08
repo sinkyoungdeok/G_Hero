@@ -16,8 +16,10 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.SignupActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.SplashActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.ContactsFragment;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -69,8 +71,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      */
     private void sendNotification(String title, String messageBody) {
         //Toast.makeText(this,"테스트임다",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        //intent.putExtra("defaultFragment","chat");
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("defaultFragment","chat");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
