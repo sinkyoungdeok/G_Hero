@@ -33,7 +33,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        super.onMessageReceived(remoteMessage);
+        System.out.println("테스트다");
+        //super.onMessageReceived(remoteMessage);
         //푸시울렸을때 화면깨우기.
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE );
         @SuppressLint("InvalidWakeLockTag")
@@ -74,23 +75,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         String channelId = "Channel ID";
-
+        String GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("Channel ID",
-                    "Channel ID",
+            NotificationChannel channel = new NotificationChannel(channelId,
+                    channelId,
                     NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.mipmap.no_icon)
+                        .setSmallIcon(R.mipmap.icon_pink)
                         .setContentTitle(title)
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
+                        .setGroup(GROUP_KEY_WORK_EMAIL)
+                        .setGroupSummary(true)
                         .setContentIntent(pendingIntent);
 
         // Since android Oreo notification channel is needed.

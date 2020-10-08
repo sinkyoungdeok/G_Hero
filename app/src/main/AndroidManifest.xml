@@ -61,8 +61,7 @@
             android:name=".ui.activity.ConnectActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <service
-            android:name=".service.MyFirebaseMessagingService"
-            android:exported="false">
+            android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
