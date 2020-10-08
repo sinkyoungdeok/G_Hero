@@ -33,7 +33,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        System.out.println("테스트다");
         //super.onMessageReceived(remoteMessage);
         //푸시울렸을때 화면깨우기.
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE );
