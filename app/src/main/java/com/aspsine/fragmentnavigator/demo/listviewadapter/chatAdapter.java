@@ -46,37 +46,7 @@ public class chatAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        /*
-        if(convertView == null) {
-            convertView = inflater.inflate(layout, parent, false);
-        }
         chatListviewitem listviewitem = data.get(position);
-        ImageView icon = (ImageView) convertView.findViewById(R.id.profile);
-        TextView content = (TextView) convertView.findViewById(R.id.content);
-        TextView content2 = (TextView) convertView.findViewById(R.id.content2);
-        TextView date = (TextView) convertView.findViewById(R.id.date);
-        TextView date2 = (TextView) convertView.findViewById(R.id.date2);
-        if(listviewitem.getMEorYOUR()) { // 내가 보낸 채팅
-            icon.setVisibility(View.INVISIBLE);
-            content.setVisibility(View.INVISIBLE);
-            content2.setText(listviewitem.getContent());
-            date.setVisibility(View.INVISIBLE);
-            date2.setText(listviewitem.getDate());
-        } else { // 상대가 보낸 채팅
-            View finalConvertView = convertView;
-            if(!listviewitem.getIconPath().equals("")) {
-                Glide.with(finalConvertView.getContext()).load(listviewitem.getIconPath()).override(100, 100).into(icon);
-                icon.setBackgroundResource(0);
-            }
-
-            content.setText(listviewitem.getContent());
-            content2.setVisibility(View.INVISIBLE);
-            date.setText(listviewitem.getDate());
-            date2.setVisibility(View.INVISIBLE);
-        }
-         */
-        chatListviewitem listviewitem = data.get(position);
-
         View itemView = null;
 
         if(listviewitem.getMEorYOUR()) {
@@ -88,6 +58,11 @@ public class chatAdapter extends BaseAdapter {
         TextView tvName = itemView.findViewById(R.id.tv_name);
         TextView tvMsg = itemView.findViewById(R.id.tv_msg);
         TextView tvTime = itemView.findViewById(R.id.tv_time);
+        TextView tvRead = itemView.findViewById(R.id.tv_read);
+
+        if(listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
+            tvRead.setVisibility(View.INVISIBLE);
+        }
 
         tvName.setText(listviewitem.getName());
         tvMsg.setText(listviewitem.getContent());

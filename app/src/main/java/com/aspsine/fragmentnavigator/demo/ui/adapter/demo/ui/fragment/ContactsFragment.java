@@ -30,6 +30,8 @@ import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.chatAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -141,21 +143,36 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data.clear();
+                Map<String, Object> readUserMap = new HashMap<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
                     String[] info = {get.id, get.name, get.content, get.date};
 
                     chatListviewitem item;
-                    if(info[1].equals(myUser.name)) {
-                        item = new chatListviewitem(myUser.profileUrl, info[2], info[3].split("/")[1] ,myUser.name, true);
-                    } else {
-                        item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] ,yourUser.name, false);
+                    if(info[1].equals(myUser.name)) { // 내 채팅
+                        if(get.readUsers.size() == 2) { // 상대방이 읽었을때
+                            item = new chatListviewitem(myUser.profileUrl, info[2], info[3].split("/")[1], myUser.name, true,true);
+                        } else { // 상대방이 아직 안읽었을때
+                            item = new chatListviewitem(myUser.profileUrl, info[2], info[3].split("/")[1], myUser.name, true,false);
+                        }
+                    } else { // 상대방 채팅
+                        item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] ,yourUser.name, false, true);
                     }
+                    get.readUsers.put(myUser.name, true);
+                    readUserMap.put(key,get);
                     data.add(item);
                 }
                 adapter.notifyDataSetChanged();
                 listView.setSelection(data.size()-1);
+
+                FirebaseDatabase.getInstance().getReference().child("/chat_list/id"+ID)
+                        .updateChildren(readUserMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
 
 
             }

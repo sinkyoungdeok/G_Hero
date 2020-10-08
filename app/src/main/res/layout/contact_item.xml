@@ -37,8 +37,19 @@
         android:layout_height="wrap_content"
         android:text="13:35"
         android:textColor="#000000"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:layout_toLeftOf="@+id/tv_msg"
         android:layout_marginRight="8dp"
         android:layout_alignBottom="@id/tv_msg"/>
+    <TextView
+        android:id="@+id/tv_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/mypink"
+        android:textSize="12dp"
+        android:layout_toLeftOf="@+id/tv_msg"
+        android:layout_marginRight="8dp"
+        android:layout_alignTop="@id/tv_msg"/>
+
 </RelativeLayout>
