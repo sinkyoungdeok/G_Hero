@@ -144,24 +144,28 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data.clear();
                 Map<String, Object> readUserMap = new HashMap<>();
+                String prevName = null;
+                String prevDate = null;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
                     String[] info = {get.id, get.name, get.content, get.date};
-
                     chatListviewitem item;
+                    String tempDate = info[3].split("/")[1];
                     if(info[1].equals(myUser.name)) { // 내 채팅
                         if(get.readUsers.size() == 2) { // 상대방이 읽었을때
-                            item = new chatListviewitem(myUser.profileUrl, info[2], info[3].split("/")[1], myUser.name, true,true);
+                            item = new chatListviewitem(myUser.profileUrl, info[2], tempDate, myUser.name, true,true,prevName,prevDate);
                         } else { // 상대방이 아직 안읽었을때
-                            item = new chatListviewitem(myUser.profileUrl, info[2], info[3].split("/")[1], myUser.name, true,false);
+                            item = new chatListviewitem(myUser.profileUrl, info[2], tempDate, myUser.name, true,false,prevName,prevDate);
                         }
                     } else { // 상대방 채팅
-                        item = new chatListviewitem(yourUser.profileUrl, info[2], info[3].split("/")[1] ,yourUser.name, false, true);
+                        item = new chatListviewitem(yourUser.profileUrl, info[2], tempDate ,yourUser.name, false, true,prevName,prevDate);
                     }
                     get.readUsers.put(myUser.name, true);
                     readUserMap.put(key,get);
                     data.add(item);
+                    prevName = info[1];
+                    prevDate = tempDate;
                 }
                 adapter.notifyDataSetChanged();
                 listView.setSelection(data.size()-1);

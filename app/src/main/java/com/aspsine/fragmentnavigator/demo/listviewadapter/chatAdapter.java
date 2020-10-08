@@ -60,6 +60,7 @@ public class chatAdapter extends BaseAdapter {
         TextView tvTime = itemView.findViewById(R.id.tv_time);
         TextView tvRead = itemView.findViewById(R.id.tv_read);
 
+
         if(listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
             tvRead.setVisibility(View.INVISIBLE);
         }
@@ -69,7 +70,15 @@ public class chatAdapter extends BaseAdapter {
         tvTime.setText(listviewitem.getDate());
 
         Glide.with(itemView).load(listviewitem.getIconPath()).into(iv);
-
+        if(listviewitem.getPrevName() != null) {
+            if (listviewitem.getPrevName().equals(listviewitem.getName())) {
+                if (listviewitem.getPrevDate().equals(listviewitem.getDate())) {
+                    tvName.setVisibility(View.INVISIBLE);
+                    iv.setVisibility(View.INVISIBLE);
+                    tvTime.setVisibility(View.INVISIBLE);
+                }
+            }
+        }
 
         return itemView;
     }
