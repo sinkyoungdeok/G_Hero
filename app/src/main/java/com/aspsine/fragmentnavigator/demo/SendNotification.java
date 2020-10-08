@@ -3,6 +3,8 @@ package com.aspsine.fragmentnavigator.demo;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
 import okhttp3.MediaType;
@@ -23,7 +25,8 @@ public class SendNotification {
                     JSONObject dataJson = new JSONObject();
                     dataJson.put("body", messsage);
                     dataJson.put("title", title);
-                    json.put("notification", dataJson);
+                    //json.put("notification", dataJson);
+                    json.put("data", dataJson);
                     json.put("to", regToken);
                     RequestBody body = RequestBody.create(JSON, json.toString());
                     Request request = new Request.Builder()
