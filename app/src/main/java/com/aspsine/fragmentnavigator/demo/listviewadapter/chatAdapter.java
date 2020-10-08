@@ -50,40 +50,64 @@ public class chatAdapter extends BaseAdapter {
         View itemView = null;
 
         if(listviewitem.getMEorYOUR()) {
-            itemView = inflater.inflate(R.layout.contact_item, viewGroup, false);
-        } else {
-            itemView = inflater.inflate(R.layout.contact_item_your, viewGroup, false);
-        }
-        CircleImageView iv = itemView.findViewById(R.id.iv);
-        TextView tvName = itemView.findViewById(R.id.tv_name);
-        TextView tvMsg = itemView.findViewById(R.id.tv_msg);
-        TextView tvMsg2 = itemView.findViewById(R.id.tv_msg2);
-        TextView tvTime = itemView.findViewById(R.id.tv_time);
-        TextView tvRead = itemView.findViewById(R.id.tv_read);
-
-
-        if(listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
-            tvRead.setVisibility(View.INVISIBLE);
-        }
-
-        tvName.setText(listviewitem.getName());
-        tvMsg.setText(listviewitem.getContent());
-        tvMsg2.setText(listviewitem.getContent());
-        tvTime.setText(listviewitem.getDate());
-
-        tvMsg2.setVisibility(View.INVISIBLE);
-        Glide.with(itemView).load(listviewitem.getIconPath()).into(iv);
-        if(listviewitem.getPrevName() != null) {
-            if (listviewitem.getPrevName().equals(listviewitem.getName())) {
-                if (listviewitem.getPrevDate().equals(listviewitem.getDate())) {
-                    tvName.setVisibility(View.INVISIBLE);
-                    iv.setVisibility(View.INVISIBLE);
-                    tvTime.setVisibility(View.INVISIBLE);
-                    tvMsg.setVisibility(View.INVISIBLE);
-                    tvMsg2.setVisibility(View.VISIBLE);
-
-
+            if(listviewitem.getPrevName() != null && listviewitem.getPrevName().equals(listviewitem.getName()) && listviewitem.getPrevDate().equals(listviewitem.getDate())){
+                itemView = inflater.inflate(R.layout.contact_item_duplicate, viewGroup, false);
+                TextView tvMsg = itemView.findViewById(R.id.tv_msg);
+                TextView tvRead = itemView.findViewById(R.id.tv_read);
+                TextView tvTime = itemView.findViewById(R.id.tv_time);
+                tvTime.setVisibility(View.INVISIBLE);
+                if (listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
+                    tvRead.setVisibility(View.INVISIBLE);
                 }
+                tvMsg.setText(listviewitem.getContent());
+            } else {
+                itemView = inflater.inflate(R.layout.contact_item, viewGroup, false);
+                CircleImageView iv = itemView.findViewById(R.id.iv);
+                TextView tvName = itemView.findViewById(R.id.tv_name);
+                TextView tvMsg = itemView.findViewById(R.id.tv_msg);
+                TextView tvTime = itemView.findViewById(R.id.tv_time);
+                TextView tvRead = itemView.findViewById(R.id.tv_read);
+
+
+                if(listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
+                    tvRead.setVisibility(View.INVISIBLE);
+                }
+
+                tvName.setText(listviewitem.getName());
+                tvMsg.setText(listviewitem.getContent());
+                tvTime.setText(listviewitem.getDate());
+
+                Glide.with(itemView).load(listviewitem.getIconPath()).into(iv);
+            }
+        } else {
+            if(listviewitem.getPrevName() != null && listviewitem.getPrevName().equals(listviewitem.getName()) && listviewitem.getPrevDate().equals(listviewitem.getDate())){
+                itemView = inflater.inflate(R.layout.contact_item_your_duplicate, viewGroup, false);
+                TextView tvMsg = itemView.findViewById(R.id.tv_msg);
+                TextView tvRead = itemView.findViewById(R.id.tv_read);
+                TextView tvTime = itemView.findViewById(R.id.tv_time);
+                tvTime.setVisibility(View.INVISIBLE);
+                if (listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
+                    tvRead.setVisibility(View.INVISIBLE);
+                }
+                tvMsg.setText(listviewitem.getContent());
+            } else {
+                itemView = inflater.inflate(R.layout.contact_item_your, viewGroup, false);
+                CircleImageView iv = itemView.findViewById(R.id.iv);
+                TextView tvName = itemView.findViewById(R.id.tv_name);
+                TextView tvMsg = itemView.findViewById(R.id.tv_msg);
+                TextView tvTime = itemView.findViewById(R.id.tv_time);
+                TextView tvRead = itemView.findViewById(R.id.tv_read);
+
+
+                if (listviewitem.getMEorYOUR() && listviewitem.getRead()) { // 읽었을때에는 1표시 없애기
+                    tvRead.setVisibility(View.INVISIBLE);
+                }
+
+                tvName.setText(listviewitem.getName());
+                tvMsg.setText(listviewitem.getContent());
+                tvTime.setText(listviewitem.getDate());
+
+                Glide.with(itemView).load(listviewitem.getIconPath()).into(iv);
             }
         }
 

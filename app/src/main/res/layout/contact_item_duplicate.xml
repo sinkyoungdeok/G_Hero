@@ -9,15 +9,8 @@
         android:layout_height="40dp"
         android:background="@drawable/chatborder"
         android:src="@mipmap/no_icon"
+        android:visibility="invisible"
         android:layout_alignParentRight="true"/>
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:textColor="#333333"
-        android:layout_toLeftOf="@+id/iv"
-        android:layout_marginRight="16dp"/>
 
     <TextView
         android:id="@+id/tv_msg"
@@ -54,4 +47,5 @@
         android:layout_toLeftOf="@+id/tv_msg"
         android:layout_marginRight="8dp"
         android:layout_alignTop="@id/tv_msg"/>
+
 </RelativeLayout>
