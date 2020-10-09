@@ -4,6 +4,9 @@
 ## App Name
 - Doori
 
+## Concept
+- Couple app
+
 ## Team 
 - 성균관대학교 소프트웨어학부 18 김지영 (대표)
 - 성균관대학교 소프트웨어학부 17 신경덕 (개발 담당)
