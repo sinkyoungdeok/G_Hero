@@ -42,8 +42,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         @SuppressLint("InvalidWakeLockTag")
         PowerManager.WakeLock wakeLock = pm.newWakeLock( PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG" );
         wakeLock.acquire(3000);
-        sendNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body"));
-        //sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+        //sendNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body"));
+        sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
     }
     // [END receive_message]
 
