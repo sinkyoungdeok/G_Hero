@@ -6,6 +6,9 @@
 - 성균관대학교 건축학과 14 김효주 (디자인 담당)
 
 ## Designer's output
+### logo
+<img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95567121-77053b80-0a5d-11eb-97b9-9be0007eab86.png"> 
+
 ### Activity
 <div>
   <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95562114-b0867880-0a56-11eb-9ab0-03851c11a87d.png"> 
