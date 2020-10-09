@@ -7,5 +7,5 @@
 
 ## Designer's output
 ### Splash Activity <br>
-- <img width="100" height="300" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95562114-b0867880-0a56-11eb-9ab0-03851c11a87d.png">
+- <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95562114-b0867880-0a56-11eb-9ab0-03851c11a87d.png">
 
