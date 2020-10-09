@@ -6,6 +6,6 @@
 - 성균관대학교 건축학과 14 김효주 (디자인 담당)
 
 ## Designer's output
-- Splash Activity <br>
-<img width="200" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95562114-b0867880-0a56-11eb-9ab0-03851c11a87d.png">
+### Splash Activity <br>
+- <img width="200" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95562114-b0867880-0a56-11eb-9ab0-03851c11a87d.png">
 
