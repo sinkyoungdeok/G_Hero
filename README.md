@@ -79,7 +79,7 @@
 9. apply shape (Wednesday, August 19th 2020)
 - https://overoid.tistory.com/30
 
-10. apply shape (Thursday, August 20th 2020)
+10. apply path (Thursday, August 20th 2020)
 - https://www.charlezz.com/?p=1110
 
 11. firebase auth (Sunday, August 23rd 2020)
