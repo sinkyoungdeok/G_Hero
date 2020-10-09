@@ -24,3 +24,12 @@
   <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95563748-ca28bf80-0a58-11eb-8eb6-c83df849b38a.jpg">
   <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95563438-5686b280-0a58-11eb-905d-898be18815b6.png">
 </div>
+
+
+## Reference Site
+1. KaKao Login & Logout
+- https://lakue.tistory.com/23
+- https://new93helloworld.tistory.com/58
+2. github & android studio connect
+- https://appfrog.tistory.com/1
+3. 
