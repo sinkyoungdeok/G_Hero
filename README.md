@@ -64,7 +64,7 @@
 - https://www.youtube.com/watch?v=FrRo26dYGfc
 
 7. search calendar open source (Tuesday, August 18th 2020)
-- https://dpdpwl.tistory.com/3
+- https://dpdpwl.tistory.com/3 (selected)
 - https://github.com/kindeep/calenderapp
 - https://github.com/aliahmedbd/CustomClickableCalender
 - https://github.com/rlatkddn212/simple-calendar
