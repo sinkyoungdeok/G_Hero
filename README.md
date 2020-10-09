@@ -8,8 +8,8 @@
 - Couple app
 
 ## Team 
-- 성균관대학교 소프트웨어학부 18 김지영 (대표)
-- 성균관대학교 소프트웨어학부 17 신경덕 (개발 담당)
+- 성균관대학교 소프트웨어학과 18 김지영 (대표)
+- 성균관대학교 소프트웨어학과 17 신경덕 (개발 담당)
 - 성균관대학교 인공지능학과 20 현지웅 (인공지능 담당)
 - 성균관대학교 건축학과 14 김효주 (디자인 담당)
 
@@ -45,7 +45,7 @@
 2. github & android studio connect (Friday, July 31st 2020)
 - https://appfrog.tistory.com/1
 
-3. google login & logout (Friday, July 31st)
+3. google login & logout (Friday, July 31st 2020)
 - https://medium.com/@siisee111/android-app%EC%97%90%EC%84%9C-google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%82%AC%EC%9A%A9-235da1c61153
 
 4. android studio auto import (Friday, July 31st 2020)
