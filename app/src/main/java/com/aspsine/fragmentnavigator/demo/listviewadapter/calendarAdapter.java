@@ -45,13 +45,13 @@ public class calendarAdapter extends BaseAdapter {
         TextView tvNow = (TextView) view.findViewById(R.id.tv_now);
 
         tvStartTime.setText(item.getStartTime());
+        tvContent.setText(item.getContent());
+
         if(item.getEndTime() == null) {
             tvEndTime.setVisibility(View.INVISIBLE);
         } else {
             tvEndTime.setText(item.getEndTime());
         }
-        tvContent.setText(item.getContent());
-
         tvNow.setVisibility(View.INVISIBLE); // 나중에 처리할 예정 ,, 시간이 지금시간하고 겹칠때 이 INVISIBLE하는 코드를 없애면 됨
 
         return view;
