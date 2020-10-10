@@ -43,17 +43,25 @@ public class calendarAdapter extends BaseAdapter {
         TextView tvEndTime = (TextView) view.findViewById(R.id.tv_end_time);
         TextView tvContent = (TextView) view.findViewById(R.id.tv_content);
         TextView tvNow = (TextView) view.findViewById(R.id.tv_now);
+        View divier = (View) view.findViewById(R.id.divider);
 
-        tvStartTime.setText(item.getStartTime());
-        tvContent.setText(item.getContent());
-
-        if(item.getEndTime() == null) {
+        if(item.getEndTime().equals("") && item.getStartTime().equals("") && item.getContent().equals("")) {
+            tvStartTime.setVisibility(View.INVISIBLE);
             tvEndTime.setVisibility(View.INVISIBLE);
+            tvContent.setVisibility(View.INVISIBLE);
+            tvNow.setVisibility(View.INVISIBLE);
+            divier.setVisibility(View.INVISIBLE);
         } else {
-            tvEndTime.setText(item.getEndTime());
-        }
-        tvNow.setVisibility(View.INVISIBLE); // 나중에 처리할 예정 ,, 시간이 지금시간하고 겹칠때 이 INVISIBLE하는 코드를 없애면 됨
+            tvStartTime.setText(item.getStartTime());
+            tvContent.setText(item.getContent());
 
+            if (item.getEndTime() == null) {
+                tvEndTime.setVisibility(View.INVISIBLE);
+            } else {
+                tvEndTime.setText(item.getEndTime());
+            }
+            tvNow.setVisibility(View.INVISIBLE); // 나중에 처리할 예정 ,, 시간이 지금시간하고 겹칠때 이 INVISIBLE하는 코드를 없애면 됨
+        }
         return view;
     }
 }

@@ -30,7 +30,9 @@ import com.aspsine.fragmentnavigator.demo.decorators.SaturdayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SundayDecorator;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
+import com.aspsine.fragmentnavigator.demo.item.calendarListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
+import com.aspsine.fragmentnavigator.demo.listviewadapter.calendarAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.google.firebase.database.DataSnapshot;
@@ -61,8 +63,9 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     MaterialCalendarView materialCalendarView;
     ListView calList;
-    ArrayList<String> data;
-    ArrayAdapter<String> arrayAdapter;
+    private ArrayList<calendarListviewitem> data;
+    private calendarAdapter adapter;
+
     Map<String, String> mCal = new HashMap<>();
     Integer result_len = 0;
     String clickCal = "";
@@ -106,10 +109,8 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
         setHasOptionsMenu(true);
         getActivity().setTitle("캘린더");
-        data = new ArrayList<String>();
-        arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1);
+        data = new ArrayList<>();
         calList =  (ListView)view.findViewById(R.id.calList);
-        calList.setAdapter(arrayAdapter);
         mPostReference = FirebaseDatabase.getInstance().getReference();
         materialCalendarView = (MaterialCalendarView)view.findViewById(R.id.calendarView);
         materialCalendarView.state().edit()
@@ -160,13 +161,22 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                 clickCal = shot_Day;
                 if(mCal.containsKey(shot_Day))
                 {
+                    // 여기에서 이제 2개 이상을 띄워 주기 위해서는 for(String data : mCal.get(shot_Day).split("\n") ) { ~~~ 로 하나하나 처리해주면 끝 ..
+                    calList.setVisibility(View.VISIBLE);
                     data.clear();
-                    data.add("\n \n");
-                    data.add("\n"+mCal.get(shot_Day)+"\n");
-                    data.add("\n \n");
-                    arrayAdapter.clear();
-                    arrayAdapter.addAll(data);
-                    arrayAdapter.notifyDataSetChanged();
+
+                    calendarListviewitem item2 = new calendarListviewitem("","","");
+                    data.add(item2);
+                    String[] splitData = mCal.get(shot_Day).split(",");
+                    calendarListviewitem item = new calendarListviewitem(splitData[1],splitData[2],splitData[0]);
+                    data.add(item);
+                    adapter = new calendarAdapter(getContext(), R.layout.calendar_item, data);
+                    calList.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    data.clear();
+                    adapter = null;
+                    calList.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -260,9 +270,6 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("onDataChange", "Data is Updated");
-
-
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     CalFirebasePost get = postSnapshot.getValue(CalFirebasePost.class);
@@ -284,6 +291,7 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                         int endYear =  Integer.parseInt(split_data[0]);
                         int endMonth =  Integer.parseInt(split_data[1]);
                         int endDay = Integer.parseInt(split_data[2]);
+                        String contentNtime = info[0] +"," + info[2] +"," + info[4];
 
                         for(;endYear >= startYear; startYear++) {
 
@@ -301,14 +309,14 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
                                             if(mCal.containsKey(temp)){
                                                 String prev = mCal.get(temp);
-                                                prev += '\n' + info[0] ;
+                                                prev += '\n' + contentNtime;
                                                 mCal.put(temp,prev);
 
                                             } else {
                                                 result[result_len - 1] = temp;
                                                 result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
                                                 result_len += 1;
-                                                mCal.put(temp, info[0]);
+                                                mCal.put(temp, contentNtime);
                                             }
 
 
@@ -319,14 +327,14 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
                                             if(mCal.containsKey(temp)){
                                                 String prev = mCal.get(temp);
-                                                prev += '\n' + info[0] ;
+                                                prev += '\n' + contentNtime ;
                                                 mCal.put(temp,prev);
 
                                             } else {
                                                 result[result_len - 1] = temp;
                                                 result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
                                                 result_len += 1;
-                                                mCal.put(temp, info[0]);
+                                                mCal.put(temp, contentNtime);
                                             }
                                         }
                                     }
@@ -339,14 +347,14 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
                                         if(mCal.containsKey(temp)){
                                             String prev = mCal.get(temp);
-                                            prev += '\n' + info[0] ;
+                                            prev += '\n' + contentNtime ;
                                             mCal.put(temp,prev);
 
                                         } else {
                                             result[result_len - 1] = temp;
                                             result[result_len] = "2020,08,01"; // 쓰레기값 넣기( 마지막에 넣은것들은 왠지 모르겠지만 표시가 안됨
                                             result_len += 1;
-                                            mCal.put(temp, info[0]);
+                                            mCal.put(temp, contentNtime);
                                         }
                                     }
                                     startDay =1;
