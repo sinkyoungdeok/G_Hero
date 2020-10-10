@@ -128,3 +128,6 @@
 
 25. acquire android crash log (Friday, October 9th 2020)
 - https://support.getkeepsafe.com/hc/ko/articles/360033924731-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%EC%97%90%EC%84%9C-%EC%B6%A9%EB%8F%8C-%EB%A1%9C%EA%B7%B8%EB%A5%BC-%EC%96%BB%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9E%85%EB%8B%88%EA%B9%8C-
+
+26. bottom navigation floating button (Saturday, October 10th 2020)
+- https://medium.com/harrythegreat/android-bottom-appbar-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-9071ec428138 
