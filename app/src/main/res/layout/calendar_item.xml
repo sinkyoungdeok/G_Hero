@@ -14,6 +14,7 @@
         android:layout_alignParentLeft="true"/>
 
     <TextView
+        android:id="@+id/tv_end_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="오후 5:00"
@@ -31,6 +32,7 @@
         android:background="@color/mypink" />
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="미팅 약속"
@@ -41,6 +43,7 @@
         android:layout_marginLeft="15dp" />
 
     <TextView
+        android:id="@+id/tv_now"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="지금"
