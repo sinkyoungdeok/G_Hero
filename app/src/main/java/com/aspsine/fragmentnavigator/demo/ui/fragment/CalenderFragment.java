@@ -170,6 +170,9 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                     String[] splitData = mCal.get(shot_Day).split(",");
                     calendarListviewitem item = new calendarListviewitem(splitData[1],splitData[2],splitData[0]);
                     data.add(item);
+
+                    calendarListviewitem item3 = new calendarListviewitem("","","");
+                    data.add(item3);
                     adapter = new calendarAdapter(getContext(), R.layout.calendar_item, data);
                     calList.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
