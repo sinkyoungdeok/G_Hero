@@ -89,48 +89,48 @@
 ``` https://androman.tistory.com/89 ``` </br>
 
 13. action bar (Sunday, August 30th 2020) </br>
-- https://recipes4dev.tistory.com/141
+``` https://recipes4dev.tistory.com/141 ``` </br>
 
 14. custom switch (Tuesday, September 1st 2020) </br>
-- https://black-jin0427.tistory.com/81
+``` https://black-jin0427.tistory.com/81 ``` </br>
 
 15. slidedatetimepicker (Tuesday, September 1st 2020) </br>
-- https://github.com/jjobes/SlideDateTimePicker
+``` https://github.com/jjobes/SlideDateTimePicker ``` </br>
 
 16. firebase storage download (Monday, September 7th 2020) </br>
-- https://charactermail.tistory.com/67 
+``` https://charactermail.tistory.com/67 ``` </br>
 
 17. firebase storage upload (Monday, September 7th 2020) </br>
-- https://www.youtube.com/watch?v=3YIVyOhY4DQ 
+``` https://www.youtube.com/watch?v=3YIVyOhY4DQ ``` </br>
 
 18. custom listview (Tuesday, September 15th 2020) </br>
-- https://medium.com/android-develop-android/android%EA%B0%9C%EB%B0%9C-5-listview%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A6%AC%EC%8A%A4%ED%8A%B8%EB%A7%8C%EB%93%A4%EA%B8%B0-215b9693d33b
+``` https://medium.com/android-develop-android/android%EA%B0%9C%EB%B0%9C-5-listview%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A6%AC%EC%8A%A4%ED%8A%B8%EB%A7%8C%EB%93%A4%EA%B8%B0-215b9693d33b ``` </br>
 
 19. fcm for chatting alarm (Thursday, October 1st 2020) </br>
-- https://youngest-programming.tistory.com/76
+``` https://youngest-programming.tistory.com/76 ``` </br>
 
 20. chatting </br>
-- https://altongmon.tistory.com/304 (Thursday, October 1st 2020)
-- https://lcw126.tistory.com/107?category=772136 (Monday, October 5th 2020)
+``` https://altongmon.tistory.com/304 (Thursday, October 1st 2020) ``` </br>
+``` https://lcw126.tistory.com/107?category=772136 (Monday, October 5th 2020) ``` </br>
 
 21. edittext cover the screen (Thursday, October 1st 2020) </br>
-- https://superwony.tistory.com/4
+``` https://superwony.tistory.com/4 ``` </br>
 
 22. chatting read function (Thursday, October 8th 2020) </br>
-- https://www.youtube.com/watch?v=QCSxQ0UJCd4
+``` https://www.youtube.com/watch?v=QCSxQ0UJCd4 ``` </br>
 
 23. fcm groupping (Thursday, October 8th 2020) </br>
-- https://developer.android.com/training/notify-user/group?hl=ko
-- https://rannte.tistory.com/entry/Android-Firebase-Cloud-Message-Payload
+``` https://developer.android.com/training/notify-user/group?hl=ko ``` </br>
+``` https://rannte.tistory.com/entry/Android-Firebase-Cloud-Message-Payload ``` </br>
 
 24. fcm background alarm (Thursday, October 8th 2020) </br>
-- https://youngest-programming.tistory.com/103
+``` https://youngest-programming.tistory.com/103 ``` </br>
 
 25. acquire android crash log (Friday, October 9th 2020) </br>
-- https://support.getkeepsafe.com/hc/ko/articles/360033924731-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%EC%97%90%EC%84%9C-%EC%B6%A9%EB%8F%8C-%EB%A1%9C%EA%B7%B8%EB%A5%BC-%EC%96%BB%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9E%85%EB%8B%88%EA%B9%8C-
+``` https://support.getkeepsafe.com/hc/ko/articles/360033924731-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%EC%97%90%EC%84%9C-%EC%B6%A9%EB%8F%8C-%EB%A1%9C%EA%B7%B8%EB%A5%BC-%EC%96%BB%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9E%85%EB%8B%88%EA%B9%8C- ``` </br>
 
 26. bottom navigation floating button (Saturday, October 10th 2020) </br>
-- https://medium.com/harrythegreat/android-bottom-appbar-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-9071ec428138 
+``` https://medium.com/harrythegreat/android-bottom-appbar-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-9071ec428138 ``` </br>
 
 27. application class (Friday, October 23th 2020) </br>
-- https://uroa.tistory.com/43
+``` https://uroa.tistory.com/43 ``` </br>
