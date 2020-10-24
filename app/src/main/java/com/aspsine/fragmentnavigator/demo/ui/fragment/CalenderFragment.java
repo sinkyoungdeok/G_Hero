@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.decorators.EventDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.OneDayDecorator;
 import com.aspsine.fragmentnavigator.demo.decorators.SaturdayDecorator;
@@ -137,10 +138,10 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
         result[0] = "2020,08,10";
         result_len = 1;
-        if(myUser.firstEnrolled.equals("T")) {
-            ID = myUser.id.replace(".", "");
+        if(SharedApplication.myUser.firstEnrolled.equals("T")) {
+            ID = SharedApplication.myUser.id.replace(".", "");
         } else {
-            ID = yourUser.id.replace(".","");
+            ID = SharedApplication.yourUser.id.replace(".","");
         }
         getFirebaseDatabase();
 
