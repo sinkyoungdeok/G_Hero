@@ -63,74 +63,74 @@
 6. google login & profile (Saturday, August 8th 2020) </br>
 ``` https://www.youtube.com/watch?v=FrRo26dYGfc ```</br>
 
-7. search calendar open source (Tuesday, August 18th 2020)
-- https://dpdpwl.tistory.com/3 (selected)
-- https://github.com/kindeep/calenderapp
-- https://github.com/aliahmedbd/CustomClickableCalender
-- https://github.com/rlatkddn212/simple-calendar
-- https://github.com/hOdOrNight/Android-Calender
-- https://webnautes.tistory.com/1216
-- https://cpcp127.tistory.com/21
-- https://deumdroid.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%EA%B3%A0%EA%B8%89%EC%9C%84%EC%A0%AF%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84-%EC%98%88%EC%95%BD-%EC%95%B1-%EB%A7%8C%EB%93%A4%EA%B8%B0
+7. search calendar open source (Tuesday, August 18th 2020) </br>
+``` https://dpdpwl.tistory.com/3 (selected) ``` </br>
+``` https://github.com/kindeep/calenderapp ``` </br>
+``` https://github.com/aliahmedbd/CustomClickableCalender ``` </br>
+``` https://github.com/rlatkddn212/simple-calendar ``` </br>
+``` https://github.com/hOdOrNight/Android-Calender ``` </br>
+``` https://webnautes.tistory.com/1216 ``` </br>
+``` https://cpcp127.tistory.com/21 ``` </br>
+``` https://deumdroid.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4-%EA%B3%A0%EA%B8%89%EC%9C%84%EC%A0%AF%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84-%EC%98%88%EC%95%BD-%EC%95%B1-%EB%A7%8C%EB%93%A4%EA%B8%B0 ``` </br>
 
-8. splash Activity (Tuesday, August 18th 2020)
-- https://sbss.tistory.com/6
+8. splash Activity (Tuesday, August 18th 2020) </br>
+``` https://sbss.tistory.com/6 ``` </br>
 
-9. apply shape (Wednesday, August 19th 2020)
-- https://overoid.tistory.com/30
+9. apply shape (Wednesday, August 19th 2020) </br>
+``` https://overoid.tistory.com/30 ``` </br>
 
-10. apply path (Thursday, August 20th 2020)
-- https://www.charlezz.com/?p=1110
+10. apply path (Thursday, August 20th 2020) </br>
+``` https://www.charlezz.com/?p=1110 ``` </br>
 
-11. firebase auth (Sunday, August 23rd 2020)
-- https://medium.com/wasd/firebase-android-authentication%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%B0%8F-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EA%B5%AC%ED%98%84-19829fca5e92
+11. firebase auth (Sunday, August 23rd 2020) </br>
+``` https://medium.com/wasd/firebase-android-authentication%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EB%B0%8F-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EA%B5%AC%ED%98%84-19829fca5e92 ``` </br>
 
-12. floating action bar (Sunday, August 30th 2020)
-- https://androman.tistory.com/89
+12. floating action bar (Sunday, August 30th 2020) </br>
+``` https://androman.tistory.com/89 ``` </br>
 
-13. action bar (Sunday, August 30th 2020)
+13. action bar (Sunday, August 30th 2020) </br>
 - https://recipes4dev.tistory.com/141
 
-14. custom switch (Tuesday, September 1st 2020)
+14. custom switch (Tuesday, September 1st 2020) </br>
 - https://black-jin0427.tistory.com/81
 
-15. slidedatetimepicker (Tuesday, September 1st 2020)
+15. slidedatetimepicker (Tuesday, September 1st 2020) </br>
 - https://github.com/jjobes/SlideDateTimePicker
 
-16. firebase storage download (Monday, September 7th 2020)
+16. firebase storage download (Monday, September 7th 2020) </br>
 - https://charactermail.tistory.com/67 
 
-17. firebase storage upload (Monday, September 7th 2020)
+17. firebase storage upload (Monday, September 7th 2020) </br>
 - https://www.youtube.com/watch?v=3YIVyOhY4DQ 
 
-18. custom listview (Tuesday, September 15th 2020)
+18. custom listview (Tuesday, September 15th 2020) </br>
 - https://medium.com/android-develop-android/android%EA%B0%9C%EB%B0%9C-5-listview%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A6%AC%EC%8A%A4%ED%8A%B8%EB%A7%8C%EB%93%A4%EA%B8%B0-215b9693d33b
 
-19. fcm for chatting alarm (Thursday, October 1st 2020)
+19. fcm for chatting alarm (Thursday, October 1st 2020) </br>
 - https://youngest-programming.tistory.com/76
 
-20. chatting 
+20. chatting </br>
 - https://altongmon.tistory.com/304 (Thursday, October 1st 2020)
 - https://lcw126.tistory.com/107?category=772136 (Monday, October 5th 2020)
 
-21. edittext cover the screen (Thursday, October 1st 2020)
+21. edittext cover the screen (Thursday, October 1st 2020) </br>
 - https://superwony.tistory.com/4
 
-22. chatting read function (Thursday, October 8th 2020)
+22. chatting read function (Thursday, October 8th 2020) </br>
 - https://www.youtube.com/watch?v=QCSxQ0UJCd4
 
-23. fcm groupping (Thursday, October 8th 2020)
+23. fcm groupping (Thursday, October 8th 2020) </br>
 - https://developer.android.com/training/notify-user/group?hl=ko
 - https://rannte.tistory.com/entry/Android-Firebase-Cloud-Message-Payload
 
-24. fcm background alarm (Thursday, October 8th 2020)
+24. fcm background alarm (Thursday, October 8th 2020) </br>
 - https://youngest-programming.tistory.com/103
 
-25. acquire android crash log (Friday, October 9th 2020)
+25. acquire android crash log (Friday, October 9th 2020) </br>
 - https://support.getkeepsafe.com/hc/ko/articles/360033924731-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%EC%97%90%EC%84%9C-%EC%B6%A9%EB%8F%8C-%EB%A1%9C%EA%B7%B8%EB%A5%BC-%EC%96%BB%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9E%85%EB%8B%88%EA%B9%8C-
 
-26. bottom navigation floating button (Saturday, October 10th 2020)
+26. bottom navigation floating button (Saturday, October 10th 2020) </br>
 - https://medium.com/harrythegreat/android-bottom-appbar-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-9071ec428138 
 
-27. application class (Friday, October 23th 2020)
+27. application class (Friday, October 23th 2020) </br>
 - https://uroa.tistory.com/43
