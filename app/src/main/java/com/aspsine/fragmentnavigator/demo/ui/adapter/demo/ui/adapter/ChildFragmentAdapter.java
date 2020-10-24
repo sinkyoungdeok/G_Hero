@@ -17,7 +17,7 @@ public class ChildFragmentAdapter implements FragmentNavigatorAdapter {
     UserFirebasePost temp;
     @Override
     public Fragment onCreateFragment(int position) {
-        return ContactsFragment.newInstance(temp,temp);
+        return ContactsFragment.newInstance();
     }
 
     @Override
