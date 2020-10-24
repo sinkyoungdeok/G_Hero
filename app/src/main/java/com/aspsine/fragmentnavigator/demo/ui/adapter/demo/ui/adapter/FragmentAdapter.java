@@ -29,15 +29,15 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
             return MainFragment.newInstance();
         }
         else if (position == 1){
-            return ContactsFragment.newInstance(myUser, yourUser);
+            return ContactsFragment.newInstance();
         }
         else if (position == 2) {
-            return EmoticonFragment.newInstance(id);
+            return EmoticonFragment.newInstance("");
         }
         else if(position == 3){
-            return DdayFragment.newInstance(id);
+            return DdayFragment.newInstance("");
         }
-        return CalenderFragment.newInstance(myUser, yourUser);
+        return CalenderFragment.newInstance();
     }
 
 

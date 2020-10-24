@@ -77,7 +77,6 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     Toast toast;
     long backKeyPressedTime;
 
-    private static UserFirebasePost myUser, yourUser;
     private DatabaseReference mPostReference;
 
 
@@ -85,10 +84,8 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
         // Required empty public constructor
     }
 
-    public static CalenderFragment newInstance(UserFirebasePost myuser, UserFirebasePost youruser) {
+    public static CalenderFragment newInstance() {
         CalenderFragment fragment = new CalenderFragment();
-        myUser = myuser;
-        yourUser = youruser;
         return fragment;
     }
 

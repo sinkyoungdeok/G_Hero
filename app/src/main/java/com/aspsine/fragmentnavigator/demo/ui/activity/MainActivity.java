@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    //myUser = postSnapshot.getValue(UserFirebasePost.class);
                     SharedApplication.myUser =  postSnapshot.getValue(UserFirebasePost.class);
                 }
             }
@@ -105,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    //yourUser = postSnapshot.getValue(UserFirebasePost.class);
                     SharedApplication.yourUser = postSnapshot.getValue(UserFirebasePost.class);
                 }
             }
