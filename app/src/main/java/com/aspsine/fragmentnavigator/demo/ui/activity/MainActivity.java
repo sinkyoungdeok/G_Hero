@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
     public void setDefaultFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //ContactsFragment.newInstance(myUser, yourUser);
-        transaction.add(R.id.container, ContactsFragment.newInstance(myUser, yourUser));
+        transaction.add(R.id.container, ContactsFragment.newInstance());
         transaction.commit();
     }
 
