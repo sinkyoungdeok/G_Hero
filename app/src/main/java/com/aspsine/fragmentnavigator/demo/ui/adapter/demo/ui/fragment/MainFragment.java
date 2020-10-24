@@ -63,7 +63,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     private StorageReference pathReference, yourpathReference;
     /* profile */
 
-    public static Fragment newInstance(UserFirebasePost myuser, UserFirebasePost youruser) {
+    public static Fragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
     }

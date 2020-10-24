@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         if (bottomNavigatorView != null) {
             bottomNavigatorView.setOnBottomNavigatorViewItemClickListener(this);
         }
-        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID), R.id.container);
+        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(), R.id.container);
         mNavigator.setDefaultPosition(defaultPosition);
         mNavigator.onCreate(savedInstanceState);
         setCurrentTab(mNavigator.getCurrentPosition());

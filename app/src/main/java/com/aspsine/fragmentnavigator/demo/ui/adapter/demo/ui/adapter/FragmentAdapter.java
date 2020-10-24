@@ -20,22 +20,13 @@ import com.aspsine.fragmentnavigator.demo.ui.fragment.EmoticonFragment;
 public class FragmentAdapter implements FragmentNavigatorAdapter {
 
     private static final String TABS[] = {"Home", "Chats", "Emoticon", "Dday", "Calendar"};
-    private String id;
-    private UserFirebasePost myUser;
-    private UserFirebasePost yourUser;
-    public FragmentAdapter(String id, UserFirebasePost myUser, UserFirebasePost yourUser) {
-        this.id = id;
-        this.myUser = myUser;
-        this.yourUser = yourUser;
-    }
-    public FragmentAdapter(String id) {
-        this.id = id;
+    public FragmentAdapter() {
     }
 
     @Override
     public Fragment onCreateFragment(int position) {
         if(position == 0) {
-            return MainFragment.newInstance(myUser, yourUser);
+            return MainFragment.newInstance();
         }
         else if (position == 1){
             return ContactsFragment.newInstance(myUser, yourUser);
