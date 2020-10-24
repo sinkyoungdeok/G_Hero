@@ -3,6 +3,7 @@ package com.aspsine.fragmentnavigator.demo.ui.activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener {
@@ -64,12 +67,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
 
     private String defaultposition;
 
+    private Gson gson;
+
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private String jsonMyUser;
+    private String jsonYourUser;
+
     OnBackPressedListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mPostReference = FirebaseDatabase.getInstance().getReference();
+        preferences = getSharedPreferences("account",MODE_PRIVATE);
+        editor = preferences.edit();
+        gson = new GsonBuilder().create();
         Intent intent = getIntent();
         ID = intent.getExtras().getString("id");
         defaultposition = intent.getExtras().getString("defaultFragment");
@@ -86,32 +99,51 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         mNavigator.setDefaultPosition(defaultPosition);
         mNavigator.onCreate(savedInstanceState);
         setCurrentTab(mNavigator.getCurrentPosition());
-
-        Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(ID);
-        myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    SharedApplication.myUser =  postSnapshot.getValue(UserFirebasePost.class);
+        jsonMyUser = preferences.getString("myUser",null);
+        jsonYourUser = preferences.getString("yourUser",null);
+        if( jsonMyUser == null) {
+            Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(ID);
+            myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        UserFirebasePost myUser = postSnapshot.getValue(UserFirebasePost.class);
+                        SharedApplication.myUser = myUser;
+                        jsonMyUser = gson.toJson(myUser, UserFirebasePost.class);
+                        editor.putString("myUser",jsonMyUser); // sharedpreference
+                        editor.commit();
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        Query yourGetQuery = mPostReference.child("/user_list").orderByChild("otherHalf").equalTo(ID);
-        yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    SharedApplication.yourUser = postSnapshot.getValue(UserFirebasePost.class);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        } else {
+            SharedApplication.myUser = gson.fromJson(jsonMyUser,UserFirebasePost.class);
+        }
+        if( jsonYourUser == null) {
+            Query yourGetQuery = mPostReference.child("/user_list").orderByChild("otherHalf").equalTo(ID);
+            yourGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        UserFirebasePost yourUser = postSnapshot.getValue(UserFirebasePost.class);
+                        SharedApplication.yourUser = yourUser;
+                        jsonYourUser = gson.toJson(yourUser, UserFirebasePost.class);
+                        editor.putString("yourUser",jsonYourUser);
+                        editor.commit();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        } else {
+            SharedApplication.yourUser = gson.fromJson(jsonYourUser,UserFirebasePost.class);
+        }
 
 
 
