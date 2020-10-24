@@ -39,7 +39,7 @@
 
 ## Reference Site
 1. kakao login & logout (Friday, July 31st 2020)
-- https://lakue.tistory.com/23
+``` https://lakue.tistory.com/23 ```
 - https://new93helloworld.tistory.com/58
 
 2. github & android studio connect (Friday, July 31st 2020)
