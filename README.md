@@ -38,30 +38,30 @@
 
 
 ## Reference Site
-1. kakao login & logout (Friday, July 31st 2020)
-``` https://lakue.tistory.com/23 ```
-- https://new93helloworld.tistory.com/58
+1. kakao login & logout (Friday, July 31st 2020) </br>
+``` https://lakue.tistory.com/23 ``` </br>
+``` https://new93helloworld.tistory.com/58 ``` </br>
 
-2. github & android studio connect (Friday, July 31st 2020)
-- https://appfrog.tistory.com/1
+2. github & android studio connect (Friday, July 31st 2020) </br>
+``` https://appfrog.tistory.com/1 ``` </br>
 
-3. google login & logout (Friday, July 31st 2020)
-- https://medium.com/@siisee111/android-app%EC%97%90%EC%84%9C-google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%82%AC%EC%9A%A9-235da1c61153
+3. google login & logout (Friday, July 31st 2020) </br>
+``` https://medium.com/@siisee111/android-app%EC%97%90%EC%84%9C-google-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%82%AC%EC%9A%A9-235da1c61153 ``` </br>
 
-4. android studio auto import (Friday, July 31st 2020)
-- https://shyunku.tistory.com/15
+4. android studio auto import (Friday, July 31st 2020) </br>
+``` https://shyunku.tistory.com/15 ```</br>
 
-5. search fragment open source (Monday, August 3rd 2020)
-- https://github.com/Aspsine/FragmentNavigator (Selected)
-- https://github.com/open-android/FragmentTabhostUtils
-- https://github.com/ncapdevi/FragNav
-- https://github.com/f22labs/InstaLikeFragmentTransaction
-- https://github.com/hlgao/FragmentTabHost
-- https://github.com/AriesHoo/FastLib
-- https://github.com/Commit451/ModalBottomSheetDialogFragment
+5. search fragment open source (Monday, August 3rd 2020) </br>
+``` https://github.com/Aspsine/FragmentNavigator (Selected) ```</br>
+``` https://github.com/open-android/FragmentTabhostUtils ``` </br>
+``` https://github.com/ncapdevi/FragNav ```</br>
+``` https://github.com/f22labs/InstaLikeFragmentTransaction ``` </br>
+``` https://github.com/hlgao/FragmentTabHost ```</br>
+``` https://github.com/AriesHoo/FastLib ``` </br>
+``` https://github.com/Commit451/ModalBottomSheetDialogFragment ``` </br>
 
-6. google login & profile (Saturday, August 8th 2020)
-- https://www.youtube.com/watch?v=FrRo26dYGfc
+6. google login & profile (Saturday, August 8th 2020) </br>
+``` https://www.youtube.com/watch?v=FrRo26dYGfc ```</br>
 
 7. search calendar open source (Tuesday, August 18th 2020)
 - https://dpdpwl.tistory.com/3 (selected)
