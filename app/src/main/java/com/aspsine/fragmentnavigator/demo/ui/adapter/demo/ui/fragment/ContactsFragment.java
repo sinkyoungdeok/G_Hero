@@ -183,7 +183,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         adapter = new chatAdapter(getContext(), R.layout.contact_item,data);
         listView.setAdapter(adapter);
 
-
+        new BackgroundTask().execute();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
