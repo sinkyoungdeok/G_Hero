@@ -26,7 +26,7 @@ public class SendNotification {
                     dataJson.put("body", messsage);
                     dataJson.put("title", title);
                     json.put("notification", dataJson);
-                    //json.put("data", dataJson);
+                    json.put("data", dataJson);
                     json.put("to", regToken);
                     RequestBody body = RequestBody.create(JSON, json.toString());
                     Request request = new Request.Builder()
