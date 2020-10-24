@@ -131,3 +131,6 @@
 
 26. bottom navigation floating button (Saturday, October 10th 2020)
 - https://medium.com/harrythegreat/android-bottom-appbar-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-9071ec428138 
+
+27. application class (Friday, October 23th 2020)
+- https://uroa.tistory.com/43
