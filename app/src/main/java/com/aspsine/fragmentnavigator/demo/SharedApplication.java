@@ -6,8 +6,8 @@ import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 
 public class SharedApplication extends Application  {
 
-    public static UserFirebasePost myUser;
-    public static UserFirebasePost yourUser;
+    public static UserFirebasePost myUser = null;
+    public static UserFirebasePost yourUser = null;
 
     @Override
     public void onCreate() {

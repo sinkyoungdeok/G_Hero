@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.aspsine.fragmentnavigator.demo.Action;
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.broadcast.BroadcastManager;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
@@ -77,18 +78,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         } else if (defaultposition.equals("chat")) {
             defaultPosition = 1;
         }
+        bottomNavigatorView = (BottomNavigatorView) findViewById(R.id.bottomNavigatorView);
+        if (bottomNavigatorView != null) {
+            bottomNavigatorView.setOnBottomNavigatorViewItemClickListener(this);
+        }
+        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID), R.id.container);
+        mNavigator.setDefaultPosition(defaultPosition);
+        mNavigator.onCreate(savedInstanceState);
+        setCurrentTab(mNavigator.getCurrentPosition());
+
         Query myGetQuery = mPostReference.child("/user_list").orderByChild("id").equalTo(ID);
         myGetQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    myUser = postSnapshot.getValue(UserFirebasePost.class);
-                    if(yourUser != null) {
-                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID,myUser,yourUser), R.id.container);
-                        mNavigator.setDefaultPosition(defaultPosition);
-                        mNavigator.onCreate(savedInstanceState);
-                        setCurrentTab(mNavigator.getCurrentPosition());
-                    }
+                    //myUser = postSnapshot.getValue(UserFirebasePost.class);
+                    SharedApplication.myUser =  postSnapshot.getValue(UserFirebasePost.class);
                 }
             }
             @Override
@@ -100,13 +105,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    yourUser = postSnapshot.getValue(UserFirebasePost.class);
-                    if(myUser != null) {
-                        mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(ID,myUser,yourUser), R.id.container);
-                        mNavigator.setDefaultPosition(defaultPosition);
-                        mNavigator.onCreate(savedInstanceState);
-                        setCurrentTab(mNavigator.getCurrentPosition());
-                    }
+                    //yourUser = postSnapshot.getValue(UserFirebasePost.class);
+                    SharedApplication.yourUser = postSnapshot.getValue(UserFirebasePost.class);
                 }
             }
             @Override
@@ -115,14 +115,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
             }
         });
 
-        //mNavigator = new FragmentNavigator(getSupportFragmentManager(), new FragmentAdapter(id), R.id.container);
-        //mNavigator.setDefaultPosition(DEFAULT_POSITION);
-        //mNavigator.onCreate(savedInstanceState);
 
-        bottomNavigatorView = (BottomNavigatorView) findViewById(R.id.bottomNavigatorView);
-        if (bottomNavigatorView != null) {
-            bottomNavigatorView.setOnBottomNavigatorViewItemClickListener(this);
-        }
 
         //setCurrentTab(mNavigator.getCurrentPosition());
 

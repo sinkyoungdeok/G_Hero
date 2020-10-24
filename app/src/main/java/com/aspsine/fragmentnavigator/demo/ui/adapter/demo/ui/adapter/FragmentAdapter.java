@@ -28,6 +28,9 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
         this.myUser = myUser;
         this.yourUser = yourUser;
     }
+    public FragmentAdapter(String id) {
+        this.id = id;
+    }
 
     @Override
     public Fragment onCreateFragment(int position) {

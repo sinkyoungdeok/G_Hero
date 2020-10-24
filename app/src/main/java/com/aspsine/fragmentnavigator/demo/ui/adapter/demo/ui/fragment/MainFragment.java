@@ -3,8 +3,10 @@ package com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -22,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
@@ -59,13 +62,9 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     private StorageReference storageReference, yourstorageReference;
     private StorageReference pathReference, yourpathReference;
     /* profile */
-    private static UserFirebasePost myUser;
-    private static UserFirebasePost yourUser;
 
     public static Fragment newInstance(UserFirebasePost myuser, UserFirebasePost youruser) {
         MainFragment fragment = new MainFragment();
-        myUser = myuser;
-        yourUser = youruser;
         return fragment;
     }
 
@@ -95,17 +94,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         ingdayText = (TextView) view.findViewById(R.id.ingday);
         myImg = (ImageView) view.findViewById(R.id.myImg);
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
-        yourNameText.setText(yourUser.name);
-        /*profile*/
-        if(!myUser.profileUrl.equals("")) {
-            Glide.with(getContext()).load(myUser.profileUrl).into(myImg);
-            myImg.setBackgroundResource(0);
-        }
-        if(!yourUser.profileUrl.equals("")) {
-            Glide.with(getContext()).load(yourUser.profileUrl).into(yourImg);
-            yourImg.setBackgroundResource(0);
-        }
-        /*profile*/
+        new BackgroundTask().execute();
 
         /* 커스텀 액션바 */
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
@@ -118,27 +107,6 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         View actionbar = inflater.inflate(R.layout.main_actionbar, null);
         actionBar.setCustomView(actionbar);
         /* 커스텀 액션바 */
-
-        myNameText.setText(myUser.name);
-        Calendar cal = Calendar.getInstance( );
-        String split_data[] = myUser.firstDay.split(",");
-        int year = Integer.parseInt(split_data[0]);
-        int month = Integer.parseInt(split_data[1]);
-        int day = Integer.parseInt(split_data[2]);
-        Calendar cal2 = new GregorianCalendar(year, month-1, day);
-        long diffSec = (cal.getTimeInMillis() - cal2.getTimeInMillis())/1000;
-        long diffDays = diffSec / (24*60*60);
-        ingdayText.setText( Long.toString(diffDays+1) + "일째");
-
-        SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy년 M월 d일 ");
-        Date time = new Date();
-        String todayStr = mFormatter.format(time).toString();
-        Calendar oCalendar = Calendar.getInstance( );
-        final String[] week = { "일", "월", "화", "수", "목", "금", "토" };
-
-        todayStr += week[oCalendar.get(Calendar.DAY_OF_WEEK) - 1] + "요일";
-        todayText.setText(todayStr);
-
 
 
 
@@ -204,7 +172,58 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         activity.setOnBackPressedListener(this);
     }
 
+    class BackgroundTask extends AsyncTask<Integer, Integer, Integer> {
+        protected void onPreExecute() {
 
+        }
+        protected Integer doInBackground(Integer ... values) {
+            while(SharedApplication.myUser == null);
+            publishProgress(1);
+            while(SharedApplication.yourUser == null);
+            publishProgress(2);
+            return 1;
+        }
+        protected void onProgressUpdate(Integer ... values) {
+            if(values[0] == 1) {
+                myNameText.setText(SharedApplication.myUser.name);
+                if(!SharedApplication.myUser.profileUrl.equals("")) {
+                    Glide.with(getContext()).load(SharedApplication.myUser.profileUrl).into(myImg);
+                    myImg.setBackgroundResource(0);
+                }
+                Calendar cal = Calendar.getInstance( );
+                String split_data[] = SharedApplication.myUser.firstDay.split(",");
+                int year = Integer.parseInt(split_data[0]);
+                int month = Integer.parseInt(split_data[1]);
+                int day = Integer.parseInt(split_data[2]);
+                Calendar cal2 = new GregorianCalendar(year, month-1, day);
+                long diffSec = (cal.getTimeInMillis() - cal2.getTimeInMillis())/1000;
+                long diffDays = diffSec / (24*60*60);
+                ingdayText.setText( Long.toString(diffDays+1) + "일째");
+
+                SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy년 M월 d일 ");
+                Date time = new Date();
+                String todayStr = mFormatter.format(time).toString();
+                Calendar oCalendar = Calendar.getInstance( );
+                final String[] week = { "일", "월", "화", "수", "목", "금", "토" };
+
+                todayStr += week[oCalendar.get(Calendar.DAY_OF_WEEK) - 1] + "요일";
+                todayText.setText(todayStr);
+
+            } else {
+                yourNameText.setText(SharedApplication.yourUser.name);
+                if(!SharedApplication.yourUser.profileUrl.equals("")) {
+                    Glide.with(getContext()).load(SharedApplication.yourUser.profileUrl).into(yourImg);
+                    yourImg.setBackgroundResource(0);
+                }
+            }
+        }
+        protected void onPostExecute(Integer result) {
+
+        }
+        protected void onCancelled() {
+
+        }
+    }
 
 
 }
