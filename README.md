@@ -134,3 +134,6 @@
 
 27. application class (Friday, October 23th 2020) </br>
 ``` https://uroa.tistory.com/43 ``` </br>
+
+28. curvebottombar (Sunday, October 25th 2020) </br>
+``` https://github.com/Akshay-Katariya/CurveBottomBar  ``` </br>
