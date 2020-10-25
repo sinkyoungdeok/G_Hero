@@ -1,146 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mypink"
     tools:context=".ui.activity.InfoActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_preview2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/no_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        />
+    <RadioGroup
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/iv_preview2"
+        android:layout_marginTop="30dp"
+        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="133dp"
-            android:orientation="vertical">
-            <!--이미지 출력-->
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="115dp"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_preview2"
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/no_icon" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RadioButton
+            android:id="@+id/man"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:buttonTint="#ffffff"
+            android:text="남자"
+            android:textColor="#ffffff"
+            android:layout_marginRight="140dp"
+            />
 
-            <RadioGroup
-                android:id="@+id/gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#ffffff"
+            android:text="여자"
+            android:textColor="#ffffff" />
 
-                <LinearLayout
-                    android:layout_width="79dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+    </RadioGroup>
 
-                <RadioButton
-                    android:id="@+id/man"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="#ffffff"
-                    android:text="남자"
-                    android:textColor="#ffffff" />
+    <EditText
+        android:id="@+id/nameEdit"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="이름"
+        android:textColor="#000000"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        android:background="#ffffff"
+        android:textColorHint="#dddddddd"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/gender"
+        android:layout_marginTop="20dp"
+        />
 
-                <LinearLayout
-                    android:layout_width="136dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+    <EditText
+        android:id="@+id/birthEdit"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:hint="생일"
+        android:textColor="#000000"
+        android:textColorHint="#dddddddd"
+        android:textAlignment="center"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/nameEdit"
+        android:layout_marginTop="5dp"
+        />
 
-                <RadioButton
-                    android:id="@+id/woman"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="#ffffff"
-                    android:text="여자"
-                    android:textColor="#ffffff" />
+    <EditText
+        android:id="@+id/firstDayEdit"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:hint="처음 만난 날"
+        android:textColor="#000000"
+        android:textColorHint="#dddddddd"
+        android:textAlignment="center"
+        android:background="#ffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/birthEdit"
+        android:layout_marginTop="5dp"
+        />
 
-            </RadioGroup>
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:background="@drawable/mybutton_bold"
+        android:text="시작하기!"
+        android:textColor="#ffffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/firstDayEdit"
+        android:layout_marginTop="30dp"
+        />
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="308dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/nameEdit"
-                android:layout_width="350sp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_height="40sp"
-                android:ems="10"
-                android:hint="이름"
-                android:textColor="#000000"
-                android:inputType="textPersonName"
-                android:text=""
-                android:textAlignment="center"
-                android:background="#ffffff"
-                android:layout_marginTop="20sp"
-                android:textColorHint="#dddddddd" />
-
-            <EditText
-                android:id="@+id/birthEdit"
-                android:layout_width="350sp"
-                android:layout_gravity="center"
-                android:layout_height="40sp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
-                android:hint="생일"
-                android:textColor="#000000"
-                android:textColorHint="#dddddddd"
-                android:textAlignment="center"
-                android:background="#ffffff"
-                android:layout_marginTop="5sp"
-                android:gravity="center" />
-
-            <EditText
-                android:id="@+id/firstDayEdit"
-                android:layout_width="350sp"
-                android:layout_gravity="center"
-                android:layout_height="40sp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
-                android:hint="처음 만난 날"
-                android:textColor="#000000"
-                android:textColorHint="#dddddddd"
-                android:textAlignment="center"
-                android:background="#ffffff"
-                android:layout_marginTop="5sp"
-                android:gravity="center" />
-
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="343dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30sp"
-                android:textSize="25sp"
-                android:background="@drawable/mybutton_bold"
-                android:gravity="center"
-                android:text="시작하기!"
-                android:textColor="#ffffffff" />
-        </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
