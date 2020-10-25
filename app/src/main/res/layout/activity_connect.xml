@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,104 +8,70 @@
     android:background="@color/mypink"
     tools:context=".ui.activity.ConnectActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        app:srcCompat="@mipmap/connect_bubble"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="411dp"
-            android:layout_height="346dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginBottom="1dp"
-            android:orientation="vertical">
+    <EditText
+        android:id="@+id/myCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="5"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="1234 5678"
+        android:textColor="@color/mypink"
+        android:textSize="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:textStyle="bold"
+        />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="212dp">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@mipmap/no_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/myCode"
+        android:layout_marginTop="15dp"
+        />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="250sp"
-                    android:layout_height="250sp"
-                    android:layout_gravity="center"
-                    app:layout_constraintBaseline_toBaselineOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@mipmap/connect_bubble" />
+    <EditText
+        android:id="@+id/yourCode"
+        android:layout_width="350dp"
+        android:layout_height="58dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="전달받은 초대코드 입력"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:textColorHint="#DDDDDDDD"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="50dp"
+        />
 
-                <EditText
-                    android:id="@+id/myCode"
-                    android:layout_width="210dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="32dp"
-                    android:ems="5"
-                    android:gravity="center"
-                    android:inputType="textPersonName"
-                    android:text="1234 5678"
-                    android:textColor="@color/mypink"
-                    android:textSize="30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:background="@drawable/mybutton_bold"
+        android:text="연결하기"
+        android:textColor="#ffffffff"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/yourCode"
+        android:layout_marginTop="40dp"
+        />
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:layout_gravity="center"
-                app:srcCompat="@mipmap/no_icon" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="413dp"
-            android:layout_height="428dp"
-            android:layout_marginBottom="2dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/yourCode"
-                android:layout_width="339dp"
-                android:layout_height="58dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:background="#ffffff"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="전달받은 초대코드 입력"
-                android:inputType="textPersonName"
-                android:text=""
-                android:textColorHint="#DDDDDDDD" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="340dp"
-                android:layout_height="60sp"
-                android:layout_marginTop="15sp"
-                android:layout_gravity="center"
-                android:background="@drawable/mybutton_bold"
-                android:text="연결하기"
-                android:textColor="#ffffffff"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
