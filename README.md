@@ -9,9 +9,9 @@
 
 ## Team 
 - 성균관대학교 소프트웨어학과 18 김지영 (대표)
-- 성균관대학교 소프트웨어학과 17 신경덕 (개발 담당)
-- 성균관대학교 인공지능학과 20 현지웅 (인공지능 담당)
-- 성균관대학교 건축학과 14 김효주 (디자인 담당)
+- 성균관대학교 소프트웨어학과 17 신경덕 (개발자)
+- 성균관대학교 인공지능학과 20 현지웅 (인공지능 개발자)
+- 성균관대학교 건축학과 14 김효주 (디자이너)
 
 ## Designer's output
 ### logo
@@ -134,3 +134,7 @@
 
 27. application class (Friday, October 23th 2020) </br>
 ``` https://uroa.tistory.com/43 ``` </br>
+
+28. curvebottombar (Sunday, October 25th 2020) </br>
+``` https://github.com/Akshay-Katariya/CurveBottomBar  ``` </br>
+``` https://www.youtube.com/watch?v=B-vLPw_Hn_M ``` </br>
