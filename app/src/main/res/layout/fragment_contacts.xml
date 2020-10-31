@@ -36,6 +36,7 @@
                 android:text=""
                 android:padding="10dp"
                 tools:layout_editor_absoluteX="-1dp"
+                android:fontFamily="@font/nanumgodhic"
                 tools:layout_editor_absoluteY="2dp" />
 
             <Button

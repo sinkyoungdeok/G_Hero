@@ -26,6 +26,7 @@
         android:paddingLeft="13dp"
         android:maxWidth="250dp"
         android:background="@drawable/back_et_othermsgbox"
+        android:fontFamily="@font/nanumgodhic"
         android:textColor="#333333"/>
     <TextView
         android:id="@+id/tv_time"
@@ -36,5 +37,6 @@
         android:textSize="12sp"
         android:layout_toRightOf="@+id/tv_msg"
         android:layout_marginLeft="8dp"
+        android:fontFamily="@font/nanumgodhic"
         android:layout_alignBottom="@id/tv_msg"/>
 </RelativeLayout>

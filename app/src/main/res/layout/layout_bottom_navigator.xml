@@ -26,6 +26,7 @@
             android:layout_marginTop="2dp"
             android:text="홈"
             android:textColor="@color/color_tab_text"
+            android:fontFamily="@font/nanumgodhic"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -48,6 +49,7 @@
             android:layout_marginTop="2dp"
             android:text="채팅"
             android:textColor="@color/color_tab_text"
+            android:fontFamily="@font/nanumgodhic"
             android:textSize="12sp" />
     </LinearLayout>
     <!--
@@ -70,6 +72,7 @@
             android:layout_marginTop="2dp"
             android:text="이모티콘"
             android:textColor="@color/color_tab_text"
+             android:fontFamily="@font/nanumgodhic"
             android:textSize="12sp" />
     </LinearLayout>
     -->
@@ -92,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="디데이"
+            android:fontFamily="@font/nanumgodhic"
             android:textColor="@color/color_tab_text"
             android:textSize="12sp" />
     </LinearLayout>
@@ -114,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="캘린더"
+            android:fontFamily="@font/nanumgodhic"
             android:textColor="@color/color_tab_text"
             android:textSize="12sp" />
     </LinearLayout>
