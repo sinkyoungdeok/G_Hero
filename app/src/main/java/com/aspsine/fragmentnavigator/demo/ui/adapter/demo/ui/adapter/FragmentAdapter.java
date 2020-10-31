@@ -22,7 +22,7 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
     private static final String TABS[] = {"Home", "Chats", "Emoticon", "Dday", "Calendar"};
     public FragmentAdapter() {
     }
-
+    /* 이모티콘 화면 추가된 코드
     @Override
     public Fragment onCreateFragment(int position) {
         if(position == 0) {
@@ -35,6 +35,21 @@ public class FragmentAdapter implements FragmentNavigatorAdapter {
             return EmoticonFragment.newInstance("");
         }
         else if(position == 3){
+            return DdayFragment.newInstance("");
+        }
+        return CalenderFragment.newInstance();
+    }
+
+     */
+    @Override  //이모티콘 화면 없앤 코드
+    public Fragment onCreateFragment(int position) {
+        if(position == 0) {
+            return MainFragment.newInstance();
+        }
+        else if (position == 1){
+            return ContactsFragment.newInstance();
+        }
+        else if(position == 2){
             return DdayFragment.newInstance("");
         }
         return CalenderFragment.newInstance();
