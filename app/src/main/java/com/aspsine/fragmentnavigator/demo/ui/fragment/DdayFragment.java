@@ -88,14 +88,12 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
         if(true) {
-            ddayListviewitem icon = new ddayListviewitem(R.mipmap.dday_1, "D - 97", "200일 기념일");
-            ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
-            ddayListviewitem icon3 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
-            ddayListviewitem icon4 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
-            ddayListviewitem icon5 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
-            ddayListviewitem icon6 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
-            ddayListviewitem icon7 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
-            ddayListviewitem icon8 = new ddayListviewitem(R.mipmap.dday_2, "D - 130", "유렵 여행");
+            ddayListviewitem icon = new ddayListviewitem(R.mipmap.dday_1, "D - 35", "1주년 기념일");
+            ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.dday_2, "D - 50", "남미 여행가는 날");
+            ddayListviewitem icon3 = new ddayListviewitem(R.mipmap.dday_3, "D - 130", "22번째 생일");
+            ddayListviewitem icon4 = new ddayListviewitem(R.mipmap.dday_4, "D - 150", "처음 만난 날");
+            ddayListviewitem icon5 = new ddayListviewitem(R.mipmap.dday_5, "D - 200", "등산가는 날");
+            ddayListviewitem icon6 = new ddayListviewitem(R.mipmap.dday_6, "D - 250", "도서관 데이트");
 
             data.add(icon);
             data.add(icon2);
@@ -103,8 +101,6 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
             data.add(icon4);
             data.add(icon5);
             data.add(icon6);
-            data.add(icon7);
-            data.add(icon8);
 
 
             adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
