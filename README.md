@@ -14,7 +14,7 @@
 - 성균관대학교 건축학과 14 김효주 (디자이너)
 
 ## Developer's output
-### Fragment
+### Fragment ( 2020-10-31 )
 <div>
   <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/97779849-3a43e480-1bc4-11eb-9134-b26396556380.jpg">
   <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/97779851-3b751180-1bc4-11eb-84f4-e7606053b092.jpg">
