@@ -41,13 +41,11 @@
 
             <Button
                 android:id="@+id/send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/mybutton"
-                android:text="+"
+                android:layout_width="60dp"
+                android:layout_height="37dp"
+                android:background="@mipmap/send_icon"
                 android:textColor="#ffffff"
-                android:textSize="30sp"
-                />
+                android:textSize="30sp" />
 
 
         </LinearLayout>

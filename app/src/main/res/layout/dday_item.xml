@@ -16,7 +16,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:textColor="#ffffff"
-            android:fontFamily="@font/nanumgodhic"
+            android:fontFamily="@font/nanumgothicbold"
             android:gravity="center"/>
         <TextView
             android:id="@+id/textview2"
@@ -26,7 +26,7 @@
             android:textSize="10dp"
             android:layout_gravity="center_horizontal"
             android:textColor="#ffffff"
-            android:fontFamily="@font/nanumgodhic"
+            android:fontFamily="@font/nanumgothicbold"
             android:gravity="center"/>
     </LinearLayout>
 </RelativeLayout>

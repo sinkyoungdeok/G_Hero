@@ -90,8 +90,8 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         if(true) {
             ddayListviewitem icon = new ddayListviewitem(R.mipmap.dday_1, "D - 35", "1주년 기념일");
             ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.dday_2, "D - 50", "남미 여행가는 날");
-            ddayListviewitem icon3 = new ddayListviewitem(R.mipmap.dday_3, "D - 130", "22번째 생일");
-            ddayListviewitem icon4 = new ddayListviewitem(R.mipmap.dday_4, "D - 150", "처음 만난 날");
+            ddayListviewitem icon3 = new ddayListviewitem(R.mipmap.dday_3, "D - 97", "22번째 생일");
+            ddayListviewitem icon4 = new ddayListviewitem(R.mipmap.dday_4, "D - 110", "처음 만난 날");
             ddayListviewitem icon5 = new ddayListviewitem(R.mipmap.dday_5, "D + 3", "등산데이트");
             ddayListviewitem icon6 = new ddayListviewitem(R.mipmap.dday_6, "D + 10", "도서관 데이트");
 
