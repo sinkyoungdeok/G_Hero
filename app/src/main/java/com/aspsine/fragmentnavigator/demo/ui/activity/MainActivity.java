@@ -188,6 +188,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
                 startActivity(new Intent(this, LoginActivity.class));
                 return true;
             case R.id.action_logout:
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 logout();
                 return true;
             case R.id.action_add:
@@ -212,8 +214,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
     }
 
     private void logout(){
-        SharedPrefUtils.logout(this);
-        BroadcastManager.sendLogoutBroadcast(this, 1);
+        editor.putString("id",null);
+        editor.putString("myUser",null);
+        editor.putString("yourUser",null);
+        editor.commit();
+
     }
 
     private void onUserLogin(int position) {
@@ -231,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         } else {
             resetAllTabsAndShow(position);
         }
-        toggleMenu(false);
+        toggleMenu(true);
     }
 
     private void setCurrentTab(int position) {
