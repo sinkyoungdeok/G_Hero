@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        mLoginMenu = menu.findItem(R.id.action_login);
         mLogoutMenu = menu.findItem(R.id.action_logout);
         toggleMenu(SharedPrefUtils.isLogin(this));
         return true;
@@ -73,9 +71,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         switch (id) {
             case R.id.action_exception:
                 startActivity(new Intent(this, ExceptionActivity.class));
-                return true;
-            case R.id.action_login:
-                startActivity(new Intent(this, LoginActivity.class));
                 return true;
             case R.id.action_logout:
                 logout();
