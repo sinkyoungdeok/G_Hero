@@ -30,10 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:textColor="#ffffff"
-                android:textSize="20sp"
+                android:textSize="17dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="40dp"
                 android:layout_below="@+id/myImg"
+                android:textStyle="bold"
                 android:text="차두리" />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -51,10 +52,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
                 android:textColor="#ffffff"
-                android:textSize="20dp"
+                android:textSize="17dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="40dp"
                 android:layout_below="@+id/myImg"
+                android:textStyle="bold"
                 android:text="차두리" />
 
             <TextView
@@ -81,10 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="95dp"
+                android:textStyle="bold"
                 android:text="100일째"
                 android:textColor="#ffffff"
-                android:textSize="18sp" />
+                android:textSize="18dp" />
 
         </RelativeLayout>
     </RelativeLayout>
