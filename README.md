@@ -13,6 +13,15 @@
 - 성균관대학교 인공지능학과 20 현지웅 (인공지능 개발자)
 - 성균관대학교 건축학과 14 김효주 (디자이너)
 
+## Developer's output
+### Fragment
+<div>
+  <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/97779849-3a43e480-1bc4-11eb-9134-b26396556380.jpg">
+  <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/97779851-3b751180-1bc4-11eb-84f4-e7606053b092.jpg">
+  <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/97779852-3c0da800-1bc4-11eb-983c-43da0536897a.jpg">
+  <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/97779853-3c0da800-1bc4-11eb-91e3-3da7b3a677bb.jpg">
+</div>
+
 ## Designer's output
 ### logo
 <img width="100" height="200" alt="캡처" src="https://user-images.githubusercontent.com/28394879/95567121-77053b80-0a5d-11eb-97b9-9be0007eab86.png"> 
