@@ -12,7 +12,7 @@
     <string name="prompt_email">Username</string>
     <string name="prompt_password">Password</string>
     <string name="action_log_in">로그인</string>
-    <string name="action_log_out">Log out</string>
+    <string name="action_log_out">로그아웃</string>
     <string name="prompt_login_success">Welcome</string>
     <string name="error_invalid_email">email is empty</string>
     <string name="error_invalid_password">password is empty</string>
