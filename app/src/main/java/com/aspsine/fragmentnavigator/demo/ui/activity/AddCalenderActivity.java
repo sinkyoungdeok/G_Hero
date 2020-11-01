@@ -29,7 +29,7 @@ import java.util.Map;
 
 
 public class AddCalenderActivity extends AppCompatActivity {
-    TextView cancel, add,title;
+    private TextView cancel, add,title;
 
     private SimpleDateFormat mFormatter = new SimpleDateFormat("yyyy. M. d.  aa h:m");
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy,M,d");
