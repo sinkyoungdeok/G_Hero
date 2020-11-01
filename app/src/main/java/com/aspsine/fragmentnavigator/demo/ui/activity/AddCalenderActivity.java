@@ -36,7 +36,7 @@ public class AddCalenderActivity extends AppCompatActivity {
     private SimpleDateFormat timeFormat =  new SimpleDateFormat("h:m");
 
     private TextView startShow, endShow;
-    private Switch oneDaySwitch, dDaySwitch;
+    private Switch oneDaySwitch;
     private boolean oneDayCheck, dDayCheck;
     private DatabaseReference mPostReference;
     private String ID;
@@ -87,7 +87,6 @@ public class AddCalenderActivity extends AppCompatActivity {
         startShow = (TextView) findViewById(R.id.startShow);
         endShow = (TextView) findViewById(R.id.endShow);
         oneDaySwitch = (Switch) findViewById(R.id.switch1);
-        dDaySwitch = (Switch) findViewById(R.id.switch2);
         oneDayCheck = false;
         dDayCheck = false;
         Date time = new Date();
@@ -173,16 +172,6 @@ public class AddCalenderActivity extends AppCompatActivity {
                 } else {
                     oneDayCheck = false;
 
-                }
-            }
-        });
-        dDaySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    dDayCheck = true;
-                } else {
-                    dDayCheck = false;
                 }
             }
         });
