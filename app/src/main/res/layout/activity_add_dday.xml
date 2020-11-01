@@ -85,11 +85,11 @@
 
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/dday_preview"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:scaleType="fitXY"
-                app:srcCompat="@mipmap/dday_1" />
+                android:src="@mipmap/dday_1" />
         </LinearLayout>
 
 

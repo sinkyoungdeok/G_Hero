@@ -3,22 +3,35 @@ package com.aspsine.fragmentnavigator.demo.ui.activity;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.firebase.DdayFirebasePost;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 public class AddDdayActivity extends AppCompatActivity {
     private TextView cancel, add,title;
@@ -29,6 +42,9 @@ public class AddDdayActivity extends AppCompatActivity {
     private EditText titleEdit;
     private DatabaseReference mPostReference;
     private String ID;
+    private ImageView ddayPreview;
+    private Uri filePath;
+    private String id;
 
     private SlideDateTimeListener startListener = new SlideDateTimeListener() {
 
@@ -56,9 +72,26 @@ public class AddDdayActivity extends AppCompatActivity {
         startShow.setText(mFormatter.format(time).toString());
         startDate = dateFormat.format(time).toString();
         titleEdit = (EditText) findViewById(R.id.titleEdit);
+        ddayPreview = (ImageView) findViewById(R.id.dday_preview);
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
-        ID = intent.getExtras().getString("id").replace(".","");
+        id = intent.getExtras().getString("id");
+        ID = id.replace(".","");
+        /*권한*/
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
+        }
+
+        ddayPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //이미지를 선택
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+            }
+        });
 
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
@@ -100,9 +133,65 @@ public class AddDdayActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //postFirebaseDatabase(true);
+                uploadFile();
                 finish();
             }
         });
     }
+
+    //결과 처리
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
+
+        if(requestCode == 0 && resultCode == RESULT_OK){
+            filePath = data.getData();
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                ddayPreview.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void uploadFile() {
+        if(filePath == null) {
+            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+        } else {
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            String filename = id+ titleEdit.getText().toString() + ".png";
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("dday_images/" + filename);
+            UploadTask uploadTask =  storageRef.putFile(filePath);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String profileUrl = uri.toString();
+
+                            /*
+                            DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("dday_list/id"+ID);
+                            profileRef.child("profileUrl").setValue(profileUrl);
+                            profileRef.child("name").setValue(nameEdit.getText().toString());
+                            profileRef.child("birthday").setValue(birthEdit.getText().toString());
+                            profileRef.child("firstDay").setValue(firstDayEdit.getText().toString());
+                            profileRef.child("gender").setValue(genderValue);
+
+                             */
+                            DdayFirebasePost post = new DdayFirebasePost(titleEdit.getText().toString(),startDate,profileUrl);
+                            Map<String, Object> postValues = post.toMap();
+                            mPostReference.child("/dday_list/id" + ID).push().setValue(postValues);
+                            finish();
+
+                        }
+                    });
+
+                }
+            });
+        }
+    }
+
 }
