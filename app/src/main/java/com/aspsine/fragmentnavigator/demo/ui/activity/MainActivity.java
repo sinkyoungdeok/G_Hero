@@ -212,6 +212,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
         editor.putString("myUser",null);
         editor.putString("yourUser",null);
         editor.commit();
+        SharedApplication.myUser = null;
+        SharedApplication.yourUser = null;
 
     }
 
