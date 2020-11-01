@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.firebase.DdayFirebasePost;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
@@ -76,7 +77,11 @@ public class AddDdayActivity extends AppCompatActivity {
         mPostReference = FirebaseDatabase.getInstance().getReference();
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
-        ID = id.replace(".","");
+        if(SharedApplication.myUser.firstEnrolled.equals("T")) {
+            ID = SharedApplication.myUser.id.replace(".", "");
+        } else {
+            ID = SharedApplication.yourUser.id.replace(".","");
+        }
         /*권한*/
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);

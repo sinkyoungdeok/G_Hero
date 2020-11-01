@@ -3,6 +3,7 @@ package com.aspsine.fragmentnavigator.demo.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -17,14 +18,27 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
+import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
+import com.aspsine.fragmentnavigator.demo.firebase.DdayFirebasePost;
+import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
 import com.aspsine.fragmentnavigator.demo.item.ddayListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +55,9 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     private ListView listview;
     private ArrayList<ddayListviewitem> data;
     private ddayAdapter adapter;
+    private DatabaseReference mPostReference;
+    private boolean dataCheck = false;
+    private String ID;
 
     MainActivity activity;
     Toast toast;
@@ -83,11 +100,19 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         no_icon_gray = (ImageView) view.findViewById(R.id.no_icon_gray);
         listview = (ListView) view.findViewById(R.id.ddaylist);
         data = new ArrayList<>();
+        mPostReference = FirebaseDatabase.getInstance().getReference();
 
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
+        if(SharedApplication.myUser.firstEnrolled.equals("T")) {
+            ID = SharedApplication.myUser.id.replace(".", "");
+        } else {
+            ID = SharedApplication.yourUser.id.replace(".","");
+        }
+        getFirebaseDatabase();
         if(true) {
+            /*
             ddayListviewitem icon = new ddayListviewitem(R.mipmap.dday_1, "D - 35", "1주년 기념일");
             ddayListviewitem icon2 = new ddayListviewitem(R.mipmap.dday_2, "D - 50", "남미 여행가는 날");
             ddayListviewitem icon3 = new ddayListviewitem(R.mipmap.dday_3, "D - 97", "22번째 생일");
@@ -110,6 +135,8 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
             // 밑의 두줄로 데이터가 없을때의 화면을 지워준다.
             no_data.setVisibility(View.INVISIBLE);
             no_icon_gray.setVisibility(View.INVISIBLE);
+
+             */
         }
         //listview.setAdapter(null);
 
@@ -169,6 +196,36 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     public void onResume() {
         super.onResume();
         activity.setOnBackPressedListener(this);
+    }
+
+    public void getFirebaseDatabase() {
+        final ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    DdayFirebasePost get = postSnapshot.getValue(DdayFirebasePost.class);
+                    String[] info = {get.content, get.startDate, get.ddayUrl};
+                    ddayListviewitem icon = new ddayListviewitem(info[2], info[1], info[0]);
+                    data.add(icon);
+                    dataCheck = true;
+
+
+                }
+                if(dataCheck) {
+                    adapter = new ddayAdapter(getContext(), R.layout.dday_item, data);
+                    listview.setAdapter(adapter);
+                    no_data.setVisibility(View.INVISIBLE);
+                    no_icon_gray.setVisibility(View.INVISIBLE);
+                }
+
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        mPostReference.child("/dday_list/id"+ID).addValueEventListener(postListener);
     }
 
 }

@@ -10,8 +10,13 @@ import android.widget.TextView;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.item.ddayListviewitem;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomViewTarget;
+import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ddayAdapter extends BaseAdapter {
 
@@ -36,25 +41,26 @@ public class ddayAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
-            convertView = inflater.inflate(layout, parent, false);
-        }
+        View itemView = null;
+        itemView = inflater.inflate(R.layout.dday_item, parent, false);
         ddayListviewitem listviewitem = data.get(position);
 
         //ImageView icon = (ImageView)convertView.findViewById(R.id.imageview);
         //icon.setImageResource(listviewitem.getIcon());
 
-        TextView name = (TextView)convertView.findViewById(R.id.textview);
+        TextView name = (TextView)itemView.findViewById(R.id.textview);
         name.setText(listviewitem.getName());
 
-        TextView name2 = (TextView)convertView.findViewById(R.id.textview2);
+        TextView name2 = (TextView)itemView.findViewById(R.id.textview2);
         name2.setText(listviewitem.getName2());
 
-        convertView.setBackgroundResource(listviewitem.getIcon());
+        ImageView iv = itemView.findViewById(R.id.iv);
+
+        Glide.with(itemView).load(listviewitem.getIcon()).into(iv);
 
 
 
-        return convertView;
+        return itemView;
     }
 
 }

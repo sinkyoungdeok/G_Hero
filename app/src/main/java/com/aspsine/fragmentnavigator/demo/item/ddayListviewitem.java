@@ -1,15 +1,15 @@
 package com.aspsine.fragmentnavigator.demo.item;
 
 public class ddayListviewitem {
-    private int icon;
+    private String iconPath;
     private String name;
     private String name2;
-    public int getIcon() { return icon; }
+    public String getIcon() { return iconPath; }
     public String getName() { return name; }
     public String getName2() { return name2; }
 
-    public ddayListviewitem(int icon, String name, String name2) {
-        this.icon = icon;
+    public ddayListviewitem(String iconPath, String name, String name2) {
+        this.iconPath = iconPath;
         this.name = name;
         this.name2 = name2;
     }
