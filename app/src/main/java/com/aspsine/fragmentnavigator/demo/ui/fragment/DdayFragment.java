@@ -138,7 +138,8 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
 
         menu.findItem(R.id.action_logout).setVisible(false);
         menu.findItem(R.id.action_exception).setVisible(false);
-        menu.findItem(R.id.action_add).setVisible(true);
+        menu.findItem(R.id.action_add).setVisible(false);
+        menu.findItem(R.id.action_add2).setVisible(true);
         super.onPrepareOptionsMenu(menu);
     }
 

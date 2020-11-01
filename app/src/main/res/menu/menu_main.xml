@@ -21,6 +21,12 @@
         android:orderInCategory="400"
         app:showAsAction="always"
         android:title="" />
+    <item
+        android:id="@+id/action_add2"
+        android:icon="@mipmap/plus_icon"
+        android:orderInCategory="400"
+        app:showAsAction="always"
+        android:title="" />
 
 
 </menu>
