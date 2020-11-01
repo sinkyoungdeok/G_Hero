@@ -172,15 +172,7 @@ public class AddDdayActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             String profileUrl = uri.toString();
 
-                            /*
-                            DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("dday_list/id"+ID);
-                            profileRef.child("profileUrl").setValue(profileUrl);
-                            profileRef.child("name").setValue(nameEdit.getText().toString());
-                            profileRef.child("birthday").setValue(birthEdit.getText().toString());
-                            profileRef.child("firstDay").setValue(firstDayEdit.getText().toString());
-                            profileRef.child("gender").setValue(genderValue);
 
-                             */
                             DdayFirebasePost post = new DdayFirebasePost(titleEdit.getText().toString(),startDate,profileUrl);
                             Map<String, Object> postValues = post.toMap();
                             mPostReference.child("/dday_list/id" + ID).push().setValue(postValues);
