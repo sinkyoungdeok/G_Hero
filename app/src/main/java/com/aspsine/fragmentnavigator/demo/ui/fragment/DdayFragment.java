@@ -37,6 +37,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -174,10 +176,13 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data.clear();
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     DdayFirebasePost get = postSnapshot.getValue(DdayFirebasePost.class);
                     String[] info = {get.content, get.startDate, get.ddayUrl};
-                    ddayListviewitem icon = new ddayListviewitem(info[2], info[1], info[0]);
+                    String ddayResult = ddayCalculator(info[1]);
+                    ddayListviewitem icon = new ddayListviewitem(info[2], ddayResult, info[0]);
                     data.add(icon);
                     dataCheck = true;
 
@@ -198,6 +203,29 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
             }
         };
         mPostReference.child("/dday_list/id"+ID).addValueEventListener(postListener);
+    }
+
+    public String ddayCalculator(String startDate) {
+        String split_data[] = startDate.split(",");
+        String plusOrMinus;
+        int year = Integer.parseInt(split_data[0]);
+        int month = Integer.parseInt(split_data[1]);
+        int day = Integer.parseInt(split_data[2]);
+        Calendar calNow = Calendar.getInstance( );
+        Calendar calDday = new GregorianCalendar(year, month-1, day);
+        long diffSec = (calDday.getTimeInMillis() - calNow.getTimeInMillis())/1000;
+        if(diffSec >0) {
+            plusOrMinus = " - ";
+        } else {
+            plusOrMinus = " + ";
+            diffSec = diffSec * -1 ;
+        }
+        long diffDays = diffSec / (24*60*60);
+        if (plusOrMinus.equals(" + ") == true) {
+            diffDays -=1;
+        }
+
+        return "D" + plusOrMinus +Long.toString(diffDays +1 ) ;
     }
 
 }
