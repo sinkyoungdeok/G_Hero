@@ -1,16 +1,14 @@
 package com.aspsine.fragmentnavigator.demo.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.CodeFirebasePost;
@@ -47,11 +45,12 @@ public class ConnectActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
         getFirebaseDatabase();
+
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 btncheck = true;
-                getFirebaseDatabaseConnect(yourCodeEdt.getText().toString());
+                getFirebaseDatabaseConnect(yourCodeEdt.getText().toString().trim());
             }
         });
 
@@ -60,7 +59,6 @@ public class ConnectActivity extends AppCompatActivity {
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("onDataChange", "Data is Updated");
                 code = "";
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
@@ -86,7 +84,9 @@ public class ConnectActivity extends AppCompatActivity {
         };
         mPostReference.child("/code_list/id"+id.replace(".","")).addValueEventListener(postListener);
     }
-    public void getFirebaseDatabaseConnect(final String yourCode){
+    public void getFirebaseDatabaseConnect(String yourCode){
+        yourCode = yourCode.substring(0,4) + " " + yourCode.substring(4,8);
+        String finalYourCode = yourCode;
         final ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -96,14 +96,14 @@ public class ConnectActivity extends AppCompatActivity {
                         String key = postSnapshot.getKey();
                         CodeFirebasePost get = postSnapshot.getValue(CodeFirebasePost.class);
                         String[] info = {get.id,get.code};
-                        if(info[1].equals(yourCode)){
+                        if(info[1].equals(finalYourCode)){
                             yourExistCheck = true;
                             yourId = info[0];
                         }
                     }
                     if(yourExistCheck) {
                         codeDeleteFirebaseDatabase(myCode.getText().toString());
-                        codeDeleteFirebaseDatabase(yourCode);
+                        codeDeleteFirebaseDatabase(finalYourCode);
                         userUpdateFirebaseDatabase(id,yourId,"T");
                         userUpdateFirebaseDatabase(yourId,id,"F");
                         Intent intent = new Intent(ConnectActivity.this,InfoActivity.class);
