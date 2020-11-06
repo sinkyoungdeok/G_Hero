@@ -2,42 +2,27 @@ package com.aspsine.fragmentnavigator.demo.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
-import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.broadcast.BroadcastManager;
 import com.aspsine.fragmentnavigator.demo.firebase.CodeFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
-import com.aspsine.fragmentnavigator.demo.kakao.SessionCallback;
 import com.aspsine.fragmentnavigator.demo.utils.SharedPrefUtils;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,11 +41,6 @@ import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private EditText etEmail;
@@ -72,12 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /* 카카오 로그인 */
     private SessionCallback sessionCallback;
     /* 카카오 로그인 */
-    /* 구글 로그인 */
-    private SignInButton btn_google;
     private FirebaseAuth auth;
-    private GoogleSignInClient googleApiClient;
-    private static final int REO_SIGN_GOOGLE = 1000;
-    /* 구글 로그인 */
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String defaultposition = null;
@@ -115,31 +90,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Session.getCurrentSession().addCallback(sessionCallback);
         /*카카오 로그인*/
 
-        /*구글 로그인*/
-        final GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        /*
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API,googleSignInOptions)
-                .build();
-
-         */
-        googleApiClient = GoogleSignIn.getClient(this, googleSignInOptions);
-
-        btn_google = findViewById(R.id.sign_in_button);
-        setGooglePlusButtonText(btn_google,"구글계정으로 로그인");
-        btn_google.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                Intent intent = googleApiClient.getSignInIntent();
-                startActivityForResult(intent, REO_SIGN_GOOGLE);
-            }
-        });
-        /*구글 로그인*/
 
         signupBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -271,34 +221,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
 
-        if(requestCode == REO_SIGN_GOOGLE){
-
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try{
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                resultLogin(account);
-            } catch (ApiException e){
-                Toast.makeText(getApplicationContext(),"로그인 실패2", Toast.LENGTH_SHORT).show();
-                System.out.println(e + "test");
-            }
-
-            /*
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if(result.isSuccess()) { // 인증결과가 성공할경우
-                GoogleSignInAccount account = result.getSignInAccount(); // account 라는 데이터는 구글로그인 정보를 담고있다. (닉네임, 프로필사진URI,이메일주소,..등)
-                resultLogin(account); // 로그인 결과 값 출력 수행하라는 메소
-            }
-            else{
-                markUserLogin();
-                notifyUserLogin();
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
-                Toast.makeText(getApplicationContext(),"로그인 실패2", Toast.LENGTH_SHORT).show();
-            }
-
-             */
-
-        }
     }
 
 

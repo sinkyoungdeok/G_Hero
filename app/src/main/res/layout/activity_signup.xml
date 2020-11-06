@@ -71,22 +71,14 @@
         android:layout_marginTop="15dp"
         />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/signup_button"
-        android:layout_marginTop="40dp"
-        />
 
     <com.kakao.usermgmt.LoginButton
         android:id="@+id/btn_kakao_login"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/sign_in_button"
-        android:layout_marginTop="5dp"
+        android:layout_below="@+id/signup_button"
+        android:layout_marginTop="40dp"
         />
 
 </RelativeLayout>

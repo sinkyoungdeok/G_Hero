@@ -1,8 +1,5 @@
 package com.aspsine.fragmentnavigator.demo.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,12 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.aspsine.fragmentnavigator.demo.R;
-import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
-import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.CodeFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
-import com.aspsine.fragmentnavigator.demo.ui.fragment.CalenderFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,18 +29,17 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.Executors;
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText et_email, et_passwd;
-    Button signup_button;
-    FirebaseAuth firebaseAuth;
+    private EditText et_email, et_passwd;
+    private Button signup_button;
+    private FirebaseAuth firebaseAuth;
     private DatabaseReference mPostReference;
-    Map<String, String> mCode = new HashMap<>();
-    Random random = new Random();
-    String randCode = "";
-    String token;
+    private Map<String, String> mCode = new HashMap<>();
+    private Random random = new Random();
+    private String randCode = "";
+    private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +77,7 @@ public class SignupActivity extends AppCompatActivity {
                 continue;
             break;
         }
+        /* 이메일 회원가입 */
         signup_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -109,7 +106,10 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
+
     }
+
+
     public void postFirebaseDatabase(boolean add,String email,String token){
         Map<String, Object> childUpdates = new HashMap<>();
         Map<String, Object> postValues = null;

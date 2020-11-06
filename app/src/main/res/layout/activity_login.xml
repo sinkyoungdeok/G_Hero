@@ -23,14 +23,6 @@
         android:layout_above="@+id/textView2"
         android:layout_marginBottom="20dp"
         />
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/btn_kakao_login"
-        android:layout_marginBottom="5dp"
-        />
 
     <Button
         android:id="@+id/signup_button"
@@ -43,8 +35,8 @@
         android:textSize="25dp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/sign_in_button"
-        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/btn_kakao_login"
+        android:layout_marginBottom="30dp"
         />
 
     <TextView
