@@ -41,6 +41,9 @@ import com.kakao.auth.Session;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private EditText etEmail;
@@ -115,32 +118,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = String.valueOf(etPassword.getText()).trim();
         getFirebaseDatabase(email);
         if(check(email, password)){
-            auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                markUserLogin();
-                                notifyUserLogin();
-                                finish();
-                                Intent intent;
-                                if(codeCheck) {
-                                    intent = new Intent(LoginActivity.this, ConnectActivity.class);
-                                } else if(userCheck) {
-                                    intent = new Intent(LoginActivity.this, InfoActivity.class);
+            String emailReg = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
+            Pattern p = Pattern.compile(emailReg);
+            Matcher m = p.matcher(email);
+            if(!m.matches()) {
+                Toast.makeText(LoginActivity.this, "이메일 형식을 지켜주세요", Toast.LENGTH_SHORT).show();
+            } else {
+                auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    markUserLogin();
+                                    notifyUserLogin();
+                                    finish();
+                                    Intent intent;
+                                    if (codeCheck) {
+                                        intent = new Intent(LoginActivity.this, ConnectActivity.class);
+                                    } else if (userCheck) {
+                                        intent = new Intent(LoginActivity.this, InfoActivity.class);
+                                    } else {
+                                        editor.putString("id", email); // sharedpreference
+                                        editor.commit();
+                                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    }
+                                    intent.putExtra("id", email);
+                                    if (defaultposition != null)
+                                        intent.putExtra("defaultFragment", defaultposition);
+                                    startActivity(intent);
                                 } else {
-                                    editor.putString("id",email); // sharedpreference
-                                    editor.commit();
-                                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    Toast.makeText(LoginActivity.this, "아이디 혹은 패스워드를 확인 해주세요", Toast.LENGTH_SHORT).show();
                                 }
-                                intent.putExtra("id",email);
-                                if(defaultposition != null) intent.putExtra("defaultFragment",defaultposition);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    });
+                        });
+            }
 
         }
     }
