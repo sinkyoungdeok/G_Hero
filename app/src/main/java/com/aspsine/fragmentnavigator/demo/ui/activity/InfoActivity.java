@@ -124,39 +124,46 @@ public class InfoActivity extends AppCompatActivity {
     //upload the file
     private void uploadFile() {
 
-
-        if (filePath != null) {
+        if(genderValue == null) {
+            Toast.makeText(getApplicationContext(), "성별을 선택 해주세요.", Toast.LENGTH_SHORT).show();
+        } else if (nameEdit.getText().toString().trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "이름을 입력 해주세요.", Toast.LENGTH_SHORT).show();
+        } else if (birthEdit.getText().toString().trim().length() ==0) {
+            Toast.makeText(getApplicationContext(), "생일을 입력 해주세요.", Toast.LENGTH_SHORT).show();
+        } else if (firstDayEdit.getText().toString().trim().length() ==0) {
+            Toast.makeText(getApplicationContext(), "처음 만난 날을 입력 해주세요.", Toast.LENGTH_SHORT).show();
+        } else if(filePath == null) {
+            Toast.makeText(getApplicationContext(), "프로필을 선택 해주세요.", Toast.LENGTH_SHORT).show();
+        } else{
             FirebaseStorage storage = FirebaseStorage.getInstance();
 
             String filename = id+"Profile" + ".png";
             StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("images/" + filename);
-           UploadTask uploadTask =  storageRef.putFile(filePath);
-           uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-               @Override
-               public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                   storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                       @Override
-                       public void onSuccess(Uri uri) {
-                           String profileUrl = uri.toString();
+            UploadTask uploadTask =  storageRef.putFile(filePath);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String profileUrl = uri.toString();
 
-                           DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("user_list/id"+id.replace(".",""));
-                           profileRef.child("profileUrl").setValue(profileUrl);
-                           profileRef.child("name").setValue(nameEdit.getText().toString());
-                           profileRef.child("birthday").setValue(birthEdit.getText().toString());
-                           profileRef.child("firstDay").setValue(firstDayEdit.getText().toString());
-                           profileRef.child("gender").setValue(genderValue);
-                           Intent intent = new Intent(InfoActivity.this, MainActivity.class);
-                           intent.putExtra("id",id);
-                           startActivity(intent);
-                           finish();
+                            DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("user_list/id"+id.replace(".",""));
+                            profileRef.child("profileUrl").setValue(profileUrl);
+                            profileRef.child("name").setValue(nameEdit.getText().toString().trim());
+                            profileRef.child("birthday").setValue(birthEdit.getText().toString().trim());
+                            profileRef.child("firstDay").setValue(firstDayEdit.getText().toString().trim());
+                            profileRef.child("gender").setValue(genderValue);
+                            Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+                            intent.putExtra("id",id);
+                            startActivity(intent);
+                            finish();
 
-                       }
-                   });
+                        }
+                    });
 
-               }
-           });
-        } else {
-            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
 
