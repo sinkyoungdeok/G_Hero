@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -60,6 +61,7 @@ public class InfoActivity extends AppCompatActivity {
     private SimpleDateFormat realFormat = new SimpleDateFormat("yyyy,M,d");
     private String birthStr;
     private String firstDayStr;
+    private SharedPreferences.Editor editor;
 
     private SlideDateTimeListener birthListener = new SlideDateTimeListener() {
 
@@ -242,6 +244,8 @@ public class InfoActivity extends AppCompatActivity {
 
                 }
             });
+            editor.putString("id", id); // sharedpreference
+            editor.commit();
         }
 
 
