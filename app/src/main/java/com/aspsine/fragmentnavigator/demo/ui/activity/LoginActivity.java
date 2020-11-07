@@ -120,8 +120,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                editor.putString("id",email); // sharedpreference
-                                editor.commit();
                                 markUserLogin();
                                 notifyUserLogin();
                                 finish();
@@ -131,6 +129,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 } else if(userCheck) {
                                     intent = new Intent(LoginActivity.this, InfoActivity.class);
                                 } else {
+                                    editor.putString("id",email); // sharedpreference
+                                    editor.commit();
                                     intent = new Intent(LoginActivity.this, MainActivity.class);
                                 }
                                 intent.putExtra("id",email);
