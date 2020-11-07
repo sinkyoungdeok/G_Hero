@@ -17,10 +17,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
+import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -44,14 +47,53 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InfoActivity extends AppCompatActivity {
 
-    String id;
-    EditText nameEdit, birthEdit, firstDayEdit;
-    Button btn;
-    RadioGroup gender;
-    String genderValue;
+    private String id;
+    private EditText nameEdit;
+    private TextView birthEdit, firstDayEdit;
+    private Button btn;
+    private RadioGroup gender;
+    private String genderValue;
     private DatabaseReference mPostReference;
     private CircleImageView ivPreview;
     private Uri filePath;
+    private SimpleDateFormat showFormat = new SimpleDateFormat("yyyy. M. d");
+    private SimpleDateFormat realFormat = new SimpleDateFormat("yyyy,M,d");
+    private String birthStr;
+    private String firstDayStr;
+
+    private SlideDateTimeListener birthListener = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date)
+        {
+            birthEdit.setText(showFormat.format(date));
+            birthStr = realFormat.format(date).toString();
+        }
+
+        @Override
+        public void onDateTimeCancel()
+        {
+            Toast.makeText(InfoActivity.this,
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private SlideDateTimeListener firstDayListener = new SlideDateTimeListener() {
+
+        @Override
+        public void onDateTimeSet(Date date)
+        {
+            firstDayEdit.setText(showFormat.format(date));
+            firstDayStr = realFormat.format(date).toString();
+        }
+
+        @Override
+        public void onDateTimeCancel()
+        {
+            Toast.makeText(InfoActivity.this,
+                    "Canceled", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +102,8 @@ public class InfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
         nameEdit = (EditText) findViewById(R.id.nameEdit);
-        birthEdit = (EditText) findViewById(R.id.birthEdit);
-        firstDayEdit = (EditText) findViewById(R.id.firstDayEdit);
+        birthEdit = (TextView) findViewById(R.id.birthEdit);
+        firstDayEdit = (TextView) findViewById(R.id.firstDayEdit);
         btn = (Button) findViewById(R.id.btn);
         gender = (RadioGroup) findViewById(R.id.gender);
         gender.setOnCheckedChangeListener(radioGroupButtonChangeListener);
@@ -80,6 +122,41 @@ public class InfoActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+            }
+        });
+
+        birthEdit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(birthListener)
+                        .setInitialDate(new Date())
+                        //.setMinDate(minDate)
+                        //.setMaxDate(maxDate)
+                        //.setIs24HourTime(true)
+                        //.setTheme(SlideDateTimePicker.HOLO_DARK)
+                        //.setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
+            }
+        });
+        firstDayEdit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+                new SlideDateTimePicker.Builder(getSupportFragmentManager())
+                        .setListener(firstDayListener)
+                        .setInitialDate(new Date())
+                        //.setMinDate(minDate)
+                        //.setMaxDate(maxDate)
+                        //.setIs24HourTime(true)
+                        //.setTheme(SlideDateTimePicker.HOLO_DARK)
+                        //.setIndicatorColor(Color.parseColor("#990000"))
+                        .build()
+                        .show();
             }
         });
 
@@ -128,13 +205,14 @@ public class InfoActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "성별을 선택 해주세요.", Toast.LENGTH_SHORT).show();
         } else if (nameEdit.getText().toString().trim().length() == 0) {
             Toast.makeText(getApplicationContext(), "이름을 입력 해주세요.", Toast.LENGTH_SHORT).show();
-        } else if (birthEdit.getText().toString().trim().length() ==0) {
+        } else if (birthStr.trim().length() ==0) {
             Toast.makeText(getApplicationContext(), "생일을 입력 해주세요.", Toast.LENGTH_SHORT).show();
-        } else if (firstDayEdit.getText().toString().trim().length() ==0) {
+        } else if (firstDayStr.trim().length() ==0) {
             Toast.makeText(getApplicationContext(), "처음 만난 날을 입력 해주세요.", Toast.LENGTH_SHORT).show();
         } else if(filePath == null) {
             Toast.makeText(getApplicationContext(), "프로필을 선택 해주세요.", Toast.LENGTH_SHORT).show();
         } else{
+            Toast.makeText(getApplicationContext(), "연동 중입니다. 잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
             FirebaseStorage storage = FirebaseStorage.getInstance();
 
             String filename = id+"Profile" + ".png";
@@ -151,8 +229,8 @@ public class InfoActivity extends AppCompatActivity {
                             DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("user_list/id"+id.replace(".",""));
                             profileRef.child("profileUrl").setValue(profileUrl);
                             profileRef.child("name").setValue(nameEdit.getText().toString().trim());
-                            profileRef.child("birthday").setValue(birthEdit.getText().toString().trim());
-                            profileRef.child("firstDay").setValue(firstDayEdit.getText().toString().trim());
+                            profileRef.child("birthday").setValue(birthStr.trim());
+                            profileRef.child("firstDay").setValue(firstDayStr.trim());
                             profileRef.child("gender").setValue(genderValue);
                             Intent intent = new Intent(InfoActivity.this, MainActivity.class);
                             intent.putExtra("id",id);

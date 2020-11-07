@@ -66,15 +66,15 @@
         android:layout_marginTop="20dp"
         />
 
-    <EditText
+    <TextView
         android:id="@+id/birthEdit"
         android:layout_width="350dp"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_height="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
         android:text=""
         android:hint="생일"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:textColorHint="#dddddddd"
         android:textAlignment="center"
@@ -84,14 +84,15 @@
         android:layout_marginTop="5dp"
         />
 
-    <EditText
+    <TextView
         android:id="@+id/firstDayEdit"
         android:layout_width="350dp"
         android:layout_height="40dp"
+        android:gravity="center"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text=""
         android:hint="처음 만난 날"
+        android:textSize="20dp"
         android:textColor="#000000"
         android:textColorHint="#dddddddd"
         android:textAlignment="center"
