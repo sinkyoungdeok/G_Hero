@@ -29,6 +29,8 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -80,25 +82,35 @@ public class SignupActivity extends AppCompatActivity {
         /* 이메일 회원가입 */
         signup_button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 final String email = et_email.getText().toString().trim();
                 String pwd = et_passwd.getText().toString().trim();
-                firebaseAuth.createUserWithEmailAndPassword(email, pwd)
-                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                if(task.isSuccessful()) {
-                                    postFirebaseDatabase(true,email,token);
-                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    Toast.makeText(SignupActivity.this, "등록 에러", Toast.LENGTH_SHORT).show();
-                                    return;
+                String emailReg = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
+                Pattern p = Pattern.compile(emailReg);
+                Matcher m = p.matcher(email);
+                if (!m.matches()) {
+                    Toast.makeText(SignupActivity.this, "이메일 형식을 지켜주세요", Toast.LENGTH_SHORT).show();
+                } else if(pwd.length() < 6) {
+                    Toast.makeText(SignupActivity.this, "비밀번호는 6글자 이상으로 해주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    firebaseAuth.createUserWithEmailAndPassword(email, pwd)
+                            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    if (task.isSuccessful()) {
+                                        postFirebaseDatabase(true, email, token);
+                                        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(SignupActivity.this, "이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
 
             }
         });
