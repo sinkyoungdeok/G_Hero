@@ -1,16 +1,23 @@
 package com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment;
 
 
+import android.Manifest;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +43,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,6 +75,10 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     private LinearLayout fabLayout1, fabLayout2; //fabLayout3;
     boolean isFABOpen = false;
     /* floating button */
+
+    private FrameLayout framelayout;
+    private Uri filePath;
+    private boolean profileORbackground;
     public static Fragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
@@ -98,6 +110,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         ingdayText = (TextView) view.findViewById(R.id.ingday);
         myImg = (ImageView) view.findViewById(R.id.myImg);
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
+        framelayout = (FrameLayout) view.findViewById(R.id.layout1);
 
         fabLayout1 = (LinearLayout) view.findViewById(R.id.fabLayout1);
         fabLayout2 = (LinearLayout) view.findViewById(R.id.fabLayout2);
@@ -114,6 +127,38 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 } else {
                     closeFABMenu();
                 }
+            }
+        });
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*권한*/
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
+                }
+                profileORbackground = false;
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+
+
+            }
+        });
+
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*권한*/
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
+                }
+                profileORbackground = true;
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+
             }
         });
 
@@ -135,6 +180,30 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
 
         return view;
     }
+
+    //결과 처리
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //request코드가 0이고 OK를 선택했고 data에 뭔가가 들어 있다면
+
+        if(requestCode == 0 && resultCode == getActivity().RESULT_OK){
+            filePath = data.getData();
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                if(profileORbackground) {
+                    BitmapDrawable background = new BitmapDrawable(bitmap);
+                    framelayout.setBackgroundDrawable(background);
+                } else {
+                    myImg.setImageBitmap(bitmap);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
     private void showFABMenu() {
