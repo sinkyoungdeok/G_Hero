@@ -1,37 +1,36 @@
 package com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment;
 
 
+import android.animation.Animator;
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.SharedApplication;
-import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,7 +46,7 @@ import java.util.GregorianCalendar;
  */
 public class MainFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
 
-    public static final String TAG = MainFragment.class.getSimpleName();
+    public static final String TAG = "dialog_event";
     private TextView myNameText;
     private TextView yourNameText;
     private TextView todayText;
@@ -63,6 +62,11 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     private StorageReference pathReference, yourpathReference;
     /* profile */
 
+    /* floating button */
+    private FloatingActionButton fab, fab1, fab2; // fab3;
+    private LinearLayout fabLayout1, fabLayout2; //fabLayout3;
+    boolean isFABOpen = false;
+    /* floating button */
     public static Fragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
@@ -94,6 +98,25 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         ingdayText = (TextView) view.findViewById(R.id.ingday);
         myImg = (ImageView) view.findViewById(R.id.myImg);
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
+
+        fabLayout1 = (LinearLayout) view.findViewById(R.id.fabLayout1);
+        fabLayout2 = (LinearLayout) view.findViewById(R.id.fabLayout2);
+        //fabLayout3 = (LinearLayout) view.findViewById(R.id.fabLayout3);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
+        //fab3 = (FloatingActionButton) view.findViewById(R.id.fab3);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isFABOpen) {
+                    showFABMenu();
+                } else {
+                    closeFABMenu();
+                }
+            }
+        });
+
         new BackgroundTask().execute();
 
         /* 커스텀 액션바 */
@@ -110,9 +133,56 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
 
 
 
-
         return view;
     }
+
+
+    private void showFABMenu() {
+        isFABOpen = true;
+        fabLayout1.setVisibility(View.VISIBLE);
+        fabLayout2.setVisibility(View.VISIBLE);
+        //fabLayout3.setVisibility(View.VISIBLE);
+        //fabBGLayout.setVisibility(View.VISIBLE);
+        fab.animate().rotationBy(180);
+        fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
+        fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
+        //fabLayout3.animate().translationY(-getResources().getDimension(R.dimen.standard_145));
+    }
+
+    private void closeFABMenu() {
+        isFABOpen = false;
+        //fabBGLayout.setVisibility(View.GONE);
+        fab.animate().rotation(0);
+        fabLayout1.animate().translationY(0);
+        fabLayout2.animate().translationY(0);
+        //fabLayout3.animate().translationY(0);
+        fabLayout2.animate().translationY(0).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (!isFABOpen) {
+                    fabLayout1.setVisibility(View.GONE);
+                    fabLayout2.setVisibility(View.GONE);
+                    //fabLayout3.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
