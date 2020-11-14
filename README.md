@@ -147,3 +147,6 @@
 28. curvebottombar (Sunday, October 25th 2020) </br>
 ``` https://github.com/Akshay-Katariya/CurveBottomBar  ``` </br>
 ``` https://www.youtube.com/watch?v=B-vLPw_Hn_M ``` </br>
+
+29. listview click listener (Sunday, November 15th 2020) </br>
+``` https://blog.naver.com/PostView.nhn?blogId=robotluv1226&logNo=220869831395&parentCategoryNo=&categoryNo=12&viewDate=&isShowPopularPosts=false&from=postView ``` </br>
