@@ -1,6 +1,7 @@
 package com.aspsine.fragmentnavigator.demo.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,11 +26,13 @@ import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
 import com.aspsine.fragmentnavigator.demo.item.ddayListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
+import com.aspsine.fragmentnavigator.demo.ui.activity.AddDdayActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +63,7 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
     private DatabaseReference mPostReference;
     private boolean dataCheck = false;
     private String ID;
+    private FloatingActionButton fab;
 
     MainActivity activity;
     Toast toast;
@@ -103,16 +107,27 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
         listview = (ListView) view.findViewById(R.id.ddaylist);
         data = new ArrayList<>();
         mPostReference = FirebaseDatabase.getInstance().getReference();
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
+
 
         if(SharedApplication.myUser.firstEnrolled.equals("T")) {
             ID = SharedApplication.myUser.id.replace(".", "");
         } else {
             ID = SharedApplication.yourUser.id.replace(".","");
         }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(getActivity(), AddDdayActivity.class);
+                intent2.putExtra("id",SharedApplication.myUser.id);
+                startActivity(intent2);
+            }
+        });
         getFirebaseDatabase();
+
 
 
 
