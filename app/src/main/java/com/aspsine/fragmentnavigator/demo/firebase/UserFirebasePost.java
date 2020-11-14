@@ -14,11 +14,12 @@ public class UserFirebasePost {
     public String FCMToken;
     public String firstEnrolled;
     public String gender;
+    public String backgroundUrl;
 
     public UserFirebasePost(){
 
     }
-    public UserFirebasePost(String id, String otherHalf,String name, String birthday, String firstDay,String profileUrl, String code, String FCMToken, String firstEnrolled,String gender){
+    public UserFirebasePost(String id, String otherHalf,String name, String birthday, String firstDay,String profileUrl, String code, String FCMToken, String firstEnrolled,String gender,String backgroundUrl){
         this.id = id;
         this.otherHalf = otherHalf;
         this.name = name;
@@ -29,6 +30,7 @@ public class UserFirebasePost {
         this.FCMToken = FCMToken;
         this.firstEnrolled = firstEnrolled;
         this.gender = gender;
+        this.backgroundUrl = backgroundUrl;
     }
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -42,6 +44,7 @@ public class UserFirebasePost {
         result.put("FCMToken",FCMToken);
         result.put("firstEnrolled",firstEnrolled);
         result.put("gender",gender);
+        result.put("backgroundUrl",backgroundUrl);
         return result;
     }
 }

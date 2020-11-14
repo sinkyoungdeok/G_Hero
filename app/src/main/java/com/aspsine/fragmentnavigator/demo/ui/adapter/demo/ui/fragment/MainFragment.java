@@ -5,9 +5,12 @@ import android.Manifest;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -33,17 +36,26 @@ import androidx.fragment.app.FragmentManager;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.SharedApplication;
+import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
+import com.aspsine.fragmentnavigator.demo.ui.activity.InfoActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -76,9 +88,12 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     boolean isFABOpen = false;
     /* floating button */
 
-    private FrameLayout framelayout;
+    private ImageView backgroundImg;
     private Uri filePath;
     private boolean profileORbackground;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private Gson gson;
     public static Fragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
@@ -101,6 +116,9 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
         // Inflate the layout for this fragment
         //Toast.makeText(getActivity(),"aa",Toast.LENGTH_SHORT).show();
+        preferences  = getActivity().getSharedPreferences("account",Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        gson = new GsonBuilder().create();
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
         mPostReference = FirebaseDatabase.getInstance().getReference();
@@ -110,7 +128,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         ingdayText = (TextView) view.findViewById(R.id.ingday);
         myImg = (ImageView) view.findViewById(R.id.myImg);
         yourImg = (ImageView) view.findViewById(R.id.yourImg);
-        framelayout = (FrameLayout) view.findViewById(R.id.layout1);
+        backgroundImg = (ImageView) view.findViewById(R.id.background);
 
         fabLayout1 = (LinearLayout) view.findViewById(R.id.fabLayout1);
         fabLayout2 = (LinearLayout) view.findViewById(R.id.fabLayout2);
@@ -191,13 +209,81 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
             filePath = data.getData();
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                FirebaseStorage storage = FirebaseStorage.getInstance();
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                StorageReference storageRef;
+                String id;
+                if(SharedApplication.myUser.firstEnrolled.equals("T")) {
+                    id = SharedApplication.myUser.id;
+                } else {
+                    id = SharedApplication.yourUser.id;
+                }
+                String filename = id;
                 if(profileORbackground) {
-                    BitmapDrawable background = new BitmapDrawable(bitmap);
-                    framelayout.setBackgroundDrawable(background);
+                    backgroundImg.setImageBitmap(bitmap);
+
+                    filename += "Background" + ".png";
+                    storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("background_images/" + filename);
+
+                    UploadTask uploadTask =  storageRef.putFile(filePath);
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String profileUrl = uri.toString();
+
+                                    DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("user_list/id"+id.replace(".",""));
+                                    profileRef.child("backgroundUrl").setValue(profileUrl);
+                                    if(SharedApplication.myUser.firstEnrolled.equals("T")) {
+                                        SharedApplication.myUser.backgroundUrl = profileUrl;
+                                        String jsonMyUser = gson.toJson(SharedApplication.myUser, UserFirebasePost.class);
+                                        editor.putString("myUser",jsonMyUser); // sharedpreference
+                                        editor.commit();
+                                    } else {
+                                        SharedApplication.yourUser.backgroundUrl = profileUrl;
+                                        String jsonYourUser = gson.toJson(SharedApplication.yourUser, UserFirebasePost.class);
+                                        editor.putString("yourUser",jsonYourUser); // sharedpreference
+                                        editor.commit();
+                                    }
+
+                                }
+                            });
+
+                        }
+                    });
+
                 } else {
                     myImg.setImageBitmap(bitmap);
+
+                    filename += "Profile" + ".png";
+                    storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("images/" + filename);
+
+                    UploadTask uploadTask =  storageRef.putFile(filePath);
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String profileUrl = uri.toString();
+
+                                    DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("user_list/id"+id.replace(".",""));
+                                    profileRef.child("profileUrl").setValue(profileUrl);
+                                    SharedApplication.myUser.profileUrl = profileUrl;
+                                    String jsonMyUser = gson.toJson(SharedApplication.myUser, UserFirebasePost.class);
+                                    editor.putString("myUser",jsonMyUser); // sharedpreference
+                                    editor.commit();
+
+                                }
+                            });
+
+                        }
+                    });
                 }
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -348,6 +434,9 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
 
                 todayStr += week[oCalendar.get(Calendar.DAY_OF_WEEK) - 1] + "요일";
                 todayText.setText(todayStr);
+                if(SharedApplication.myUser.firstEnrolled.equals("T") && SharedApplication.myUser.backgroundUrl != null&& !SharedApplication.myUser.backgroundUrl.equals("")) {
+                    Glide.with(getContext()).load(SharedApplication.myUser.backgroundUrl).into(backgroundImg);
+                }
 
             } else {
                 yourNameText.setText(SharedApplication.yourUser.name);
@@ -355,6 +444,11 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                     Glide.with(getContext()).load(SharedApplication.yourUser.profileUrl).into(yourImg);
                     yourImg.setBackgroundResource(0);
                 }
+
+                if(SharedApplication.yourUser.firstEnrolled.equals("T") && SharedApplication.yourUser.backgroundUrl != null&&!SharedApplication.yourUser.backgroundUrl.equals("")) {
+                    Glide.with(getContext()).load(SharedApplication.yourUser.backgroundUrl).into(backgroundImg);
+                }
+
             }
         }
         protected void onPostExecute(Integer result) {
