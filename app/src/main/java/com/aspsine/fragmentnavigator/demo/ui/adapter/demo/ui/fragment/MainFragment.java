@@ -83,8 +83,8 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
     /* profile */
 
     /* floating button */
-    private FloatingActionButton fab, fab1, fab2; // fab3;
-    private LinearLayout fabLayout1, fabLayout2; //fabLayout3;
+    private FloatingActionButton fab, fab1, fab2, fab3;
+    private LinearLayout fabLayout1, fabLayout2,fabLayout3;
     boolean isFABOpen = false;
     /* floating button */
 
@@ -132,11 +132,11 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
 
         fabLayout1 = (LinearLayout) view.findViewById(R.id.fabLayout1);
         fabLayout2 = (LinearLayout) view.findViewById(R.id.fabLayout2);
-        //fabLayout3 = (LinearLayout) view.findViewById(R.id.fabLayout3);
+        fabLayout3 = (LinearLayout) view.findViewById(R.id.fabLayout3);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
-        //fab3 = (FloatingActionButton) view.findViewById(R.id.fab3);
+        fab3 = (FloatingActionButton) view.findViewById(R.id.fab3);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,6 +176,17 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+
+            }
+        });
+
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), InfoActivity.class);
+                intent.putExtra("id",SharedApplication.myUser.id);
+                startActivity(intent);
+                getActivity().finish();
 
             }
         });
@@ -296,12 +307,11 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         isFABOpen = true;
         fabLayout1.setVisibility(View.VISIBLE);
         fabLayout2.setVisibility(View.VISIBLE);
-        //fabLayout3.setVisibility(View.VISIBLE);
-        //fabBGLayout.setVisibility(View.VISIBLE);
+        fabLayout3.setVisibility(View.VISIBLE);
         fab.animate().rotationBy(180);
         fabLayout1.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
         fabLayout2.animate().translationY(-getResources().getDimension(R.dimen.standard_100));
-        //fabLayout3.animate().translationY(-getResources().getDimension(R.dimen.standard_145));
+        fabLayout3.animate().translationY(-getResources().getDimension(R.dimen.standard_145));
     }
 
     private void closeFABMenu() {
@@ -310,7 +320,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
         fab.animate().rotation(0);
         fabLayout1.animate().translationY(0);
         fabLayout2.animate().translationY(0);
-        //fabLayout3.animate().translationY(0);
+        fabLayout3.animate().translationY(0);
         fabLayout2.animate().translationY(0).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -322,7 +332,7 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
                 if (!isFABOpen) {
                     fabLayout1.setVisibility(View.GONE);
                     fabLayout2.setVisibility(View.GONE);
-                    //fabLayout3.setVisibility(View.GONE);
+                    fabLayout3.setVisibility(View.GONE);
                 }
             }
 

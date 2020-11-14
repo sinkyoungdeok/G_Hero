@@ -172,7 +172,7 @@
                 app:fabSize="mini"/>
         </LinearLayout>
 
-        <!--
+
         <LinearLayout
             android:id="@+id/fabLayout3"
             android:layout_width="wrap_content"
@@ -181,7 +181,7 @@
             android:clipToPadding="false"
             android:layout_marginRight="@dimen/standard_23"
             android:gravity="center_vertical"
-            android:layout_marginBottom="@dimen/standard_23"
+            android:layout_marginBottom="35dp"
             app:layout_behavior="com.ajaysinghdewari.floatingactionbuttonmenu.activities.utils.MoveUpwardBehavior"
             android:layout_gravity="bottom|end"
             android:layout_alignParentRight="true"
@@ -191,7 +191,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FabTitle3"/>
+                android:fontFamily="@font/nanumgothicbold"
+                android:text="전체 정보 수정"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab3"
@@ -199,10 +200,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 app:srcCompat="@drawable/ic_mic"
-                android:tint="@android:color/white"
+                android:backgroundTint="@color/mypink"
                 app:fabSize="mini"/>
         </LinearLayout>
-        -->
+
 
         <LinearLayout
             android:layout_width="wrap_content"

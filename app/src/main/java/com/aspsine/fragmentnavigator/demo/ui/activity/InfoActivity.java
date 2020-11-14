@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
@@ -37,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -61,7 +64,9 @@ public class InfoActivity extends AppCompatActivity {
     private SimpleDateFormat realFormat = new SimpleDateFormat("yyyy,M,d");
     private String birthStr;
     private String firstDayStr;
+    private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private Gson gson;
 
     private SlideDateTimeListener birthListener = new SlideDateTimeListener() {
 
@@ -102,6 +107,8 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         Intent intent = getIntent();
+        preferences = getSharedPreferences("account",MODE_PRIVATE);
+        editor = preferences.edit();
         id = intent.getExtras().getString("id");
         nameEdit = (EditText) findViewById(R.id.nameEdit);
         birthEdit = (TextView) findViewById(R.id.birthEdit);
@@ -110,6 +117,7 @@ public class InfoActivity extends AppCompatActivity {
         gender = (RadioGroup) findViewById(R.id.gender);
         gender.setOnCheckedChangeListener(radioGroupButtonChangeListener);
         mPostReference = FirebaseDatabase.getInstance().getReference();
+        gson = new GsonBuilder().create();
 
         /*권한*/
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -234,6 +242,16 @@ public class InfoActivity extends AppCompatActivity {
                             profileRef.child("birthday").setValue(birthStr.trim());
                             profileRef.child("firstDay").setValue(firstDayStr.trim());
                             profileRef.child("gender").setValue(genderValue);
+                            if(SharedApplication.myUser != null) {
+                                SharedApplication.myUser.name = nameEdit.getText().toString().trim();
+                                SharedApplication.myUser.profileUrl = profileUrl;
+                                SharedApplication.myUser.birthday = birthStr.trim();
+                                SharedApplication.myUser.firstDay = firstDayStr.trim();
+                                SharedApplication.myUser.gender = genderValue;
+                                String jsonMyUser = gson.toJson(SharedApplication.myUser, UserFirebasePost.class);
+                                editor.putString("myUser",jsonMyUser); // sharedpreference
+                                editor.commit();
+                            }
                             Intent intent = new Intent(InfoActivity.this, MainActivity.class);
                             intent.putExtra("id",id);
                             startActivity(intent);
