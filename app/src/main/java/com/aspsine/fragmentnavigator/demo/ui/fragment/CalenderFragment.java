@@ -1,6 +1,7 @@
 package com.aspsine.fragmentnavigator.demo.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -34,8 +35,11 @@ import com.aspsine.fragmentnavigator.demo.firebase.UserFirebasePost;
 import com.aspsine.fragmentnavigator.demo.item.calendarListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.calendarAdapter;
+import com.aspsine.fragmentnavigator.demo.ui.activity.AddCalenderActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.AddDdayActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -77,6 +81,7 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
     MainActivity activity;
     Toast toast;
     long backKeyPressedTime;
+    private FloatingActionButton fab;
 
     private DatabaseReference mPostReference;
 
@@ -105,6 +110,7 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
         setHasOptionsMenu(true);
         getActivity().setTitle("캘린더");
         data = new ArrayList<>();
@@ -126,6 +132,14 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
                 int monthOne = day.getMonth() + 1;
                 buffer.append(yearOne).append("년 ").append(monthOne).append("월");
                 return buffer;
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(getActivity(), AddCalenderActivity.class);
+                intent2.putExtra("id",SharedApplication.myUser.id);
+                startActivity(intent2);
             }
         });
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.firebase.CalFirebasePost;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
@@ -114,7 +115,11 @@ public class AddCalenderActivity extends AppCompatActivity {
         title = (TextView)findViewById(R.id.title);
         Intent intent = getIntent();
         ID = intent.getExtras().getString("id").replace(".","");
-
+        if(SharedApplication.myUser.firstEnrolled.equals("T")) {
+            ID = SharedApplication.myUser.id.replace(".", "");
+        } else {
+            ID = SharedApplication.yourUser.id.replace(".","");
+        }
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
