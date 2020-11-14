@@ -103,7 +103,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     String[] info = {get.id, get.name, get.content, get.date};
                     chatListviewitem item;
                     String tempDate = info[3].split("/")[1];
-                    if(info[1].equals(SharedApplication.myUser.name)) { // 내 채팅
+                    if(info[0].equals(SharedApplication.myUser.id)) { // 내 채팅
                         if(get.readUsers.size() >= 2) { // 상대방이 읽었을때
                             item = new chatListviewitem(SharedApplication.myUser.profileUrl, info[2], tempDate, SharedApplication.myUser.name, true,true,prevName,prevDate);
                         } else { // 상대방이 아직 안읽었을때
