@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
 
     private MenuItem mLogoutMenu;
 
-    private MenuItem mAddMenu;
-    private MenuItem mAddMenu2;
-
     private String ID;
 
     private UserFirebasePost myUser = null;
@@ -163,11 +160,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mLogoutMenu = menu.findItem(R.id.action_logout);
-        mAddMenu = menu.findItem(R.id.action_add);
-        mAddMenu2 = menu.findItem(R.id.action_add2);
         toggleMenu(SharedPrefUtils.isLogin(this));
-        mAddMenu.setVisible(false);
-        mAddMenu2.setVisible(false);
         return true;
     }
 
@@ -188,16 +181,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigatorVi
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 logout();
-                return true;
-            case R.id.action_add:
-                Intent intent = new Intent(this, AddCalenderActivity.class);
-                intent.putExtra("id",ID);
-                startActivity(intent);
-                return true;
-            case R.id.action_add2:
-                Intent intent2 = new Intent(this, AddDdayActivity.class);
-                intent2.putExtra("id",ID);
-                startActivity(intent2);
                 return true;
 
         }

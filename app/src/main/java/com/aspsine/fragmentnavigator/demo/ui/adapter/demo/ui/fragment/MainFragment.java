@@ -374,8 +374,6 @@ public class MainFragment extends Fragment implements BottomNavigatorView.OnBott
 
         menu.findItem(R.id.action_logout).setVisible(true);
         menu.findItem(R.id.action_exception).setVisible(true);
-        menu.findItem(R.id.action_add).setVisible(false);
-        menu.findItem(R.id.action_add2).setVisible(false);
         super.onPrepareOptionsMenu(menu);
     }
 
