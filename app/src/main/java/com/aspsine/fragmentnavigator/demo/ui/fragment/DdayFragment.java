@@ -3,6 +3,14 @@ package com.aspsine.fragmentnavigator.demo.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,28 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.SharedApplication;
-import com.aspsine.fragmentnavigator.demo.firebase.ChatFirebasePost;
 import com.aspsine.fragmentnavigator.demo.firebase.DdayFirebasePost;
-import com.aspsine.fragmentnavigator.demo.item.chatListviewitem;
 import com.aspsine.fragmentnavigator.demo.item.ddayListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.ddayAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.activity.AddDdayActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
-import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,8 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -206,6 +199,19 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
                     listview.setAdapter(adapter);
                     no_data.setVisibility(View.INVISIBLE);
                     no_icon_gray.setVisibility(View.INVISIBLE);
+
+                    listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                        @Override
+                        public void onItemClick(AdapterView parent, View v, int position, long id) {
+                            //Intent intent = new Intent(getApplicationContext, FriendsClicked.class);
+                            /* putExtra의 첫 값은 식별 태그, 뒤에는 다음 화면에 넘길 값 */
+                            //intent.putExtra("profile", Integer.toString(data.get(position).getProfile()));
+                            //intent.putExtra("info", data.get(position).getInfo());
+                            //intent.putExtra("phone", data.get(position).getPhone());
+                            //startActivity(intent);
+                            Toast.makeText(getContext(),data.get(position).getName(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
 
