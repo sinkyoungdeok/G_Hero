@@ -1,5 +1,6 @@
 package com.aspsine.fragmentnavigator.demo.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,9 @@ import com.aspsine.fragmentnavigator.demo.firebase.DdayFirebasePost;
 import com.bumptech.glide.Glide;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -33,6 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class AddDdayActivity extends AppCompatActivity {
@@ -154,8 +158,11 @@ public class AddDdayActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadFile();
-                finish();
+                if ( tempContent != null) {
+                    update();
+                } else {
+                    uploadFile();
+                }
             }
         });
     }
@@ -177,10 +184,46 @@ public class AddDdayActivity extends AppCompatActivity {
             }
         }
     }
+    private void update() {
+        if(filePath == null) {
+            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+        } else {
+            finish();
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            String filename = id+ titleEdit.getText().toString() + ".png";
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("dday_images/" + filename);
+            UploadTask uploadTask =  storageRef.putFile(filePath);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String profileUrl = uri.toString();
+
+
+                            DdayFirebasePost post = new DdayFirebasePost(titleEdit.getText().toString(),startDate,profileUrl);
+                            Map<String, Object> updateMap = new HashMap<>();
+                            updateMap.put(tempKey, post);
+                            FirebaseDatabase.getInstance().getReference().child("/dday_list/id"+ID)
+                                    .updateChildren(updateMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                }
+                            });
+                        }
+                    });
+
+                }
+            });
+        }
+    }
     private void uploadFile() {
         if(filePath == null) {
             Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         } else {
+            finish();
             FirebaseStorage storage = FirebaseStorage.getInstance();
             String filename = id+ titleEdit.getText().toString() + ".png";
             StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("dday_images/" + filename);
@@ -197,7 +240,6 @@ public class AddDdayActivity extends AppCompatActivity {
                             DdayFirebasePost post = new DdayFirebasePost(titleEdit.getText().toString(),startDate,profileUrl);
                             Map<String, Object> postValues = post.toMap();
                             mPostReference.child("/dday_list/id" + ID).push().setValue(postValues);
-                            finish();
 
                         }
                     });
