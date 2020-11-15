@@ -157,6 +157,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         SendNotification.sendNotification(FCMToken,SharedApplication.myUser.name,content);
         mPostReference.child("/chat_list/id" + ID).push().setValue(postValues);
         clearET();
+        content = null;
     }
     public void clearET () {
         contentET.setText("");
@@ -187,9 +188,11 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                content = contentET.getText().toString();
+                if(contentET.getText().toString().trim().length() >= 1) {
+                    content = contentET.getText().toString().trim();
+                    postFirebaseDatabase(true);
 
-                postFirebaseDatabase(true);
+                }
             }
         });
 
