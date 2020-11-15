@@ -30,7 +30,7 @@ public class SendNotification {
                     json.put("to", regToken);
                     RequestBody body = RequestBody.create(JSON, json.toString());
                     Request request = new Request.Builder()
-                            .header("Authorization", "key=" + "AAAAPTgj8fE:APA91bFG9AtIyXAK7cUBlInnNUy9eu8Y50xZFIqFZH4SgBw1__n0_z6YpMiIFzPtcTEDIO-Qb_rDTr7l1LJhEP111f-e34mgOFnK4nJfEdD2OHQU_EyZCrIwQ9nDvE4OVgx9gqbI8BDF")
+                            .header("Authorization", "key=" + "AAAAPTgj8fE:APA91bHhU91Ud10gT6q8EOxSFMsD3xC5mhLYlV3Pc4UQ9Qml4CgLcUD47TsKjTVT9_-f9eM8i3mIm3TvGTVPDaBCEP4cEFqeLZo3isK4ft8qaz4yN6iSPFwTwJAmNTJdByuSDBu9s6UO")
                             .url("https://fcm.googleapis.com/fcm/send")
                             .post(body)
                             .build();
