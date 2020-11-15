@@ -185,10 +185,11 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
                 data.clear();
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
                     DdayFirebasePost get = postSnapshot.getValue(DdayFirebasePost.class);
                     String[] info = {get.content, get.startDate, get.ddayUrl};
                     String ddayResult = ddayCalculator(info[1]);
-                    ddayListviewitem icon = new ddayListviewitem(info[2], ddayResult, info[0]);
+                    ddayListviewitem icon = new ddayListviewitem(info[2], ddayResult, info[0], key);
                     data.add(icon);
                     dataCheck = true;
 
