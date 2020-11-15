@@ -36,14 +36,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        //푸시울렸을때 화면깨우기.
 
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE );
-        @SuppressLint("InvalidWakeLockTag")
-        PowerManager.WakeLock wakeLock = pm.newWakeLock( PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG" );
-        wakeLock.acquire(3000);
         sendNotification(remoteMessage.getData().get("title"),remoteMessage.getData().get("body"));
-        sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+        //sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
     }
     // [END receive_message]
 
@@ -72,7 +67,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(String title, String messageBody) {
         //Toast.makeText(this,"테스트임다",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra("defaultFragment","chat");
+        //intent.putExtra("defaultFragment","chat");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
