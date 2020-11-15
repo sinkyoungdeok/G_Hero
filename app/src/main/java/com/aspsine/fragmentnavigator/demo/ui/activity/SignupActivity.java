@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aspsine.fragmentnavigator.demo.R;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.kakao.auth.Session;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -169,5 +171,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         };
         mPostReference.child("/code_list/").addValueEventListener(postListener);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // 로그인 인증을 요청 했을 때 결과 값을 되돌려 받는
+        super.onActivityResult(requestCode, resultCode, data);
+        // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
+        Toast.makeText(this,"카카오 로그인은 준비 중입니다", Toast.LENGTH_SHORT).show();
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+
+
     }
 }
