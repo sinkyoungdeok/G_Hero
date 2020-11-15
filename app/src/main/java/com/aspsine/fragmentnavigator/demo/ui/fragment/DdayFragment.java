@@ -189,7 +189,7 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
                     DdayFirebasePost get = postSnapshot.getValue(DdayFirebasePost.class);
                     String[] info = {get.content, get.startDate, get.ddayUrl};
                     String ddayResult = ddayCalculator(info[1]);
-                    ddayListviewitem icon = new ddayListviewitem(info[2], ddayResult, info[0], key);
+                    ddayListviewitem icon = new ddayListviewitem(info[2], ddayResult, info[0], key, info[1]);
                     data.add(icon);
                     dataCheck = true;
 
@@ -211,6 +211,7 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
                             //intent.putExtra("phone", data.get(position).getPhone());
                             //startActivity(intent);
                             Toast.makeText(getContext(),data.get(position).getName(),Toast.LENGTH_SHORT).show();
+
                         }
                     });
                 }
