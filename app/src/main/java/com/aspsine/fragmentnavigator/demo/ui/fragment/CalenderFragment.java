@@ -179,12 +179,20 @@ public class CalenderFragment extends Fragment  implements BottomNavigatorView.O
 
                     calendarListviewitem item2 = new calendarListviewitem("","","");
                     data.add(item2);
-                    String[] splitData = mCal.get(shot_Day).split(",");
-                    calendarListviewitem item = new calendarListviewitem(splitData[1],splitData[2],splitData[0]);
-                    data.add(item);
-
+                    if(mCal.get(shot_Day).split("\n") ==null) {
+                        String[] splitData = mCal.get(shot_Day).split(",");
+                        calendarListviewitem item = new calendarListviewitem(splitData[1], splitData[2], splitData[0]);
+                        data.add(item);
+                    } else {
+                        for (String calData : mCal.get(shot_Day).split("\n")) {
+                            String[] splitData = calData.split(",");
+                            calendarListviewitem item = new calendarListviewitem(splitData[1], splitData[2], splitData[0]);
+                            data.add(item);
+                        }
+                    }
                     calendarListviewitem item3 = new calendarListviewitem("","","");
                     data.add(item3);
+
                     adapter = new calendarAdapter(getContext(), R.layout.calendar_item, data);
                     calList.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
