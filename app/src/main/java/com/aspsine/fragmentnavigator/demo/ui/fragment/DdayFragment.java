@@ -204,13 +204,13 @@ public class DdayFragment extends Fragment  implements BottomNavigatorView.OnBot
                     listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                         @Override
                         public void onItemClick(AdapterView parent, View v, int position, long id) {
-                            //Intent intent = new Intent(getApplicationContext, FriendsClicked.class);
-                            /* putExtra의 첫 값은 식별 태그, 뒤에는 다음 화면에 넘길 값 */
-                            //intent.putExtra("profile", Integer.toString(data.get(position).getProfile()));
-                            //intent.putExtra("info", data.get(position).getInfo());
-                            //intent.putExtra("phone", data.get(position).getPhone());
-                            //startActivity(intent);
-                            Toast.makeText(getContext(),data.get(position).getName(),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(),data.get(position).getName(),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(), AddDdayActivity.class);
+                            intent.putExtra("content", data.get(position).getName2());
+                            intent.putExtra("ddayUrl", data.get(position).getIcon());
+                            intent.putExtra("startDate", data.get(position).getStartDate());
+                            intent.putExtra("key",data.get(position).getKey());
+                            startActivity(intent);
 
                         }
                     });

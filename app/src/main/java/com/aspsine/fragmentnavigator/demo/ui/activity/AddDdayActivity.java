@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.firebase.DdayFirebasePost;
+import com.bumptech.glide.Glide;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +47,8 @@ public class AddDdayActivity extends AppCompatActivity {
     private ImageView ddayPreview;
     private Uri filePath;
     private String id;
+
+    private String tempContent, tempKey, tempDdayUrl, tempStartDate;
 
     private SlideDateTimeListener startListener = new SlideDateTimeListener() {
 
@@ -82,6 +85,7 @@ public class AddDdayActivity extends AppCompatActivity {
         } else {
             ID = SharedApplication.yourUser.id.replace(".","");
         }
+
         /*권한*/
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
@@ -116,6 +120,18 @@ public class AddDdayActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        tempContent = intent.getExtras().getString("content",null);
+        tempDdayUrl = intent.getExtras().getString("ddayUrl", null);
+        tempStartDate = intent.getExtras().getString("startDate", null);
+        tempKey = intent.getExtras().getString("key", null);
+        if(tempContent != null) {
+            titleEdit.setText(tempContent);
+            startShow.setText(tempStartDate);
+            startDate = tempStartDate;
+            Glide.with(this).load(tempDdayUrl).into(ddayPreview);
+            add.setText("수정");
+        }
 
         startShow.setOnClickListener(new View.OnClickListener() {
 
