@@ -185,10 +185,19 @@ public class AddDdayActivity extends AppCompatActivity {
         }
     }
     private void update() {
+        finish();
         if(filePath == null) {
-            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+            DdayFirebasePost post = new DdayFirebasePost(titleEdit.getText().toString(),startDate,tempDdayUrl);
+            Map<String, Object> updateMap = new HashMap<>();
+            updateMap.put(tempKey, post);
+            FirebaseDatabase.getInstance().getReference().child("/dday_list/id"+ID)
+                    .updateChildren(updateMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                }
+            });
         } else {
-            finish();
             FirebaseStorage storage = FirebaseStorage.getInstance();
             String filename = id+ titleEdit.getText().toString() + ".png";
             StorageReference storageRef = storage.getReferenceFromUrl("gs://g-hero.appspot.com").child("dday_images/" + filename);
