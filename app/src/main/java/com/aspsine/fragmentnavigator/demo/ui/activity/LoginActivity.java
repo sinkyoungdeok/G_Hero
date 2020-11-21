@@ -232,7 +232,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
         Toast.makeText(this,"카카오 로그인은 준비 중입니다", Toast.LENGTH_SHORT).show();
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            Toast.makeText(this,"테스트", Toast.LENGTH_SHORT).show();
             return;
         }
 
