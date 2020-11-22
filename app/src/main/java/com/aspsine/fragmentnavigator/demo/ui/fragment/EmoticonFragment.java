@@ -1,6 +1,7 @@
 package com.aspsine.fragmentnavigator.demo.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -12,17 +13,22 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.item.emoticonListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
+import com.aspsine.fragmentnavigator.demo.listviewadapter.emoticonAdapter;
+import com.aspsine.fragmentnavigator.demo.ui.activity.AddDdayActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,8 +43,10 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     Toast toast;
     long backKeyPressedTime;
 
-    private ImageView img1;
+    private ImageView imgShow;
     private ListView listView;
+    private ArrayList<emoticonListviewitem> data;
+    private emoticonAdapter adapter;
     public EmoticonFragment() {
         // Required empty public constructor
     }
@@ -77,15 +85,27 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     }
 
     private void viewInit(View view) {
-        img1 = (ImageView) view.findViewById(R.id.imageView5);
-        listView = (ListView) view.findViewById(R.id.listview);
+        imgShow = (ImageView) view.findViewById(R.id.imageView5);
+        listView = (ListView) view.findViewById(R.id.emoticonList);
     }
     private void settingInit() {
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
         setHasOptionsMenu(true);
+        data = new ArrayList<>();
+        emoticonListViewSetting();
 
-        Glide.with(this).load(R.mipmap.angry).into(img1);
+
+
+        Glide.with(this).load(R.mipmap.angry).into(imgShow);
+    }
+    private void emoticonListViewSetting() {
+        emoticonListviewitem item = new emoticonListviewitem(R.mipmap.angry,R.mipmap.questionmark,R.mipmap.emoticonheart,imgShow);
+        data.add(item);
+        emoticonListviewitem item2 = new emoticonListviewitem(R.mipmap.angry,R.mipmap.questionmark,R.mipmap.emoticonheart,imgShow);
+        data.add(item2);
+        adapter = new emoticonAdapter(getContext(), R.layout.emoticon_item, data);
+        listView.setAdapter(adapter);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
