@@ -104,6 +104,7 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
         data.add(item);
         emoticonListviewitem item2 = new emoticonListviewitem(R.mipmap.angry,R.mipmap.questionmark,R.mipmap.emoticonheart,imgShow);
         data.add(item2);
+        data.add(item2);
         adapter = new emoticonAdapter(getContext(), R.layout.emoticon_item, data);
         listView.setAdapter(adapter);
     }
