@@ -13,6 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
+        android:fontFamily="@font/nanumgodhic"
         />
 
     <com.kakao.usermgmt.LoginButton
@@ -37,6 +38,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/btn_kakao_login"
         android:layout_marginBottom="30dp"
+        android:fontFamily="@font/nanumgodhic"
         />
 
     <TextView
@@ -49,6 +51,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/signup_button"
         android:layout_marginBottom="15dp"
+        android:fontFamily="@font/nanumgodhic"
         />
     <Button
         android:id="@+id/login_in_button"
@@ -63,6 +66,7 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/or"
         android:layout_marginBottom="15dp"
+        android:fontFamily="@font/nanumgodhic"
         />
 
     <EditText
@@ -79,6 +83,7 @@
         android:layout_above="@+id/login_in_button"
         android:layout_marginBottom="15dp"
         android:paddingLeft="10dp"
+        android:fontFamily="@font/nanumgodhic"
         />
     <EditText
         android:id="@+id/et_email"
@@ -93,6 +98,7 @@
         android:layout_above="@+id/et_password"
         android:layout_marginBottom="4dp"
         android:paddingLeft="10dp"
+        android:fontFamily="@font/nanumgodhic"
         />
     <ImageView
         android:id="@+id/imageView"

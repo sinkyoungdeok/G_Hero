@@ -45,6 +45,7 @@
                 android:layout_height="37dp"
                 android:background="@mipmap/send_icon"
                 android:textColor="#ffffff"
+                android:fontFamily="@font/nanumgodhic"
                 android:textSize="30sp" />
 
 

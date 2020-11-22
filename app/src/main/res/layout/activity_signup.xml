@@ -38,6 +38,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageView3"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nanumgodhic"
         />
 
     <EditText
@@ -54,6 +55,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/et_email"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/nanumgodhic"
         />
 
     <Button
@@ -69,6 +71,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/et_password"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/nanumgodhic"
         />
 
 
