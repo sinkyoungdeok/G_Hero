@@ -26,14 +26,7 @@ import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
  * create an instance of this fragment.
  */
 public class EmoticonFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     MainActivity activity;
     Toast toast;
@@ -47,7 +40,6 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     public static EmoticonFragment newInstance(String param1) {
         EmoticonFragment fragment = new EmoticonFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,8 +48,7 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -70,6 +61,8 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
         setHasOptionsMenu(true);
+
+
         return inflater.inflate(R.layout.fragment_emoticon, container, false);
     }
     @Override
