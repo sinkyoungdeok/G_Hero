@@ -7,6 +7,10 @@
 ## Concept
 - Couple app
 
+## Branch
+- master: release purpose
+- fragment_emoticon: submit to the government
+
 ## Team 
 - 성균관대학교 소프트웨어학과 18 김지영 (대표)
 - 성균관대학교 소프트웨어학과 17 신경덕 (개발자)
