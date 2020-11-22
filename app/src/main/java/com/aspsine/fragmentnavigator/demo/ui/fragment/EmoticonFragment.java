@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
@@ -19,6 +21,9 @@ import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
+import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +36,9 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     MainActivity activity;
     Toast toast;
     long backKeyPressedTime;
+
+    private ImageView img1;
+    private ListView listView;
     public EmoticonFragment() {
         // Required empty public constructor
     }
@@ -55,15 +63,29 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_emoticon, container, false);
+        init(view);
 
+
+
+
+        return view;
+    }
+    private void init(View view) {
+        viewInit(view);
+        settingInit();
+    }
+
+    private void viewInit(View view) {
+        img1 = (ImageView) view.findViewById(R.id.imageView5);
+        listView = (ListView) view.findViewById(R.id.listview);
+    }
+    private void settingInit() {
         activity = (MainActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
-
         setHasOptionsMenu(true);
 
-
-        return inflater.inflate(R.layout.fragment_emoticon, container, false);
+        Glide.with(this).load(R.mipmap.angry).into(img1);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
