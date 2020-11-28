@@ -30,7 +30,7 @@
             android:layout_weight="1.65"
             android:orientation="vertical">
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/emoticonBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/mypink"

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,7 +24,10 @@ import com.aspsine.fragmentnavigator.demo.item.emoticonListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.emoticonAdapter;
 import com.aspsine.fragmentnavigator.demo.ui.activity.AddDdayActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.EmoticonActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity;
 import com.aspsine.fragmentnavigator.demo.ui.activity.MainActivity;
+import com.aspsine.fragmentnavigator.demo.ui.activity.SignupActivity;
 import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.MainFragment;
 import com.aspsine.fragmentnavigator.demo.ui.widget.BottomNavigatorView;
 import com.bumptech.glide.Glide;
@@ -39,14 +43,15 @@ import java.util.List;
 public class EmoticonFragment extends Fragment implements BottomNavigatorView.OnBottomNavigatorViewItemClickListener, OnBackPressedListener {
 
 
-    MainActivity activity;
-    Toast toast;
-    long backKeyPressedTime;
+    private MainActivity activity;
+    private Toast toast;
+    private long backKeyPressedTime;
 
     private ImageView imgShow;
     private ListView listView;
     private ArrayList<emoticonListviewitem> data;
     private emoticonAdapter adapter;
+    private Button btn;
     public EmoticonFragment() {
         // Required empty public constructor
     }
@@ -87,6 +92,7 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
     private void viewInit(View view) {
         imgShow = (ImageView) view.findViewById(R.id.imageView5);
         listView = (ListView) view.findViewById(R.id.emoticonList);
+        btn = (Button) view.findViewById(R.id.emoticonBtn);
     }
     private void settingInit() {
         activity = (MainActivity) getActivity();
@@ -94,6 +100,13 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
         setHasOptionsMenu(true);
         data = new ArrayList<>();
         emoticonListViewSetting();
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getActivity(), EmoticonActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
