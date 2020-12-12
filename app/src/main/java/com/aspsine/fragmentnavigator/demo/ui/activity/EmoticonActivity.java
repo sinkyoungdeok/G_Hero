@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.bumptech.glide.Glide;
 import com.github.gabrielbb.cutout.CutOut;
 import com.github.gabrielbb.cutout.SharedApplication;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -89,6 +91,24 @@ public class EmoticonActivity extends AppCompatActivity {
                 MLKitStart(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+        if (requestCode == CutOut.CUTOUT_ACTIVITY_REQUEST_CODE) {
+            switch (resultCode) {
+                case Activity.RESULT_OK:
+                    Uri imageUri = CutOut.getUri(data);
+                    // Save the image using the returned Uri here
+                    Intent intent = new Intent(EmoticonActivity.this, GifActivity.class);
+                    intent.putExtra("imageUri",imageUri.toString());
+                    startActivity(intent);
+                    finish();
+
+                    break;
+                case CutOut.CUTOUT_ACTIVITY_RESULT_ERROR_CODE:
+                    Exception ex = CutOut.getError(data);
+                    break;
+                default:
+                    System.out.print("User cancelled the CutOut screen");
             }
         }
     }
