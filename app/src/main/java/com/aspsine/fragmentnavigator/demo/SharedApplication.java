@@ -11,6 +11,7 @@ public class SharedApplication extends Application  {
 
     public static UserFirebasePost myUser = null;
     public static UserFirebasePost yourUser = null;
+    public static String imgTag = "";
     @Override
     public void onCreate() {
         super.onCreate();

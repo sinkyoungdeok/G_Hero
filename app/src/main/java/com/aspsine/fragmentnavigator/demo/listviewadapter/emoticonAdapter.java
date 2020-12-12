@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.item.calendarListviewitem;
 import com.aspsine.fragmentnavigator.demo.item.emoticonListviewitem;
 import com.aspsine.fragmentnavigator.demo.ui.activity.LoginActivity;
@@ -58,18 +59,21 @@ public class emoticonAdapter extends BaseAdapter {
             @Override
             public void onClick(View view){
                 Glide.with(finalItemView.getContext()).load(item.getIcon1()).into(item.getImgview());
+                SharedApplication.imgTag = item.getIcon1Tag();
             }
         });
         img2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Glide.with(finalItemView.getContext()).load(item.getIcon2()).into(item.getImgview());
+                SharedApplication.imgTag = item.getIcon2Tag();
             }
         });
         img3.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Glide.with(finalItemView.getContext()).load(item.getIcon3()).into(item.getImgview());
+                SharedApplication.imgTag = item.getIcon3Tag();
             }
         });
 

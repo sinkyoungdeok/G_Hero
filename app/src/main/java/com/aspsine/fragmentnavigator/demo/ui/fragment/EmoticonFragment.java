@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
 import com.aspsine.fragmentnavigator.demo.item.emoticonListviewitem;
 import com.aspsine.fragmentnavigator.demo.listener.OnBackPressedListener;
 import com.aspsine.fragmentnavigator.demo.listviewadapter.emoticonAdapter;
@@ -104,6 +105,7 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getActivity(), EmoticonActivity.class);
+                intent.putExtra("imgTag", SharedApplication.imgTag);
                 startActivity(intent);
             }
         });

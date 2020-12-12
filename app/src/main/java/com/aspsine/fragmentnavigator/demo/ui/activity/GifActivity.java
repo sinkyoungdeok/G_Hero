@@ -21,6 +21,7 @@ public class GifActivity extends AppCompatActivity {
     private ImageView faceImg;
     private ImageView gifImg;
     private TNImageView tnImageView;
+    private String imgTag;
     private List<ImageView> imageViews = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,14 @@ public class GifActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         imageUriStr = intent.getExtras().getString("imageUri");
-
-        Glide.with(getApplicationContext()).load(R.mipmap.emoticon_angry_no_face).into(gifImg);
+        imgTag = intent.getExtras().getString("imgTag");
+        if(imgTag.equals("angry")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_angry_no_face).into(gifImg);
+        } else if ( imgTag.equals("questionmark")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_questionmark_no_face).into(gifImg);
+        } else if (imgTag.equals( "heart")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_heart_no_face).into(gifImg);
+        }
 
         imageViews.add(faceImg);
         tnImageView.addListofImageViews(imageViews);

@@ -40,10 +40,13 @@ public class EmoticonActivity extends AppCompatActivity {
     private Uri filePath;
     private Button btn;
     private ProgressBar progressBar;
+    private String imgTag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emoticon);
+        Intent getintent = getIntent();
+        imgTag = getintent.getExtras().getString("imgTag");
         btn = (Button) findViewById(R.id.btn);
         /*권한*/
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -100,6 +103,7 @@ public class EmoticonActivity extends AppCompatActivity {
                     // Save the image using the returned Uri here
                     Intent intent = new Intent(EmoticonActivity.this, GifActivity.class);
                     intent.putExtra("imageUri",imageUri.toString());
+                    intent.putExtra("imgTag",imgTag);
                     startActivity(intent);
                     finish();
 
