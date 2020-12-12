@@ -71,5 +71,9 @@ dependencies {
     // 머신러닝
     implementation 'com.google.firebase:firebase-ml-vision:24.0.0'
     implementation 'com.google.firebase:firebase-ml-vision-face-model:19.0.0'
+
+
+    implementation project(':tn_imageview')
+    implementation project(':cutout')
 }
 apply plugin: 'com.google.gms.google-services'
