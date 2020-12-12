@@ -1,5 +1,6 @@
 package com.aspsine.fragmentnavigator.demo.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -14,8 +15,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.github.gabrielbb.cutout.CutOut;
+import com.github.gabrielbb.cutout.SharedApplication;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.face.FirebaseVisionFace;
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 
 import java.io.IOException;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,13 +61,12 @@ public class EmoticonActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
             }
         });
-        btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(EmoticonActivity.this,EmoticonActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        btn.setOnClickListener(view -> {
+            CutOut.activity()
+                    .src(filePath)
+                    .bordered()
+                    .noCrop()
+                    .start(this);
         });
 
     }
@@ -71,10 +82,70 @@ public class EmoticonActivity extends AppCompatActivity {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 emoticonImg.setImageBitmap(bitmap);
+                MLKitStart(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void MLKitStart(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        SharedApplication.width = width;
+        SharedApplication.height = height;
+        FirebaseVisionFaceDetectorOptions options =
+                new FirebaseVisionFaceDetectorOptions.Builder()
+                        .setPerformanceMode(FirebaseVisionFaceDetectorOptions.FAST)
+                        .setLandmarkMode(FirebaseVisionFaceDetectorOptions.ALL_LANDMARKS)
+                        .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
+                        .build();
+        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
+        FirebaseVisionFaceDetector detector = FirebaseVision.getInstance()
+                .getVisionFaceDetector(options);
+        Task<List<FirebaseVisionFace>> result =
+                detector.detectInImage(image)
+                        .addOnSuccessListener(
+                                new OnSuccessListener<List<FirebaseVisionFace>>() {
+                                    @Override
+                                    public void onSuccess(List<FirebaseVisionFace> faces) {
+
+
+                                        for (FirebaseVisionFace face : faces) {
+
+
+                                            float x = face.getBoundingBox().centerX();
+                                            float y = face.getBoundingBox().centerY();
+
+                                            float xOffset = face.getBoundingBox().width() / 2.0f;
+                                            float yOffset = face.getBoundingBox().height() / 2.0f;
+                                            float left = x - xOffset;
+                                            float top = y - yOffset;
+                                            float right = x + xOffset;
+                                            float bottom = y + yOffset;
+
+                                            SharedApplication.left = left;
+                                            SharedApplication.top = top;
+                                            SharedApplication.right = right;
+                                            SharedApplication.bottom = bottom;
+
+
+
+                                        }
+
+
+
+                                    }
+                                })
+                        .addOnFailureListener(
+                                new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                    }
+                                });
+
     }
 
 }
