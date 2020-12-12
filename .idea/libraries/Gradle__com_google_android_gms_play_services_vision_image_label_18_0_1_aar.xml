@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.android.gms:play-services-vision-image-label:18.0.1@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3909487cb4467f1a9822e9cfb8d4a0b0/jetified-play-services-vision-image-label-18.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c74b426750d74bbdfe36ed74feeafb17/jetified-play-services-vision-image-label-18.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c74b426750d74bbdfe36ed74feeafb17/jetified-play-services-vision-image-label-18.0.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c74b426750d74bbdfe36ed74feeafb17/jetified-play-services-vision-image-label-18.0.1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.gms/play-services-vision-image-label/18.0.1/7b2b904a57fae0b77a9d2faf5284e6788f3223ba/play-services-vision-image-label-18.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

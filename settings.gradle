@@ -1,1 +1,3 @@
+include ':tn_imageview'
+include ':cutout'
 include ':app', ':library'

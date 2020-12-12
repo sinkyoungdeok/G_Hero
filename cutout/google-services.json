@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "674083888899",
+    "project_id": "cutout-80bc1",
+    "storage_bucket": "cutout-80bc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674083888899:android:33b3d92fe77919bf06d336",
+        "android_client_info": {
+          "package_name": "com.github.gabrielbb.cutout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674083888899-ksdv2pp778f1311khe9cd7vpqi8e7usu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.gabrielbb.cutout",
+            "certificate_hash": "5cb7fc31ea423d75819f7c82fa9c30ea6fd31287"
+          }
+        },
+        {
+          "client_id": "674083888899-m6fp70s16knvjsr9ihj4necv276kjko1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCohscJ_0j-y9aCyIUvuWgJc2hk1KUMJn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674083888899-m6fp70s16knvjsr9ihj4necv276kjko1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

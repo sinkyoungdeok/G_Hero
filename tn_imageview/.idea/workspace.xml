@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7afb6ea2-37ed-4cf9-b2f5-cc4bbc9701e4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../cutout/google-services.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/SharedApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/google-services.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/src/main/res/drawable/angry.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../test/src/main/res/drawable/test.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cutout/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../cutout/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/CutOut.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/CutOut.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/CutOutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/CutOutActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/DrawView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/DrawView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/IntroActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cutout/src/main/java/com/github/gabrielbb/cutout/IntroActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../cutout/src/main/res/layout/activity_photo_edit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../cutout/src/main/res/layout/activity_photo_edit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../test/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/src/main/java/com/github/gabrielbb/cutout/test/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../test/src/main/java/com/github/gabrielbb/cutout/test/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../test/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/src/main/res/layout/content_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../test/src/main/res/layout/content_main.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1lNXePnCK106tqb4xe292YUReCb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7afb6ea2-37ed-4cf9-b2f5-cc4bbc9701e4" name="Default Changelist" comment="" />
+      <created>1607438616104</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607438616104</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.longegit:android-SlideDateTimePicker:1.1.1@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d8dce4c188e89b503286a8bf8f9f3796/jetified-android-SlideDateTimePicker-1.1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d8dce4c188e89b503286a8bf8f9f3796/jetified-android-SlideDateTimePicker-1.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d8dce4c188e89b503286a8bf8f9f3796/jetified-android-SlideDateTimePicker-1.1.1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

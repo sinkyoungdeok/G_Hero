@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/G_Hero.iml" filepath="$PROJECT_DIR$/.idea/G_Hero.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/G_Hero.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/G_Hero.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cutout/G_Hero.cutout.iml" filepath="$PROJECT_DIR$/.idea/modules/cutout/G_Hero.cutout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/G_Hero.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/G_Hero.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tn_imageview/G_Hero.tn_imageview.iml" filepath="$PROJECT_DIR$/.idea/modules/tn_imageview/G_Hero.tn_imageview.iml" />
+    </modules>
+  </component>
+</project>
