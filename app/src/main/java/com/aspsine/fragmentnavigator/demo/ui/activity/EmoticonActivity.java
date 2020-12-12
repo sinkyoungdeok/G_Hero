@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.aspsine.fragmentnavigator.demo.R;
@@ -22,10 +23,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class EmoticonActivity extends AppCompatActivity {
     private CircleImageView emoticonImg;
     private Uri filePath;
+    private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emoticon);
+        btn = (Button) findViewById(R.id.btn);
         /*권한*/
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
@@ -44,6 +47,14 @@ public class EmoticonActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), 0);
+            }
+        });
+        btn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(EmoticonActivity.this,EmoticonActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
