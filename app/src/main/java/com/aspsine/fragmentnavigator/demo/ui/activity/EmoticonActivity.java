@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.github.gabrielbb.cutout.CutOut;
@@ -36,6 +37,7 @@ public class EmoticonActivity extends AppCompatActivity {
     private CircleImageView emoticonImg;
     private Uri filePath;
     private Button btn;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class EmoticonActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},0);
         }
         emoticonImg = (CircleImageView) findViewById(R.id.emoticonImg);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -79,6 +82,7 @@ public class EmoticonActivity extends AppCompatActivity {
         if(requestCode == 0 && resultCode == RESULT_OK){
             filePath = data.getData();
             try {
+                progressBar.setVisibility(ProgressBar.VISIBLE);
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 emoticonImg.setImageBitmap(bitmap);
@@ -129,6 +133,10 @@ public class EmoticonActivity extends AppCompatActivity {
                                             SharedApplication.top = top;
                                             SharedApplication.right = right;
                                             SharedApplication.bottom = bottom;
+
+                                            progressBar.setVisibility(ProgressBar.GONE);
+
+                                            break;
 
 
 
