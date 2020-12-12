@@ -30,13 +30,15 @@ public class GifActivity extends AppCompatActivity {
         gifImg = (ImageView) findViewById(R.id.imageView4);
         tnImageView = new TNImageView();
 
+        Intent intent = getIntent();
+        imageUriStr = intent.getExtras().getString("imageUri");
+
         Glide.with(getApplicationContext()).load(R.mipmap.angry_no_face).into(gifImg);
 
         imageViews.add(faceImg);
         tnImageView.addListofImageViews(imageViews);
         tnImageView.bringToFrontOnTouch(true);
-        Intent intent = getIntent();
-        imageUriStr = intent.getExtras().getString("imageUri");
+
         faceImg.setImageURI(Uri.parse(imageUriStr));
 
     }
