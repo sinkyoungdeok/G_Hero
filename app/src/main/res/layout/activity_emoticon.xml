@@ -6,18 +6,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/RelativeLayout_main"
+    android:background="@color/mypink"
     tools:context=".ui.activity.EmoticonActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/emoticonImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
         android:background="@null"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/test" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        />
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:background="@drawable/mybutton_bold"
+        android:text="시작하기!"
+        android:textColor="#ffffffff"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/emoticonImg"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/nanumgodhic"
+        />
+
+
 
 
 </RelativeLayout>
