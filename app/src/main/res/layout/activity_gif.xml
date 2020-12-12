@@ -11,7 +11,7 @@
         android:layout_width="361dp"
         android:layout_height="431dp"
         android:layout_centerInParent="true"
-        app:srcCompat="@mipmap/angry_no_face"/>
+        app:srcCompat="@mipmap/emoticon_angry_no_face"/>
 
 
     <ImageView

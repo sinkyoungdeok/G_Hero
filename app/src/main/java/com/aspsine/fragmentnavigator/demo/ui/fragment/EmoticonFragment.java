@@ -110,12 +110,12 @@ public class EmoticonFragment extends Fragment implements BottomNavigatorView.On
 
 
 
-        Glide.with(this).load(R.mipmap.angry).into(imgShow);
+        Glide.with(this).load(R.mipmap.emoticon_angry).into(imgShow);
     }
     private void emoticonListViewSetting() {
-        emoticonListviewitem item = new emoticonListviewitem(R.mipmap.angry,R.mipmap.questionmark,R.mipmap.emoticonheart,imgShow);
+        emoticonListviewitem item = new emoticonListviewitem(R.mipmap.emoticon_angry,"angry",R.mipmap.emoticon_questionmark,"questionmark",R.mipmap.emoticon_heart,"heart",imgShow);
         data.add(item);
-        emoticonListviewitem item2 = new emoticonListviewitem(R.mipmap.angry,R.mipmap.questionmark,R.mipmap.emoticonheart,imgShow);
+        emoticonListviewitem item2 =new emoticonListviewitem(R.mipmap.emoticon_angry,"angry",R.mipmap.emoticon_questionmark,"questionmark",R.mipmap.emoticon_heart,"heart",imgShow);
         data.add(item2);
         data.add(item2);
         adapter = new emoticonAdapter(getContext(), R.layout.emoticon_item, data);

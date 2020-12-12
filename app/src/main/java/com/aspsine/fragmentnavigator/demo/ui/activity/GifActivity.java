@@ -33,7 +33,7 @@ public class GifActivity extends AppCompatActivity {
         Intent intent = getIntent();
         imageUriStr = intent.getExtras().getString("imageUri");
 
-        Glide.with(getApplicationContext()).load(R.mipmap.angry_no_face).into(gifImg);
+        Glide.with(getApplicationContext()).load(R.mipmap.emoticon_angry_no_face).into(gifImg);
 
         imageViews.add(faceImg);
         tnImageView.addListofImageViews(imageViews);
