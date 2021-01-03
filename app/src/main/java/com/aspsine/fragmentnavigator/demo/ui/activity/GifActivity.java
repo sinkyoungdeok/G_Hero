@@ -48,7 +48,18 @@ public class GifActivity extends AppCompatActivity {
             Glide.with(getApplicationContext()).load(R.mipmap.emoticon_sleep_no_face).into(gifImg);
         } else if (imgTag.equals("angry2")) {
             Glide.with(getApplicationContext()).load(R.mipmap.emoticon_angry2_no_face).into(gifImg);
+        } else if (imgTag.equals("surprise")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_surprise_no_face).into(gifImg);
+        } else if (imgTag.equals("beggar")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_beggar_no_face).into(gifImg);
+        } else if (imgTag.equals("run")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_run_no_face).into(gifImg);
+        } else if (imgTag.equals("full")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_full_no_face).into(gifImg);
+        } else if (imgTag.equals("foolish")) {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_foolish_no_face).into(gifImg);
         }
+
 
         imageViews.add(faceImg);
         tnImageView.addListofImageViews(imageViews);
