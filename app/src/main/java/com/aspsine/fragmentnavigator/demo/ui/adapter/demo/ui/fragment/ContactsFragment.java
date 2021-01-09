@@ -97,6 +97,7 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                 Map<String, Object> readUserMap = new HashMap<>();
                 String prevName = null;
                 String prevDate = null;
+                Boolean userCheck = false;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     ChatFirebasePost get = postSnapshot.getValue(ChatFirebasePost.class);
@@ -112,8 +113,10 @@ public class ContactsFragment extends Fragment implements BottomNavigatorView.On
                     } else { // 상대방 채팅
                         item = new chatListviewitem(SharedApplication.yourUser.profileUrl, info[2], tempDate ,SharedApplication.yourUser.name, false, true,prevName,prevDate);
                     }
-                    get.readUsers.put(SharedApplication.myUser.name, true);
-                    readUserMap.put(key,get);
+                    if (!get.readUsers.containsKey(SharedApplication.myUser.name)) {
+                        get.readUsers.put(SharedApplication.myUser.name, true);
+                        readUserMap.put(key,get);
+                    }
                     data.add(item);
                     prevName = info[1];
                     prevDate = tempDate;
