@@ -4,21 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main_layout"
     tools:context=".ui.activity.GifActivity">
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <RelativeLayout
         android:layout_width="361dp"
         android:layout_height="431dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@mipmap/emoticon_angry_no_face"/>
+        android:id="@+id/main"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="361dp"
+            android:layout_height="431dp"
+            android:layout_centerInParent="true"
+            app:srcCompat="@mipmap/emoticon_angry_no_face"/>
 
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="200dp"
-         />
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="200dp"
+             />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/emoticonBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/mypink"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp"
+        android:fontFamily="@font/nanumgothicbold"
+        android:layout_alignParentBottom="true"
+        android:text="화면 저장" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumgothicbold"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="사진을 원하는 위치에 놓고 \n'화면 저장' 버튼을 10번 눌러주세요" />
 </RelativeLayout>

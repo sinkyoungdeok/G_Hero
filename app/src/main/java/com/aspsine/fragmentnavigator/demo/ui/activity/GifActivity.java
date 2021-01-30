@@ -3,15 +3,34 @@ package com.aspsine.fragmentnavigator.demo.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.aspsine.fragmentnavigator.demo.R;
+import com.aspsine.fragmentnavigator.demo.SharedApplication;
+import com.aspsine.fragmentnavigator.demo.ui.adapter.demo.ui.fragment.ContactsFragment;
+import com.aspsine.fragmentnavigator.demo.utils.Screenshot;
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import us.technerd.tnimageview.TNImageView;
@@ -23,12 +42,16 @@ public class GifActivity extends AppCompatActivity {
     private TNImageView tnImageView;
     private String imgTag;
     private List<ImageView> imageViews = new ArrayList<>();
+
+    private View main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gif);
         faceImg = (ImageView) findViewById(R.id.imageView6);
         gifImg = (ImageView) findViewById(R.id.imageView4);
+        main = (RelativeLayout) findViewById(R.id.main);
+        Button btn = (Button) findViewById(R.id.emoticonBtn);
         tnImageView = new TNImageView();
 
         Intent intent = getIntent();
@@ -67,5 +90,23 @@ public class GifActivity extends AppCompatActivity {
 
         faceImg.setImageURI(Uri.parse(imageUriStr));
 
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Bitmap b = Screenshot.takescreenshotOfRootView(main);
+                SharedApplication.bitmapList.add(b);
+
+                if (SharedApplication.bitmapList.size() >= 10) {
+                    Intent intent = new Intent(GifActivity.this, GifCompleteActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
+
+
+
 }

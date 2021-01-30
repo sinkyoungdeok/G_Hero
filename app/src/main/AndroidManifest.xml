@@ -16,7 +16,8 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.GifActivity"></activity>
+        <activity android:name=".ui.activity.GifCompleteActivity"></activity>
+        <activity android:name=".ui.activity.GifActivity" />
         <activity android:name=".ui.activity.EmoticonActivity" />
         <activity android:name=".ui.activity.AddDdayActivity" />
         <activity android:name=".ui.activity.PhotoActivity">
