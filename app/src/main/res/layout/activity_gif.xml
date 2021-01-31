@@ -41,13 +41,4 @@
         android:layout_alignParentBottom="true"
         android:text="화면 저장" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/nanumgothicbold"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        android:layout_centerHorizontal="true"
-        android:text="사진을 원하는 위치에 놓고 \n'화면 저장' 버튼을 10번 눌러주세요" />
 </RelativeLayout>

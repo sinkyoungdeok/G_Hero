@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.aspsine.fragmentnavigator.demo.R;
 import com.aspsine.fragmentnavigator.demo.SharedApplication;
@@ -81,6 +82,8 @@ public class GifActivity extends AppCompatActivity {
             Glide.with(getApplicationContext()).load(R.mipmap.emoticon_full_no_face).into(gifImg);
         } else if (imgTag.equals("foolish")) {
             Glide.with(getApplicationContext()).load(R.mipmap.emoticon_foolish_no_face).into(gifImg);
+        } else {
+            Glide.with(getApplicationContext()).load(R.mipmap.emoticon_angry_no_face).into(gifImg);
         }
 
 
@@ -95,6 +98,8 @@ public class GifActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Toast.makeText(getApplicationContext(),"저장이 완료 되었습니다.",Toast.LENGTH_SHORT).show();
+                /*
                 Bitmap b = Screenshot.takescreenshotOfRootView(main);
                 SharedApplication.bitmapList.add(b);
 
@@ -103,6 +108,8 @@ public class GifActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
+
+                 */
             }
         });
     }
